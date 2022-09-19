@@ -1,4 +1,4 @@
-package com.example.chillmax.ui.theme
+package com.example.chillmax.presentation.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
