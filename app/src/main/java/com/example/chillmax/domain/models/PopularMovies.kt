@@ -1,9 +1,14 @@
 package com.example.chillmax.domain.models
 
+import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class PopularMovies(
     val adult: Boolean,
     val backdrop_path: String,
     val genre_ids: List<Int>,
+    @PrimaryKey(autoGenerate = false)
     val id: Int,
     val original_language: String,
     val original_title: String,
