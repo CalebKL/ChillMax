@@ -8,4 +8,5 @@ object Constants {
     const val TV_POPULAR_DATABASE_TABLE = "tv_popular_table"
     const val TV_TOP_RATED_DATABASE_TABLE = "tv_top_rated_table"
     const val UPCOMING_MOVIES_DATABASE_TABLE = "upcoming_movies_table"
+    const val CHILL_MAX_REMOTE_KEYS_DATABASE_TABLE = "chill_max_remote_keys_table"
 }
