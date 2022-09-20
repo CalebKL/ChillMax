@@ -14,7 +14,7 @@ interface GenresDao {
     fun getSelectedGenres(genreId: Int): Genres
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addGenres(genres: List<Genres>)
+    fun addGenres(genresList: List<Genres>)
 
     @Query("DELETE FROM GENRE_TABLE")
     suspend fun deleteAllGenres()
