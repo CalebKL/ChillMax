@@ -13,8 +13,8 @@ interface TVAiringTodayDao {
     @Query("SELECT * FROM TV_AIRING_TODAY_TABLE ORDER BY id ASC")
     fun getAllTVAiringToday(): PagingSource<Int, TVAiringToday>
 
-    @Query("SELECT * FROM TV_AIRING_TODAY_TABLE WHERE id =:tvAiringToday")
-    fun getSelectedTVAiringToday(tvAiringToday: Int): TVAiringToday
+    @Query("SELECT * FROM TV_AIRING_TODAY_TABLE WHERE id =:tvAiringTodayId")
+    fun getSelectedTVAiringToday(tvAiringTodayId: Int): TVAiringToday
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addTVAiringToday(TVAiringTodayList: List<TVAiringToday>)

@@ -13,8 +13,8 @@ interface PopularMoviesDao {
     @Query("SELECT * FROM POPULAR_MOVIES_TABLE ORDER BY id ASC")
     fun getAllPopularMovies(): PagingSource<Int, PopularMovies>
 
-    @Query("SELECT * FROM POPULAR_MOVIES_TABLE WHERE id =:popularMovie")
-    fun getSelectedPopularMovies(popularMovie: Int): PopularMovies
+    @Query("SELECT * FROM POPULAR_MOVIES_TABLE WHERE id =:popularMovieId")
+    fun getSelectedPopularMovies(popularMovieId: Int): PopularMovies
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addPopularMovies(popularMoviesList: List<PopularMovies>)

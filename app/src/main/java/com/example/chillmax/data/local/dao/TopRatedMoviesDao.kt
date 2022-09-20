@@ -12,8 +12,8 @@ interface TopRatedMoviesDao {
     @Query("SELECT * FROM TOP_RATED_MOVIES_TABLE ORDER BY id ASC")
     fun getAllTopRatedMovies(): PagingSource<Int, TopRatedMovies>
 
-    @Query("SELECT * FROM TOP_RATED_MOVIES_TABLE WHERE id =:topRatedMovie")
-    fun getSelectedTopRatedMovies(topRatedMovie: Int): TopRatedMovies
+    @Query("SELECT * FROM TOP_RATED_MOVIES_TABLE WHERE id =:topRatedMovieId")
+    fun getSelectedTopRatedMovies(topRatedMovieId: Int): TopRatedMovies
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addTopRatedMovies(topRatedMoviesList: List<TopRatedMovies>)
