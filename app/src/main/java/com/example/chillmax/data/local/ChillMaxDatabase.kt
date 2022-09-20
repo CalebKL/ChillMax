@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import com.example.chillmax.data.local.dao.*
 import com.example.chillmax.domain.models.*
 
-@Database(entities = [Genres::class, PopularMovies::class, TopRatedMovies::class, TVAiringToday::class, TVPopular::class, TVTopRated::class, UpcomingMovies::class], version = 1)
+@Database(entities = [Genres::class, PopularMovies::class, TopRatedMovies::class, TVAiringToday::class, TVPopular::class, TVTopRated::class, UpcomingMovies::class, ChillMaxRemoteKeys::class], version = 1)
 @TypeConverters()
 abstract class ChillMaxDatabase: RoomDatabase(){
     abstract fun genresDao(): GenresDao
@@ -16,4 +16,5 @@ abstract class ChillMaxDatabase: RoomDatabase(){
     abstract fun tvPopularDao(): TVPopularDao
     abstract fun tvTopRatedDao(): TVTopRatedDao
     abstract fun upcomingMoviesDao(): UpcomingMoviesDao
+    abstract fun chillMaxRemoteKeyDao(): ChillMaxRemoteKeyDao
 }
