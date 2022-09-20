@@ -1,9 +1,12 @@
 package com.example.chillmax.domain.models
 
+import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.chillmax.util.Constants.UPCOMING_MOVIES_DATABASE_TABLE
 import kotlinx.serialization.Serializable
 
 @Serializable
+@Entity(tableName =UPCOMING_MOVIES_DATABASE_TABLE)
 data class UpcomingMovies(
     val adult: Boolean,
     val backdrop_path: String,

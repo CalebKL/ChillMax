@@ -1,9 +1,12 @@
 package com.example.chillmax.domain.models
 
+import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.chillmax.util.Constants.TV_POPULAR_DATABASE_TABLE
 import kotlinx.serialization.Serializable
 
 @Serializable
+@Entity(tableName =TV_POPULAR_DATABASE_TABLE)
 data class TVPopular(
     val backdrop_path: String,
     val first_air_date: String,
