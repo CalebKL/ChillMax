@@ -18,7 +18,7 @@ interface TVPopularDao {
     fun getSelectedTVPopular(tvPopularId: Int): TVPopular
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addTVPopular(TVPopularList: List<TVPopular>)
+    fun addTVPopular(tvPopularList: List<TVPopular>)
 
     @Query("DELETE FROM TV_POPULAR_TABLE")
     suspend fun deleteAllTVPopular()

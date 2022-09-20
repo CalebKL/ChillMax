@@ -9,7 +9,7 @@ import com.example.chillmax.domain.models.TVPopular
 import com.example.chillmax.domain.models.TVTopRated
 
 @Dao
-interface TvTopRatedDao {
+interface TVTopRatedDao {
 
     @Query("SELECT * FROM TV_TOP_RATED_TABLE ORDER BY id ASC")
     fun getAllTVTopRated(): PagingSource<Int, TVTopRated>
@@ -18,7 +18,7 @@ interface TvTopRatedDao {
     fun getSelectedTVTopRated(tvTopRatedId: Int): TVTopRated
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addTVTopRated(TVTopRatedList: List<TVTopRated>)
+    fun addTVTopRated(tvTopRatedList: List<TVTopRated>)
 
     @Query("DELETE FROM TV_TOP_RATED_TABLE")
     suspend fun deleteAllTVTopRated()

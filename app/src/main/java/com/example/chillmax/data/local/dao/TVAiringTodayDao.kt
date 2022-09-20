@@ -17,7 +17,7 @@ interface TVAiringTodayDao {
     fun getSelectedTVAiringToday(tvAiringTodayId: Int): TVAiringToday
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addTVAiringToday(TVAiringTodayList: List<TVAiringToday>)
+    fun addTVAiringToday(tvAiringTodayList: List<TVAiringToday>)
 
     @Query("DELETE FROM TV_AIRING_TODAY_TABLE")
     suspend fun deleteAllTVAiringToday()
