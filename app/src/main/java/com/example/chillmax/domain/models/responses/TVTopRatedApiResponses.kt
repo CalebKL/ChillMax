@@ -9,5 +9,5 @@ data class TVTopRatedApiResponses(
     val message: String? = null,
     val prevPage: Int? = null,
     val nextPage: Int? =null,
-    val genres: List<TVTopRated> = emptyList()
+    val tvTopRated: List<TVTopRated> = emptyList()
 )

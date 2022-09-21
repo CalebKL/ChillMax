@@ -1,13 +1,13 @@
 package com.example.chillmax.domain.models.responses
 
-import com.example.chillmax.domain.models.TVPopular
+import com.example.chillmax.domain.models.MovieCredits
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TVPopularApiResponses(
+data class MovieCreditsApiResponses(
     val success: Boolean,
     val message: String? = null,
     val prevPage: Int? = null,
     val nextPage: Int? =null,
-    val tvPopular: List<TVPopular> = emptyList()
+    val movieCredits: List<MovieCredits> = emptyList()
 )

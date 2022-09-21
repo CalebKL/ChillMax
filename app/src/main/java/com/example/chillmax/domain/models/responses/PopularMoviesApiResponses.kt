@@ -9,5 +9,5 @@ data class PopularMoviesApiResponses(
     val message: String? = null,
     val prevPage: Int? = null,
     val nextPage: Int? =null,
-    val genres: List<PopularMovies> = emptyList()
+    val popularMovies: List<PopularMovies> = emptyList()
 )

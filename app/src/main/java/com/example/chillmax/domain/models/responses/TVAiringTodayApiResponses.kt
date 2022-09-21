@@ -9,5 +9,5 @@ data class TVAiringTodayApiResponses(
     val message: String? = null,
     val prevPage: Int? = null,
     val nextPage: Int? =null,
-    val genres: List<TVAiringToday> = emptyList()
+    val tvAiringToday: List<TVAiringToday> = emptyList()
 )
