@@ -2,6 +2,8 @@ package com.example.chillmax.util
 
 object Constants {
     const val GENRE_DATABASE_TABLE = "genre_table"
+    const val MOVIE_CREDITS_DATABASE_TABLE = "movie_credits_table"
+    const val TV_CREDITS_DATABASE_TABLE = "tv_credits_table"
     const val POPULAR_MOVIES_DATABASE_TABLE = "popular_movies_table"
     const val TOP_RATED_MOVIES_DATABASE_TABLE = "top_rated_movies_table"
     const val TV_AIRING_TODAY_DATABASE_TABLE = "tv_airing_today_table"
