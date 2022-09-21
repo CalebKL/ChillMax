@@ -1,5 +1,6 @@
 package com.example.chillmax.data.remote
 
+import com.example.chillmax.domain.models.MovieCredits
 import com.example.chillmax.domain.models.responses.*
 import com.example.chillmax.util.Constants.API_KEY
 import com.example.chillmax.util.Constants.STARTING_PAGE
@@ -76,5 +77,5 @@ interface ChillMaxApi {
         @Path("movie_id") movieId: String,
         @Query("api_key") api_key: String = API_KEY,
         @Query("language") language: String = "en-US",
-    ): TVCreditsApiResponse
+    ): MovieCreditsApiResponses
 }
