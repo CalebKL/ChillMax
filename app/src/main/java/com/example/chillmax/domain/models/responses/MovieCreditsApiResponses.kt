@@ -9,5 +9,5 @@ data class MovieCreditsApiResponses(
     val message: String? = null,
     val prevPage: Int? = null,
     val nextPage: Int? =null,
-    val genres: List<MovieCredits> = emptyList()
+    val movieCredits: List<MovieCredits> = emptyList()
 )

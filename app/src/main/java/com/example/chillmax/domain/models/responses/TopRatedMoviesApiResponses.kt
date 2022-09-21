@@ -11,5 +11,5 @@ data class TopRatedMoviesApiResponses(
     val message: String? = null,
     val prevPage: Int? = null,
     val nextPage: Int? =null,
-    val genres: List<TopRatedMovies> = emptyList()
+    val topRatedMovies: List<TopRatedMovies> = emptyList()
 )
