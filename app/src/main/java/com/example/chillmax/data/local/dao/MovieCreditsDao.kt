@@ -8,14 +8,14 @@ import com.example.chillmax.domain.models.MovieCredits
 
 interface MovieCreditsDao {
     @Query("SELECT * FROM MOVIE_CREDITS_TABLE ORDER BY id ASC")
-    fun getAllGenres(): PagingSource<Int, MovieCredits>
+    fun getAllMovieCredits(): PagingSource<Int, MovieCredits>
 
     @Query("SELECT * FROM MOVIE_CREDITS_TABLE WHERE id =:movieCreditsId")
-    fun getSelectedGenres(movieCreditsId: Int): MovieCredits
+    fun getSelectedMovieCredits(movieCreditsId: Int): MovieCredits
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addGenres(movieCreditsList: List<MovieCredits>)
+    fun addMovieCredits(movieCreditsList: List<MovieCredits>)
 
     @Query("DELETE FROM MOVIE_CREDITS_TABLE")
-    suspend fun deleteAllGenres()
+    suspend fun deleteAllMovieCredits()
 }
