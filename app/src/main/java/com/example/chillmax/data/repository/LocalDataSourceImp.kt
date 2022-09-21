@@ -7,39 +7,49 @@ import com.example.chillmax.domain.repository.LocalDataSource
 class LocalDataSourceImp(
     chillMaxDatabase: ChillMaxDatabase
 ): LocalDataSource {
+    private val genresDao = chillMaxDatabase.genresDao()
+    private val movieCreditsDao = chillMaxDatabase.movieCreditsDao()
+    private val popularMoviesDao = chillMaxDatabase.popularMoviesDao()
+    private val topRatedMoviesDao = chillMaxDatabase.topRatedMoviesDao()
+    private val tvAiringTodayDao = chillMaxDatabase.tvAiringTodayDao()
+    private val tvCreditsDao = chillMaxDatabase.tvCreditsDao()
+    private val tvPopularDao = chillMaxDatabase.tvPopularDao()
+    private val tvTopRatedDao = chillMaxDatabase.tvTopRatedDao()
+    private val upcomingMoviesDao= chillMaxDatabase.upcomingMoviesDao()
+
     override suspend fun getSelectedGenres(genreId: Int): Genres {
-        TODO("Not yet implemented")
+        return  genresDao.getSelectedGenres(genreId= genreId)
     }
 
     override suspend fun getSelectedMovieCredits(movieCreditsId: Int): MovieCredits {
-        TODO("Not yet implemented")
+        return movieCreditsDao.getSelectedMovieCredits(movieCreditsId = movieCreditsId)
     }
 
     override suspend fun getSelectedPopularMovies(popularMovieId: Int): PopularMovies {
-        TODO("Not yet implemented")
+        return popularMoviesDao.getSelectedPopularMovies(popularMovieId = popularMovieId)
     }
 
     override suspend fun getSelectedTopRatedMovies(topRatedMovieId: Int): TopRatedMovies {
-        TODO("Not yet implemented")
+        return topRatedMoviesDao.getSelectedTopRatedMovies(topRatedMovieId = topRatedMovieId)
     }
 
     override suspend fun getSelectedTVAiringToday(tvAiringTodayId: Int): TVAiringToday {
-        TODO("Not yet implemented")
+       return tvAiringTodayDao.getSelectedTVAiringToday(tvAiringTodayId = tvAiringTodayId)
     }
 
     override suspend fun getSelectedTVCredits(tvCreditsId: Int): TVCredits {
-        TODO("Not yet implemented")
+        return tvCreditsDao.getSelectedTVCredits(tvCreditsId = tvCreditsId)
     }
 
     override suspend fun getSelectedTVPopular(tvPopularId: Int): TVPopular {
-        TODO("Not yet implemented")
+        return tvPopularDao.getSelectedTVPopular(tvPopularId = tvPopularId)
     }
 
     override suspend fun getSelectedTVTopRated(tvTopRatedId: Int): TVTopRated {
-        TODO("Not yet implemented")
+        return tvTopRatedDao.getSelectedTVTopRated(tvTopRatedId = tvTopRatedId)
     }
 
     override suspend fun getSelectedUpcomingMovies(upcomingMoviesId: Int): UpcomingMovies {
-        TODO("Not yet implemented")
+        return upcomingMoviesDao.getSelectedUpcomingMovies(upcomingMoviesId = upcomingMoviesId)
     }
 }
