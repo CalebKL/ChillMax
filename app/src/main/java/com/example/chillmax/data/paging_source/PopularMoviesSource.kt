@@ -2,10 +2,8 @@ package com.example.chillmax.data.paging_source
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import androidx.paging.RemoteMediator
 import com.example.chillmax.data.remote.ChillMaxApi
 import com.example.chillmax.domain.models.PopularMovies
-import java.security.PrivateKey
 import javax.inject.Inject
 
 class PopularMoviesSource @Inject constructor(
