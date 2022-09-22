@@ -6,7 +6,6 @@ import com.example.chillmax.util.Constants.TV_TOP_RATED_DATABASE_TABLE
 import kotlinx.serialization.Serializable
 
 @Serializable
-@Entity(tableName =TV_TOP_RATED_DATABASE_TABLE)
 data class TVTopRated(
     val backdrop_path: String,
     val first_air_date: String,

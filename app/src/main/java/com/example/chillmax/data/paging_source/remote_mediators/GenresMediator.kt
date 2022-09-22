@@ -14,12 +14,13 @@ class GenresMediator @Inject constructor(
     private val chillMaxApi: ChillMaxApi,
     private val chillMaxDatabase: ChillMaxDatabase
 ): RemoteMediator<Int, Genres>() {
+
     override suspend fun initialize(): InitializeAction {
         return super.initialize()
     }
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, Genres>): MediatorResult {
-        TODO("Not yet implemented")
+        TODO()
     }
 
 }

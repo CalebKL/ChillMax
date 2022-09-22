@@ -2,8 +2,6 @@ package com.example.chillmax.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
-import com.example.chillmax.data.local.ChillMaxDatabase
 import com.example.chillmax.util.Constants.CHILL_MAX_DATABASE
 import dagger.Module
 import dagger.Provides

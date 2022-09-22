@@ -6,7 +6,6 @@ import com.example.chillmax.util.Constants.TV_AIRING_TODAY_DATABASE_TABLE
 import kotlinx.serialization.Serializable
 
 @Serializable
-@Entity(tableName =TV_AIRING_TODAY_DATABASE_TABLE)
 data class TVAiringToday(
     val backdrop_path: String,
     val first_air_date: String,
