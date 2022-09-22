@@ -6,7 +6,6 @@ import com.example.chillmax.util.Constants.TV_CREDITS_DATABASE_TABLE
 import kotlinx.serialization.Serializable
 
 @Serializable
-@Entity(tableName = TV_CREDITS_DATABASE_TABLE)
 data class TVCredits(
     val adult: Boolean,
     val character: String,

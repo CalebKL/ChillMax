@@ -2,7 +2,6 @@ package com.example.chillmax.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.example.chillmax.data.local.ChillMaxDatabase
 import com.example.chillmax.util.Constants.CHILL_MAX_DATABASE
 import dagger.Module
@@ -18,7 +17,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): ChillMaxDatabase{
+    fun provideDatabase(@ApplicationContext context: Context): ChillMaxDatabase {
         return Room.databaseBuilder(
             context,
             ChillMaxDatabase::class.java,

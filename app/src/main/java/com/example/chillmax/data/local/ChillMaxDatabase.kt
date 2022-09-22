@@ -2,21 +2,13 @@ package com.example.chillmax.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-import com.example.chillmax.data.local.dao.*
-import com.example.chillmax.domain.models.*
+import com.example.chillmax.data.local.dao.ChillMaxRemoteKeyDao
+import com.example.chillmax.data.local.dao.MyListDao
+import com.example.chillmax.domain.models.ChillMaxRemoteKeys
+import com.example.chillmax.domain.models.MyList
 
-@Database(entities = [Genres::class, PopularMovies::class, TopRatedMovies::class, TVAiringToday::class, TVPopular::class, TVTopRated::class, UpcomingMovies::class, ChillMaxRemoteKeys::class,MovieCredits::class, TVCredits::class], version = 1)
-@TypeConverters()
-abstract class ChillMaxDatabase: RoomDatabase(){
-    abstract fun genresDao(): GenresDao
-    abstract fun popularMoviesDao(): PopularMoviesDao
-    abstract fun topRatedMoviesDao(): TopRatedMoviesDao
-    abstract fun tvAiringTodayDao(): TVAiringTodayDao
-    abstract fun tvPopularDao(): TVPopularDao
-    abstract fun tvTopRatedDao(): TVTopRatedDao
-    abstract fun upcomingMoviesDao(): UpcomingMoviesDao
-    abstract fun movieCreditsDao(): MovieCreditsDao
-    abstract fun tvCreditsDao(): TVCreditsDao
+@Database(entities = [MyList::class, ChillMaxRemoteKeys::class], version = 1)
+abstract class ChillMaxDatabase: RoomDatabase() {
     abstract fun chillMaxRemoteKeyDao(): ChillMaxRemoteKeyDao
+    abstract fun myListDao(): MyListDao
 }

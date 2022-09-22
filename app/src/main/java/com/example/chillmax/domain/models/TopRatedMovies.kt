@@ -7,7 +7,6 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-@Entity(tableName =TOP_RATED_MOVIES_DATABASE_TABLE)
 data class TopRatedMovies(
     val adult: Boolean,
     val backdrop_path: String,
