@@ -8,6 +8,6 @@ class GetTVGenresUseCase(
     private val repository: Repository
 ){
     suspend operator fun invoke(): Resource<GenresApiResponses> {
-        return repository.getMovieGenres()
+        return repository.getTvShowsGenres()
     }
 }
