@@ -7,5 +7,5 @@ data class MultiSearchApiResponse(
     val message: String? = null,
     val prevPage: Int? = null,
     val nextPage: Int? =null,
-    val movies: List<MultiSearch> = emptyList()
+    val multiSearch: List<MultiSearch> = emptyList()
 )
