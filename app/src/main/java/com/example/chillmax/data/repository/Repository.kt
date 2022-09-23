@@ -15,10 +15,10 @@ class Repository @Inject constructor(
     private val local: LocalDataSource,
     private val remote: RemoteDataSource
 ){
-    suspend fun getMovieGenres(): Resource<GenresApiResponses>{
+    suspend fun getMovieGenres(): Resource<GenresApiResponses> {
        return remote.getMovieGenres()
     }
-    suspend fun getTvShowsGenres(): Resource<GenresApiResponses>{
+    suspend fun getTvShowsGenres(): Resource<GenresApiResponses> {
         return remote.getTvShowsGenres()
     }
     fun getPopularMovies(): Flow<PagingData<PopularMovies>>{

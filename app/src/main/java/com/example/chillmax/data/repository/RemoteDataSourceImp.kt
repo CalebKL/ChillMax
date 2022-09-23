@@ -94,7 +94,7 @@ class RemoteDataSourceImp(
         ).flow
     }
 
-    override suspend fun getTVCredits(): Resource<TVCreditsApiResponse> {
+    override suspend fun getTVCredits():Resource<TVCreditsApiResponse>{
         val response = try {
             chillMaxApi.getTVCredits(tvSeriesId = tvSeriesId)
         }catch (e: Exception){
