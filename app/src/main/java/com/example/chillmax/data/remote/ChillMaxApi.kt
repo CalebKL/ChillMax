@@ -66,14 +66,14 @@ interface ChillMaxApi {
 
     @GET("/tv/{tv_id}/credits")
     suspend fun getTVCredits(
-        @Path("tv_id") tvSeriesId: String,
+        @Path("tv_id") tvSeriesId: Int,
         @Query("api_key") api_key: String = API_KEY,
         @Query("language") language: String = "en-US",
     ): TVCreditsApiResponse
 
     @GET("/movie/{movie_id}/credits")
     suspend fun getMovieCredits(
-        @Path("movie_id") movieId: String,
+        @Path("movie_id") movieId: Int,
         @Query("api_key") api_key: String = API_KEY,
         @Query("language") language: String = "en-US",
     ): MovieCreditsApiResponses

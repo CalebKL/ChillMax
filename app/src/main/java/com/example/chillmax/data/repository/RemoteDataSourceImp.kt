@@ -17,10 +17,9 @@ import kotlinx.coroutines.flow.Flow
 import java.security.PrivateKey
 
 class RemoteDataSourceImp(
-    private val chillMaxDatabase: ChillMaxDatabase,
     private val chillMaxApi: ChillMaxApi,
-    private val tvSeriesId: String,
-    private val movieId: String,
+    private val tvSeriesId: Int,
+    private val movieId: Int,
     private val query: String
 ):RemoteDataSource {
     override suspend fun getMovieGenres(): Resource<GenresApiResponses> {
