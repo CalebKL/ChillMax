@@ -6,20 +6,34 @@ import androidx.paging.PagingData
 import com.example.chillmax.data.local.ChillMaxDatabase
 import com.example.chillmax.data.remote.ChillMaxApi
 import com.example.chillmax.domain.models.*
+import com.example.chillmax.domain.models.responses.GenresApiResponses
+import com.example.chillmax.domain.models.responses.MovieCreditsApiResponses
+import com.example.chillmax.domain.models.responses.TVCreditsApiResponse
 import com.example.chillmax.domain.repository.RemoteDataSource
 import com.example.chillmax.util.Constants.ITEMS_PER_PAGE
+import com.example.chillmax.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 class RemoteDataSourceImp(
     private val chillMaxDatabase: ChillMaxDatabase,
     private val chillMaxApi: ChillMaxApi
 ):RemoteDataSource {
-    override fun getMovieGenres(): Flow<PagingData<Genres>> {
-     TODO()
+    override suspend fun getMovieGenres(): Resource<GenresApiResponses> {
+        val response = try {
+            chillMaxApi.getMovieGenres()
+        }catch (e: Exception){
+            return Resource.Error("Unknown Error")
+        }
+        return Resource.Success(response)
     }
 
-    override fun getTvShowsGenres(): Flow<PagingData<Genres>> {
-        TODO("Not yet implemented")
+    override suspend fun getTvShowsGenres(): Resource<GenresApiResponses> {
+        val response = try {
+            chillMaxApi.getTvShowsGenres()
+        }catch (e:Exception){
+            return Resource.Error("Unknown Error")
+        }
+        return Resource.Success(response)
     }
 
     override fun getPopularMovies(): Flow<PagingData<PopularMovies>> {
@@ -46,11 +60,11 @@ class RemoteDataSourceImp(
         TODO("Not yet implemented")
     }
 
-    override fun getTVCredits(): Flow<PagingData<TVCredits>> {
+    override suspend fun getTVCredits(): Resource<TVCreditsApiResponse> {
         TODO("Not yet implemented")
     }
 
-    override fun getMovieCredits(): Flow<PagingData<MovieCredits>> {
+    override suspend fun getMovieCredits(): Resource<MovieCreditsApiResponses> {
         TODO("Not yet implemented")
     }
 

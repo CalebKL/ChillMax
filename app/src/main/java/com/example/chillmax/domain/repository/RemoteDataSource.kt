@@ -9,15 +9,15 @@ import com.example.chillmax.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface RemoteDataSource {
-    fun getMovieGenres(): Resource<GenresApiResponses>
-    fun getTvShowsGenres(): Resource<GenresApiResponses>
+    suspend fun getMovieGenres(): Resource<GenresApiResponses>
+    suspend fun getTvShowsGenres(): Resource<GenresApiResponses>
     fun getPopularMovies(): Flow<PagingData<PopularMovies>>
     fun getTopRatedMovies(): Flow<PagingData<TopRatedMovies>>
     fun getUpcomingMovies(): Flow<PagingData<UpcomingMovies>>
     fun getTVAiringToday(): Flow<PagingData<TVAiringToday>>
     fun getTVTopRated(): Flow<PagingData<TVTopRated>>
     fun getTVPopular(): Flow<PagingData<TVPopular>>
-    fun getTVCredits(): Resource<TVCreditsApiResponse>
-    fun getMovieCredits(): Resource<MovieCreditsApiResponses>
+    suspend fun getTVCredits(): Resource<TVCreditsApiResponse>
+    suspend fun getMovieCredits(): Resource<MovieCreditsApiResponses>
     fun multiSearch(): Flow<PagingData<MultiSearch>>
 }
