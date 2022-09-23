@@ -1,6 +1,9 @@
 package com.example.chillmax.di
 
+import com.example.chillmax.data.local.ChillMaxDatabase
 import com.example.chillmax.data.remote.ChillMaxApi
+import com.example.chillmax.data.repository.RemoteDataSourceImp
+import com.example.chillmax.domain.repository.RemoteDataSource
 import com.example.chillmax.util.Constants.BASE_URL
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -42,5 +45,21 @@ object NetworkModule {
     @Singleton
     fun provideChillMaxApi(retrofit: Retrofit): ChillMaxApi{
         return retrofit.create(ChillMaxApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providesRemoteDataSource(
+        chillMaxApi: ChillMaxApi,
+        tvSeriesId: Int,
+        movieId: Int,
+        query: String
+    ): RemoteDataSource{
+        return RemoteDataSourceImp(
+            chillMaxApi = chillMaxApi,
+            tvSeriesId = tvSeriesId,
+            movieId = movieId,
+            query = query
+        )
     }
 }
