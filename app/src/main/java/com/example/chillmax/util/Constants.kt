@@ -1,6 +1,7 @@
 package com.example.chillmax.util
 
 object Constants {
+    const val DETAILS_ID = "detailsId"
     const val MY_LIST_DATABASE_TABLE = "my_list_table"
     const val CHILL_MAX_DATABASE = "chill_max_database"
     const val CHILL_MAX_REMOTE_KEYS_DATABASE_TABLE = "chill_max_remote_keys_table"
