@@ -1,4 +1,4 @@
 package com.example.chillmax.presentation.splash
 
-class SplashScreenViewModel {
+class SplashViewModel {
 }
