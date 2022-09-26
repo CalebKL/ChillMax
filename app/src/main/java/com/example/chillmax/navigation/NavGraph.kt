@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.chillmax.presentation.splash.SplashScreen
 
 @Composable
 fun NavGraph(navController: NavHostController) {
@@ -12,7 +13,7 @@ fun NavGraph(navController: NavHostController) {
         startDestination = Screen.SplashScreen.route
     ){
         composable(route = Screen.SplashScreen.route){
-
+            SplashScreen()
         }
         composable(route = Screen.WelcomeScreen.route){
 
