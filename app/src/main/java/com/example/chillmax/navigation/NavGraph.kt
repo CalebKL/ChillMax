@@ -21,13 +21,13 @@ fun NavGraph(navController: NavHostController) {
         startDestination = Screen.SplashScreen.route
     ){
         composable(route = Screen.SplashScreen.route){
-            SplashScreen()
+            SplashScreen(navController = navController)
         }
         composable(route = Screen.WelcomeScreen.route){
-            WelcomeScreen()
+            WelcomeScreen(navController = navController)
         }
         composable(route = Screen.HomeScreen.route){
-            HomeScreen()
+            HomeScreen(navController = navController)
         }
         composable(
             route = Screen.DetailsScreen.route,
@@ -35,10 +35,10 @@ fun NavGraph(navController: NavHostController) {
                 type= NavType.IntType
             })
         ){
-            DetailsScreen()
+            DetailsScreen(navController = navController)
         }
         composable(route = Screen.SearchScreen.route){
-            SearchScreen()
+            SearchScreen(navController = navController)
         }
 
     }
