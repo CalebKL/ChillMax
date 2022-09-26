@@ -1,13 +1,13 @@
 package com.example.chillmax.navigation
 
 sealed class Screen(val route: String){
-    object Splash: Screen("splash_screen")
-    object Welcome: Screen("welcome_screen")
-    object Home: Screen("home_screen")
-    object Details: Screen("details_screen/{id}"){
+    object SplashScreen: Screen("splash_screen")
+    object WelcomeScreen: Screen("welcome_screen")
+    object HomeScreen: Screen("home_screen")
+    object DetailsScreen: Screen("details_screen/{id}"){
         fun passId(id: Int): String{
             return "details_screen/$id"
         }
     }
-    object Search: Screen("search_screen")
+    object SearchScreen: Screen("search_screen")
 }
