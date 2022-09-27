@@ -15,13 +15,13 @@ import com.example.chillmax.presentation.welcome.WelcomeScreen
 import com.example.chillmax.util.Constants.DETAILS_ID
 
 @Composable
-fun NavGraph(navController: NavHostController) {
+fun SetupNavigation(navController: NavHostController) {
     NavHost(
         navController = navController,
         startDestination = Screen.SplashScreen.route
     ){
         composable(route = Screen.SplashScreen.route){
-            SplashScreen()
+            SplashScreen(navController = navController)
         }
         composable(route = Screen.WelcomeScreen.route){
             WelcomeScreen(navController = navController)
