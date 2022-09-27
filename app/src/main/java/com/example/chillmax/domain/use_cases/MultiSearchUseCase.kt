@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 class MultiSearchUseCase(
     private val repository: Repository
 ) {
-    suspend operator fun invoke(): Flow<PagingData<MultiSearch>> {
-        return repository.multiSearch()
+    suspend operator fun invoke(query: String): Flow<PagingData<MultiSearch>> {
+        return repository.multiSearch(query = query)
     }
 }

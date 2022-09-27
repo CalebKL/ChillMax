@@ -17,10 +17,9 @@ import com.google.accompanist.pager.rememberPagerState
 
 @Composable
 @ExperimentalPagerApi
-fun WelcomeScreen(
-    navController: NavHostController,
-    welcomeViewModel: WelcomeViewModel = hiltViewModel(),
-) {
+fun WelcomeScreen(navController: NavHostController)
+{
+
     val pages = listOf(
         OnBoarding.First,
         OnBoarding.Second,

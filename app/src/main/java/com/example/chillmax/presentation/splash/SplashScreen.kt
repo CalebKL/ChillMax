@@ -14,10 +14,9 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(
-    navController: NavHostController,
-    splashViewModel: SplashViewModel = hiltViewModel(),
+    navController: NavHostController
 ) {
-
+    val splashViewModel = hiltViewModel<SplashViewModel>()
     val onBoardingCompleted by splashViewModel.onBoardingCompleted.collectAsState()
 
     var startAnimation by remember { mutableStateOf(false) }

@@ -17,10 +17,7 @@ import kotlinx.coroutines.flow.Flow
 import java.security.PrivateKey
 
 class RemoteDataSourceImp(
-    private val chillMaxApi: ChillMaxApi,
-    private val tvSeriesId: Int,
-    private val movieId: Int,
-    private val query: String
+    private val chillMaxApi: ChillMaxApi
 ):RemoteDataSource {
     override suspend fun getMovieGenres(): Resource<GenresApiResponses> {
         val response = try {
@@ -94,7 +91,7 @@ class RemoteDataSourceImp(
         ).flow
     }
 
-    override suspend fun getTVCredits():Resource<TVCreditsApiResponse>{
+    override suspend fun getTVCredits(tvSeriesId: Int): Resource<TVCreditsApiResponse> {
         val response = try {
             chillMaxApi.getTVCredits(tvSeriesId = tvSeriesId)
         }catch (e: Exception){
@@ -103,7 +100,7 @@ class RemoteDataSourceImp(
         return Resource.Success(response)
     }
 
-    override suspend fun getMovieCredits(): Resource<MovieCreditsApiResponses> {
+    override suspend fun getMovieCredits(movieId: Int): Resource<MovieCreditsApiResponses> {
         val response = try {
             chillMaxApi.getMovieCredits(movieId = movieId)
         }catch (e:Exception){
@@ -112,7 +109,7 @@ class RemoteDataSourceImp(
         return Resource.Success(response)
     }
 
-    override fun multiSearch(): Flow<PagingData<MultiSearch>> {
+    override fun multiSearch(query: String): Flow<PagingData<MultiSearch>> {
         return Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE),
             pagingSourceFactory = {

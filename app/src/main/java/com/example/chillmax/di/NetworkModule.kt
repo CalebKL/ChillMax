@@ -51,15 +51,9 @@ object NetworkModule {
     @Singleton
     fun providesRemoteDataSource(
         chillMaxApi: ChillMaxApi,
-        tvSeriesId: Int,
-        movieId: Int,
-        query: String
     ): RemoteDataSource{
         return RemoteDataSourceImp(
-            chillMaxApi = chillMaxApi,
-            tvSeriesId = tvSeriesId,
-            movieId = movieId,
-            query = query
+            chillMaxApi = chillMaxApi
         )
     }
 }
