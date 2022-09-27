@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/ChillMax/app/src/main/res/drawable/ic_android_black_24dp.xml" value="0.1415" />
+        <entry key="..\:/ChillMax/app/src/main/res/drawable/ic_video.xml" value="0.1415" />
+        <entry key="..\:/ChillMax/app/src/main/res/drawable/ic_video_dark.xml" value="0.1415" />
+        <entry key="..\:/ChillMax/app/src/main/res/drawable/ic_video_light.xml" value="0.1415" />
       </map>
     </option>
   </component>
