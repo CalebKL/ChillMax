@@ -1,6 +1,7 @@
 package com.example.chillmax.util
 
 object Constants {
+    const val DETAILS_ID = "detailsId"
     const val MY_LIST_DATABASE_TABLE = "my_list_table"
     const val CHILL_MAX_DATABASE = "chill_max_database"
     const val CHILL_MAX_REMOTE_KEYS_DATABASE_TABLE = "chill_max_remote_keys_table"
@@ -8,5 +9,6 @@ object Constants {
     const val API_KEY = "0dcae5d3cd47880c6d2bdc1eff4825b1"
     const val STARTING_PAGE = 1
     const val ITEMS_PER_PAGE = 20
+    const val SPLASH_SCREEN_DELAY = 3000L
 
 }
