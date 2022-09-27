@@ -5,6 +5,7 @@ import com.example.chillmax.domain.models.*
 import com.example.chillmax.domain.models.responses.GenresApiResponses
 import com.example.chillmax.domain.models.responses.MovieCreditsApiResponses
 import com.example.chillmax.domain.models.responses.TVCreditsApiResponse
+import com.example.chillmax.domain.repository.DataStoreOperations
 import com.example.chillmax.domain.repository.LocalDataSource
 import com.example.chillmax.domain.repository.RemoteDataSource
 import com.example.chillmax.util.Resource
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 class Repository @Inject constructor(
     private val local: LocalDataSource,
-    private val remote: RemoteDataSource
+    private val remote: RemoteDataSource,
+    private val dataStoreOperations: DataStoreOperations
 ){
     suspend fun getMovieGenres(): Resource<GenresApiResponses> {
        return remote.getMovieGenres()
@@ -39,14 +41,14 @@ class Repository @Inject constructor(
     fun getTVPopular(): Flow<PagingData<TVPopular>>{
         return remote.getTVPopular()
     }
-    suspend fun getTVCredits(): Resource<TVCreditsApiResponse>{
-        return remote.getTVCredits()
+    suspend fun getTVCredits(tvSeriesId: Int): Resource<TVCreditsApiResponse>{
+        return remote.getTVCredits(tvSeriesId = tvSeriesId)
     }
-    suspend fun getMovieCredits(): Resource<MovieCreditsApiResponses>{
-        return remote.getMovieCredits()
+    suspend fun getMovieCredits(movieId: Int): Resource<MovieCreditsApiResponses>{
+        return remote.getMovieCredits(movieId = movieId)
     }
-    fun multiSearch(): Flow<PagingData<MultiSearch>>{
-        return remote.multiSearch()
+    fun multiSearch(query: String): Flow<PagingData<MultiSearch>>{
+        return remote.multiSearch(query =query )
     }
     fun getMyList(): Flow<List<MyList>>{
         return local.getMyList()
@@ -62,5 +64,11 @@ class Repository @Inject constructor(
     }
     suspend fun deleteAllContentFromMyList(){
         return local.deleteAllContentFromMyList()
+    }
+    suspend fun saveOnBoardingState(completed:Boolean){
+        dataStoreOperations.saveOnBoardingState(completed = completed)
+    }
+    fun readOnBoardingState(): Flow<Boolean>{
+       return dataStoreOperations.readOnBoardingState()
     }
 }

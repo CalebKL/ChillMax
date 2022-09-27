@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ChillMax</string>
     <string name="splash_screen_icon">Splash Screen Icon</string>
+    <string name="onboarding_image">On Boarding Image</string>
 </resources>

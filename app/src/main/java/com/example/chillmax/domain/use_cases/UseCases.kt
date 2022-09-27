@@ -16,5 +16,7 @@ class UseCases(
     val getTVPopularUseCase: GetTVPopularUseCase,
     val getUpcomingMoviesUseCase: GetUpcomingMoviesUseCase,
     val multiSearchUseCase: MultiSearchUseCase,
-    val tvTopRatedUseCase: TVTopRatedUseCase
+    val tvTopRatedUseCase: TVTopRatedUseCase,
+    val readOnBoardingUseCase: ReadOnBoardingUseCase,
+    val saveOnBoardingUseCase: SaveOnBoardingUseCase
 )
