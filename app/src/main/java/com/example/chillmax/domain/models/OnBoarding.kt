@@ -10,18 +10,18 @@ sealed class OnBoarding(
     val text: String
 ){
     object First: OnBoarding(
-        image = R.drawable.ragnar,
-        title = "Welcome to ChillMax",
-        text = "Watch your favourite Movies at the comfort of your home without going out."
+        image = R.drawable.lothbrok,
+        title = "WELCOME",
+        text = "Your Favourite Movies and Series brought right to you."
     )
     object Second: OnBoarding(
         image = R.drawable.heisenberg,
-        title = "Looking for your Favourite Movies/Shows?",
-        text = "Do you have a favourite movie or show you are interested in watching? You are in the right place"
+        title = "FIND A MOVIE",
+        text = "Watch and find movies that bring your mood back"
     )
     object Third: OnBoarding(
-        image = R.drawable.johnsnow,
-        title = "Only with Us for You",
-        text = "We have design our application to suit your needs. Simplicity is what we thrive in."
+        image = R.drawable.spiderman,
+        title = "REAL TIME",
+        text = "Movie & TV information and updates movie trailers "
     )
 }
