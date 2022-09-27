@@ -13,7 +13,9 @@ import com.example.chillmax.presentation.search.SearchScreen
 import com.example.chillmax.presentation.splash.SplashScreen
 import com.example.chillmax.presentation.welcome.WelcomeScreen
 import com.example.chillmax.util.Constants.DETAILS_ID
+import com.google.accompanist.pager.ExperimentalPagerApi
 
+@ExperimentalPagerApi
 @Composable
 fun SetupNavigation(navController: NavHostController) {
     NavHost(
