@@ -10,5 +10,7 @@ object Constants {
     const val STARTING_PAGE = 1
     const val ITEMS_PER_PAGE = 20
     const val SPLASH_SCREEN_DELAY = 3000L
+    const val PREFERENCE_NAME = "preference_chillmax"
+    const val PREFERENCE_KEY = "onBoarding_complete"
 
 }
