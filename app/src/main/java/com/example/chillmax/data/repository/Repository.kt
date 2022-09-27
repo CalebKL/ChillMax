@@ -5,6 +5,7 @@ import com.example.chillmax.domain.models.*
 import com.example.chillmax.domain.models.responses.GenresApiResponses
 import com.example.chillmax.domain.models.responses.MovieCreditsApiResponses
 import com.example.chillmax.domain.models.responses.TVCreditsApiResponse
+import com.example.chillmax.domain.repository.DataStoreOperations
 import com.example.chillmax.domain.repository.LocalDataSource
 import com.example.chillmax.domain.repository.RemoteDataSource
 import com.example.chillmax.util.Resource
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 class Repository @Inject constructor(
     private val local: LocalDataSource,
-    private val remote: RemoteDataSource
+    private val remote: RemoteDataSource,
+    private val dataStoreOperations: DataStoreOperations
 ){
     suspend fun getMovieGenres(): Resource<GenresApiResponses> {
        return remote.getMovieGenres()
@@ -62,5 +64,11 @@ class Repository @Inject constructor(
     }
     suspend fun deleteAllContentFromMyList(){
         return local.deleteAllContentFromMyList()
+    }
+    suspend fun saveOnBoardingState(completed:Boolean){
+        dataStoreOperations.saveOnBoardingState(completed = completed)
+    }
+    fun readOnBoardingState(): Flow<Boolean>{
+       return dataStoreOperations.readOnBoardingState()
     }
 }
