@@ -5,10 +5,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,16 +28,15 @@ fun Splash(alpha: Float, offset: Dp){
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Purple500)
-            .padding(SMALL_PADDING)
+            .background(Color.Black)
             .offset(y = offset)
             .alpha(alpha),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         Image(
-            modifier= Modifier.size(IMAGE_SPLASH_PADDING),
-            painter = painterResource(id = R.drawable.ic_video_light),
+            modifier= Modifier.fillMaxSize(),
+            painter = painterResource(id = R.drawable.download),
             contentDescription = stringResource(R.string.splash_screen_icon)
         )
     }
