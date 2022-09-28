@@ -1,11 +1,10 @@
 package com.example.chillmax.presentation.welcome.components
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,6 +20,7 @@ import com.example.chillmax.presentation.ui.theme.Purple700
 import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPagerIndicator
+import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 
 @ExperimentalPagerApi
@@ -74,5 +74,36 @@ fun PagerScreen(onBoarding: OnBoarding) {
                 spacing = SMALL_PADDING)
         }
         }
+}
+
+@ExperimentalPagerApi
+@Composable
+fun FinishButton(
+    modifier: Modifier,
+    onFinishClick:()->Unit,
+    pagerState: PagerState
+) {
+    Row(
+        modifier = modifier.padding(40.dp),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.Top
+    ){
+        AnimatedVisibility(
+            modifier = Modifier.fillMaxWidth(),
+            visible = pagerState.currentPage == 2
+        ) {
+            Button(
+                onClick = onFinishClick,
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Purple700,
+                    contentColor = Color.White
+                )
+            ) {
+                Text(
+                    text = "Finish"
+                )
+            }
+        }
+    }
 }
 
