@@ -16,8 +16,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.chillmax.R
 import com.example.chillmax.domain.models.OnBoarding
+import com.example.chillmax.navigation.Screen
 import com.example.chillmax.presentation.ui.theme.Purple700
 import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
+import com.example.chillmax.util.Constants.CURRENT_PAGE
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.PagerState
@@ -25,22 +27,24 @@ import com.google.accompanist.pager.rememberPagerState
 
 @ExperimentalPagerApi
 @Composable
-fun PagerScreen(onBoarding: OnBoarding) {
-
-    val pagerState = rememberPagerState()
-
+fun PagerScreen(
+    onBoarding: OnBoarding,
+    onFinishClick:()->Unit,
+    pagerState: PagerState
+    ) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black),
-        contentAlignment = Alignment.BottomCenter
+            .background(Color.Black)
     )
     {
         Image(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize(),
             painter = painterResource(id = onBoarding.image),
             contentDescription = stringResource(R.string.onboarding_image)
         )
+
         Column(
             modifier = Modifier
                 .fillMaxSize(),
@@ -56,7 +60,8 @@ fun PagerScreen(onBoarding: OnBoarding) {
             )
             Spacer(modifier = Modifier.padding(SMALL_PADDING))
             Text(
-                modifier = Modifier.alpha(ContentAlpha.medium),
+                modifier = Modifier
+                    .alpha(ContentAlpha.medium),
                 text = onBoarding.text,
                 style = MaterialTheme.typography.subtitle1,
                 color = Color.White
@@ -64,14 +69,14 @@ fun PagerScreen(onBoarding: OnBoarding) {
             Spacer(modifier = Modifier.padding(SMALL_PADDING))
 
             HorizontalPagerIndicator(
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(bottom = 20.dp),
+                modifier = Modifier,
                 pagerState = pagerState,
-                activeColor = Color.White,
+                activeColor = Purple700,
                 inactiveColor = Color.White,
                 indicatorWidth = 12.dp,
                 spacing = SMALL_PADDING)
+            Spacer(modifier = Modifier.padding(SMALL_PADDING))
+            FinishButton( onFinishClick = onFinishClick, pagerState = pagerState)
         }
         }
 }
@@ -79,15 +84,14 @@ fun PagerScreen(onBoarding: OnBoarding) {
 @ExperimentalPagerApi
 @Composable
 fun FinishButton(
-    modifier: Modifier,
-    onFinishClick:()->Unit,
-    pagerState: PagerState
+    pagerState: PagerState,
+    onFinishClick:() ->Unit
 ) {
-    Row(
-        modifier = modifier.padding(40.dp),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.Top
-    ){
+
+    Box(
+        modifier = Modifier.padding(40.dp),
+        contentAlignment = Alignment.BottomEnd
+    ) {
         AnimatedVisibility(
             modifier = Modifier.fillMaxWidth(),
             visible = pagerState.currentPage == 2
@@ -98,10 +102,9 @@ fun FinishButton(
                     backgroundColor = Purple700,
                     contentColor = Color.White
                 )
-            ) {
-                Text(
-                    text = "Finish"
-                )
+            )
+            {
+                Text(text = "Finish")
             }
         }
     }
