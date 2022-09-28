@@ -17,6 +17,8 @@ import androidx.compose.ui.unit.dp
 import com.example.chillmax.R
 import com.example.chillmax.domain.models.OnBoarding
 import com.example.chillmax.navigation.Screen
+import com.example.chillmax.presentation.ui.theme.INDICATOR_WIDTH
+import com.example.chillmax.presentation.ui.theme.LARGE_PADDING
 import com.example.chillmax.presentation.ui.theme.Purple700
 import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
 import com.example.chillmax.util.Constants.CURRENT_PAGE
@@ -55,7 +57,7 @@ fun PagerScreen(
             Text(
                 text = onBoarding.title,
                 fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.h3,
+                style = MaterialTheme.typography.h2,
                 color = Color.White
             )
             Spacer(modifier = Modifier.padding(SMALL_PADDING))
@@ -73,7 +75,7 @@ fun PagerScreen(
                 pagerState = pagerState,
                 activeColor = Purple700,
                 inactiveColor = Color.White,
-                indicatorWidth = 12.dp,
+                indicatorWidth = INDICATOR_WIDTH,
                 spacing = SMALL_PADDING)
             Spacer(modifier = Modifier.padding(SMALL_PADDING))
             FinishButton( onFinishClick = onFinishClick, pagerState = pagerState)
@@ -89,12 +91,12 @@ fun FinishButton(
 ) {
 
     Box(
-        modifier = Modifier.padding(40.dp),
+        modifier = Modifier.padding(LARGE_PADDING),
         contentAlignment = Alignment.BottomEnd
     ) {
         AnimatedVisibility(
             modifier = Modifier.fillMaxWidth(),
-            visible = pagerState.currentPage == 2
+            visible = pagerState.currentPage == CURRENT_PAGE
         ) {
             Button(
                 onClick = onFinishClick,
@@ -104,7 +106,7 @@ fun FinishButton(
                 )
             )
             {
-                Text(text = "Finish")
+                Text(text = stringResource(R.string.finish_button))
             }
         }
     }
