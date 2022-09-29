@@ -17,14 +17,19 @@ import androidx.navigation.NavHostController
 import androidx.paging.ExperimentalPagingApi
 import com.example.chillmax.R
 import com.example.chillmax.domain.models.OnBoarding
+import com.example.chillmax.navigation.Screen
 import com.example.chillmax.presentation.ui.theme.Purple700
 import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
+import com.example.chillmax.presentation.welcome.components.FinishButton
 import com.example.chillmax.presentation.welcome.components.PagerScreen
 import com.google.accompanist.pager.*
 
 @Composable
 @ExperimentalPagerApi
-fun WelcomeScreen(navController: NavHostController)
+fun WelcomeScreen(
+    navController: NavHostController,
+    welcomeViewModel: WelcomeViewModel = hiltViewModel(),
+)
 {
 
     val pages = listOf(
@@ -43,7 +48,15 @@ fun WelcomeScreen(navController: NavHostController)
             count = 3,
             verticalAlignment = Alignment.Top
         ) {position ->
-            PagerScreen(onBoarding = pages[position])
+            PagerScreen(
+                onBoarding = pages[position],
+                onFinishClick = {
+                    navController.popBackStack()
+                    navController.navigate(Screen.HomeScreen.route)
+                    welcomeViewModel.saveOnBoardingState(completed = true)
+                },
+                pagerState = pagerState
+            )
 
         }
 

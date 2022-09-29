@@ -2,4 +2,7 @@
     <string name="app_name">ChillMax</string>
     <string name="splash_screen_icon">Splash Screen Icon</string>
     <string name="onboarding_image">On Boarding Image</string>
+    <string name="finish_button">Finish</string>
+    <string name="search_icon">Search Icon</string>
+    <string name="chillmax">ChillMax</string>
 </resources>
