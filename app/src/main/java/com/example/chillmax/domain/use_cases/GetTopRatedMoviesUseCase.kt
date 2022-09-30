@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 class GetTopRatedMoviesUseCase(
     private val repository: Repository)
 {
-    suspend operator fun invoke(): Flow<PagingData<TopRatedMovies>> {
+    operator fun invoke(): Flow<PagingData<TopRatedMovies>> {
         return repository.getTopRatedMovies()
     }
 }

@@ -6,7 +6,7 @@ import com.example.chillmax.domain.models.MyList
 class GetSelectedFromMyListUseCase(
     private val repository: Repository
 ) {
-    suspend operator fun invoke(listId: Int): MyList{
+    operator fun invoke(listId: Int): MyList{
         return repository.getSelectedFromMyList(listId = listId)
     }
 }
