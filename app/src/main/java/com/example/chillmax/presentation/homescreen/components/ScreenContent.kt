@@ -11,10 +11,14 @@ fun ScreenContent(
     tvTopRated: LazyPagingItems<TVTopRated>,
     upcomingMovies: LazyPagingItems<UpcomingMovies>,
     tvPopular: LazyPagingItems<TVPopular>,
-    tvGenres: Genres,
     tvAiringToday: LazyPagingItems<TVAiringToday>,
     topRatedMovies: LazyPagingItems<TopRatedMovies>,
     popularMovies: LazyPagingItems<PopularMovies>,
-    movieGenres: Genres
 ) {
+
+}
+
+@Composable
+fun HeroItem() {
+
 }
