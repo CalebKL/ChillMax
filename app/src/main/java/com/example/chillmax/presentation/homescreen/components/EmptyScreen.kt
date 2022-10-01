@@ -1,8 +1,11 @@
 package com.example.chillmax.presentation.homescreen.components
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -22,11 +25,51 @@ import com.example.chillmax.R
 import com.example.chillmax.domain.models.*
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import kotlinx.serialization.descriptors.PrimitiveKind
+import java.net.ConnectException
+import java.net.SocketTimeoutException
 
 @Composable
-fun EmptyScreen() {
+fun EmptyScreen(
+    error: LoadState.Error? = null,
+    tvTopRated: LazyPagingItems<TVTopRated>? = null,
+    upcomingMovies: LazyPagingItems<UpcomingMovies>? = null,
+    tvPopular: LazyPagingItems<TVPopular>? = null,
+    tvAiringToday: LazyPagingItems<TVAiringToday>? = null,
+    topRatedMovies: LazyPagingItems<TopRatedMovies>? = null,
+    popularMovies: LazyPagingItems<PopularMovies>? = null
+) {
+    var message by remember { mutableStateOf("Find your Favourite Movies/Shows")}
+    var icon by remember { mutableStateOf(R.drawable.ic_search)}
 
+    if (error != null){
+        message = parseErrorMessage(error)
+        icon = R.drawable.ic_network
+    }
+    var startAnimation by remember { mutableStateOf(false) }
+
+    val alphaAnim by animateFloatAsState(
+        targetValue = if (startAnimation)ContentAlpha.disabled else 0f,
+        animationSpec = tween(
+            durationMillis = 1000
+        )
+    )
+
+    LaunchedEffect(key1 = true){
+        startAnimation = true
+    }
+    EmptyContent(
+        icon = icon,
+        message = message,
+        alphaAnim = alphaAnim,
+        error = error,
+        tvTopRated = tvTopRated,
+        tvPopular = tvPopular,
+        upcomingMovies = upcomingMovies,
+        tvAiringToday = tvAiringToday,
+        topRatedMovies = topRatedMovies,
+        popularMovies = popularMovies
+
+    )
 }
 
 @Composable
@@ -88,4 +131,17 @@ fun EmptyContent(
 @Composable
 fun EmptyContentPrev() {
     EmptyContent(icon = R.drawable.ic_network, message = "No Network", alphaAnim = 1f)
+}
+
+private fun parseErrorMessage(error: LoadState.Error): String{
+    return when(error.error){
+        is SocketTimeoutException ->{
+            "Server Unavailable"
+        }
+        is ConnectException ->{
+            "Internet Unavailable"
+        }else ->{
+            "Unknown Error"
+        }
+    }
 }
