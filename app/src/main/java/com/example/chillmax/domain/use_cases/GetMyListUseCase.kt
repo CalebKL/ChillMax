@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 class GetMyListUseCase(
     private val repository: Repository
 ) {
-    suspend operator fun invoke(): Flow<List<MyList>>{
+    operator fun invoke(): Flow<List<MyList>>{
         return repository.getMyList()
     }
 }

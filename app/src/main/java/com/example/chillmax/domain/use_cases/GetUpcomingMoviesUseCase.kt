@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 class GetUpcomingMoviesUseCase(
     private val repository: Repository
 ) {
-    suspend operator fun invoke(): Flow<PagingData<UpcomingMovies>> {
+    operator fun invoke(): Flow<PagingData<UpcomingMovies>> {
         return repository.getUpcomingMovies()
     }
 }

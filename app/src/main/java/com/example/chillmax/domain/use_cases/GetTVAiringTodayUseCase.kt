@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 class GetTVAiringTodayUseCase(
     private val repository: Repository
 ) {
-    suspend operator fun invoke(): Flow<PagingData<TVAiringToday>>{
+    operator fun invoke(): Flow<PagingData<TVAiringToday>>{
         return repository.getTVAiringToday()
     }
 }

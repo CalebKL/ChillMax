@@ -5,4 +5,5 @@
     <string name="finish_button">Finish</string>
     <string name="search_icon">Search Icon</string>
     <string name="chillmax">ChillMax</string>
+    <string name="error_icon">Error Icon</string>
 </resources>

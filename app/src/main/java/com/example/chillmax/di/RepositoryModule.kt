@@ -42,7 +42,7 @@ object RepositoryModule {
             getTVPopularUseCase = GetTVPopularUseCase(repository),
             getUpcomingMoviesUseCase = GetUpcomingMoviesUseCase(repository),
             multiSearchUseCase = MultiSearchUseCase(repository),
-            tvTopRatedUseCase = TVTopRatedUseCase(repository),
+            getTvTopRatedUseCase = TVTopRatedUseCase(repository),
             readOnBoardingUseCase = ReadOnBoardingUseCase(repository),
             saveOnBoardingUseCase = SaveOnBoardingUseCase(repository)
         )

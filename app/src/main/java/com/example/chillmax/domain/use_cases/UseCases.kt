@@ -1,5 +1,6 @@
 package com.example.chillmax.domain.use_cases
 
+
 class UseCases(
     val addToMyListUseCase: AddToMyListUseCase,
     val deleteAllContentFromMyListUseCase: DeleteAllContentFromMyListUseCase,
@@ -16,7 +17,7 @@ class UseCases(
     val getTVPopularUseCase: GetTVPopularUseCase,
     val getUpcomingMoviesUseCase: GetUpcomingMoviesUseCase,
     val multiSearchUseCase: MultiSearchUseCase,
-    val tvTopRatedUseCase: TVTopRatedUseCase,
+    val getTvTopRatedUseCase: TVTopRatedUseCase,
     val readOnBoardingUseCase: ReadOnBoardingUseCase,
     val saveOnBoardingUseCase: SaveOnBoardingUseCase
 )
