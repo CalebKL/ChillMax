@@ -68,7 +68,6 @@ fun EmptyScreen(
         tvAiringToday = tvAiringToday,
         topRatedMovies = topRatedMovies,
         popularMovies = popularMovies
-
     )
 }
 
@@ -127,12 +126,6 @@ fun EmptyContent(
     }
 }
 
-@Preview
-@Composable
-fun EmptyContentPrev() {
-    EmptyContent(icon = R.drawable.ic_network, message = "No Network", alphaAnim = 1f)
-}
-
 private fun parseErrorMessage(error: LoadState.Error): String{
     return when(error.error){
         is SocketTimeoutException ->{
@@ -144,4 +137,10 @@ private fun parseErrorMessage(error: LoadState.Error): String{
             "Unknown Error"
         }
     }
+}
+
+@Preview
+@Composable
+fun EmptyContentPrev() {
+    EmptyContent(icon = R.drawable.ic_network, message = "No Network", alphaAnim = 1f)
 }
