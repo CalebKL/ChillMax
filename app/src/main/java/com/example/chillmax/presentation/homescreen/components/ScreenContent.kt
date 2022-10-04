@@ -1,7 +1,14 @@
 package com.example.chillmax.presentation.homescreen.components
 
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.example.chillmax.domain.models.*
 
@@ -19,6 +26,220 @@ fun ScreenContent(
 }
 
 @Composable
-fun HeroItem() {
+fun TVTopRatedPagingRequest(
+    tvTopRated: LazyPagingItems<TVTopRated>
+): Boolean {
+    tvTopRated.apply {
+        val error = when{
+            loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+            loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+            loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+            else -> null
+        }
+        return when{
+            loadState.refresh is LoadState.Loading ->{
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentWidth(Alignment.CenterHorizontally)
+                )
+                false
+            }
+            error != null ->{
+                EmptyScreen()
+                false
+            }
+            tvTopRated.itemCount <1 ->{
+                EmptyScreen()
+                false
+            }
+            else ->{
+                true
+            }
+        }
+    }
+}
+
+@Composable
+fun UpcomingMoviesPagingRequest(
+    upcomingMovies: LazyPagingItems<UpcomingMovies>
+): Boolean {
+    upcomingMovies.apply {
+        val error = when{
+            loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+            loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+            loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+            else -> null
+        }
+        return when{
+            loadState.refresh is LoadState.Loading ->{
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentWidth(Alignment.CenterHorizontally)
+                )
+                false
+            }
+            error != null ->{
+                EmptyScreen()
+                false
+            }
+            upcomingMovies.itemCount <1 ->{
+                EmptyScreen()
+                false
+            }
+            else ->{
+                true
+            }
+        }
+    }
+}
+
+@Composable
+fun TVPopularPagingRequest(
+    tvPopular: LazyPagingItems<TVPopular>
+): Boolean {
+    tvPopular.apply {
+        val error = when{
+            loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+            loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+            loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+            else -> null
+        }
+        return when{
+            loadState.refresh is LoadState.Loading ->{
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentWidth(Alignment.CenterHorizontally)
+                )
+                false
+            }
+            error != null ->{
+                EmptyScreen()
+                false
+            }
+            tvPopular.itemCount <1 ->{
+                EmptyScreen()
+                false
+            }
+            else ->{
+                true
+            }
+        }
+    }
+}
+
+@Composable
+fun TVAiringTodayPagingRequest(
+    tvAiringToday: LazyPagingItems<TVAiringToday>
+): Boolean {
+    tvAiringToday.apply {
+        val error = when{
+            loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+            loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+            loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+            else -> null
+        }
+        return when{
+            loadState.refresh is LoadState.Loading ->{
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentWidth(Alignment.CenterHorizontally)
+                )
+                false
+            }
+            error != null ->{
+                EmptyScreen()
+                false
+            }
+            tvAiringToday.itemCount <1 ->{
+                EmptyScreen()
+                false
+            }
+            else ->{
+                true
+            }
+        }
+    }
+}
+
+@Composable
+fun TopRatedMoviesPagingRequest(
+    topRatedMovies: LazyPagingItems<TopRatedMovies>
+): Boolean {
+    topRatedMovies.apply {
+        val error = when{
+            loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+            loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+            loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+            else -> null
+        }
+        return when{
+            loadState.refresh is LoadState.Loading ->{
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentWidth(Alignment.CenterHorizontally)
+                )
+                false
+            }
+            error != null ->{
+                EmptyScreen()
+                false
+            }
+            topRatedMovies.itemCount <1 ->{
+                EmptyScreen()
+                false
+            }
+            else ->{
+                true
+            }
+        }
+    }
+}
+
+@Composable
+fun PopularMoviesPagingRequest(
+    popularMovies: LazyPagingItems<PopularMovies>
+): Boolean {
+    popularMovies.apply {
+        val error = when{
+            loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+            loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+            loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+            else -> null
+        }
+        return when{
+            loadState.refresh is LoadState.Loading ->{
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentWidth(Alignment.CenterHorizontally)
+                )
+                false
+            }
+            error != null ->{
+                EmptyScreen()
+                false
+            }
+            popularMovies.itemCount <1 ->{
+                EmptyScreen()
+                false
+            }
+            else ->{
+                true
+            }
+        }
+    }
+}
+
+
+@Composable
+fun HeroItem(
+    modifier: Modifier,
+    imageUrl: String
+){
 
 }
