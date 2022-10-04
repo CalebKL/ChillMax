@@ -1,6 +1,7 @@
 package com.example.chillmax.presentation.homescreen.components
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.paging.compose.LazyPagingItems
 import com.example.chillmax.domain.models.*
@@ -19,6 +20,9 @@ fun ScreenContent(
 }
 
 @Composable
-fun HeroItem() {
+fun HeroItem(
+    modifier: Modifier,
+    imageUrl: String
+){
 
 }
