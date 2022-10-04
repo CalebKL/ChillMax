@@ -26,13 +26,8 @@ fun ScreenContent(
 }
 
 @Composable
-fun HandlePagingRequest(
-    tvTopRated: LazyPagingItems<TVTopRated>,
-    upcomingMovies: LazyPagingItems<UpcomingMovies>,
-    tvPopular: LazyPagingItems<TVPopular>,
-    tvAiringToday: LazyPagingItems<TVAiringToday>,
-    topRatedMovies: LazyPagingItems<TopRatedMovies>,
-    popularMovies: LazyPagingItems<PopularMovies>
+fun TVTopRatedPagingRequest(
+    tvTopRated: LazyPagingItems<TVTopRated>
 ): Boolean {
     tvTopRated.apply {
         val error = when{
@@ -64,6 +59,42 @@ fun HandlePagingRequest(
         }
     }
 }
+
+@Composable
+fun UpcomingMoviesPagingRequest(
+    upcomingMovies: LazyPagingItems<UpcomingMovies>
+): Boolean {
+    upcomingMovies.apply {
+        val error = when{
+            loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+            loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+            loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+            else -> null
+        }
+        return when{
+            loadState.refresh is LoadState.Loading ->{
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentWidth(Alignment.CenterHorizontally)
+                )
+                false
+            }
+            error != null ->{
+                EmptyScreen()
+                false
+            }
+            upcomingMovies.itemCount <1 ->{
+                EmptyScreen()
+                false
+            }
+            else ->{
+                true
+            }
+        }
+    }
+}
+
 
 @Composable
 fun HeroItem(
