@@ -1,8 +1,7 @@
 package com.example.chillmax.presentation.homescreen.components
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,7 +21,11 @@ fun ScreenContent(
     topRatedMovies: LazyPagingItems<TopRatedMovies>,
     popularMovies: LazyPagingItems<PopularMovies>,
 ) {
+   LazyColumn(
+       modifier = Modifier.fillMaxSize()
+   ){
 
+   }
 }
 
 @Composable

@@ -15,9 +15,9 @@ import com.example.chillmax.presentation.homescreen.components.ScreenContent
 
 @Composable
 fun HomeScreen(
-    navController: NavHostController,
-    homeViewModel: HomeViewModel = hiltViewModel(),
+    navController: NavHostController
 ) {
+    val homeViewModel = hiltViewModel<HomeViewModel>()
     val tvTopRated = homeViewModel.getTVTopRated.value.collectAsLazyPagingItems()
     val upcomingMovies = homeViewModel.upcomingMovies.value.collectAsLazyPagingItems()
     val tvPopular = homeViewModel.tvPopular.value.collectAsLazyPagingItems()
