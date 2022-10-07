@@ -10,7 +10,6 @@ data class MovieCredits(
     val character: String,
     val credit_id: String,
     val gender: Int,
-    @PrimaryKey(autoGenerate = false)
     val id: Int,
     val known_for_department: String,
     val name: String,

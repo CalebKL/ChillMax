@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
@@ -13,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,6 +35,7 @@ import com.example.chillmax.util.Constants.BASE_URL
 import com.example.chillmax.util.Constants.IMAGE_BASE_URL
 import com.example.chillmax.R
 
+@ExperimentalCoilApi
 @Composable
 fun ScreenContent(
     navController: NavHostController,
@@ -67,18 +70,13 @@ fun ScreenContent(
             viewModel = viewModel()
         )
         Text(
-            text = "Trending today",
+            text = "Upcoming Movies",
             color = Color.White,
             fontSize = 18.sp
         )
         Spacer(modifier = Modifier.height(SMALL_PADDING))
-        Spacer(modifier = Modifier.height(EXTRA_SMALL_PADDING))
-        TopRatedRow(
-            tvTopRated = tvTopRated,
-            topRatedMovies = topRatedMovies,
-            viewModel = viewModel
-        )
-        Spacer(modifier = Modifier.height(SMALL_PADDING))
+        UpcomingMoviesRow(upcomingMovies = upcomingMovies)
+
 
     }
 }
@@ -134,16 +132,17 @@ fun UpcomingMoviesPagingRequest(
                 CircularProgressIndicator(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .wrapContentWidth(Alignment.CenterHorizontally)
+                        .wrapContentWidth(Alignment.CenterHorizontally),
+                    strokeWidth = 2.dp
                 )
                 false
             }
             error != null ->{
-                EmptyScreen()
+                Text(text = "Oops,Something went wrong")
                 false
             }
             upcomingMovies.itemCount <1 ->{
-                EmptyScreen()
+                Text(text = "Oops,Something went wrong")
                 false
             }
             else ->{
@@ -152,7 +151,6 @@ fun UpcomingMoviesPagingRequest(
         }
     }
 }
-
 @Composable
 fun TVPopularPagingRequest(
     tvPopular: LazyPagingItems<TVPopular>
@@ -293,68 +291,33 @@ fun PopularMoviesPagingRequest(
     }
 }
 
+@ExperimentalCoilApi
 @Composable
-fun TopRatedRow(
-    tvTopRated: LazyPagingItems<TVTopRated>,
-    topRatedMovies: LazyPagingItems<TopRatedMovies>,
-    viewModel: HomeViewModel
+fun UpcomingMoviesRow(
+    upcomingMovies: LazyPagingItems<UpcomingMovies>
 ) {
-    val tvTopRatedResult = TVTopRatedPagingRequest(tvTopRated = tvTopRated)
-    val topRatedMoviesResult = TopRatedMoviesPagingRequest(topRatedMovies = topRatedMovies)
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(HERO_HEIGHT),
-        contentAlignment = Alignment.Center
-    ){
-        LazyRow{
-            if (topRatedMoviesResult) {
-                if (viewModel.selectedOption.value == "Movies") {
-                    items(topRatedMovies) { film->
-                        HeroItem(
-                            modifier = Modifier
-                                .height(220.dp)
-                                .width(250.dp)
-                                .clickable {},
-                            imageUrl = "$IMAGE_BASE_URL/${film?.poster_path}")
-                    }
-                } else if (tvTopRatedResult) {
-                    items(tvTopRated) { film ->
-                        HeroItem(
-                            modifier = Modifier
-                                .height(220.dp)
-                                .width(250.dp)
-                                .clickable {},
-                            imageUrl = "$BASE_URL/${film?.poster_path}"
-                        )
-                    }
+    val result = UpcomingMoviesPagingRequest(upcomingMovies = upcomingMovies)
+    if (result){
+        Log.d("ScreenContent", upcomingMovies.loadState.toString())
+        LazyRow(
+            contentPadding = PaddingValues(all = SMALL_PADDING),
+            horizontalArrangement = Arrangement.spacedBy(SMALL_PADDING)
+        ){
+            items(
+                items = upcomingMovies,
+                key = { upcoming->
+                    upcoming.id
                 }
-            }
-        }
-    }
-}
-
-@Composable
-fun PopularRow(
-    popularMovies: LazyPagingItems<PopularMovies>,
-    tvPopular: LazyPagingItems<TVPopular>,
-    viewModel: HomeViewModel
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(HERO_HEIGHT),
-        contentAlignment = Alignment.Center
-    ){
-        LazyRow{
-            items(popularMovies){ film->
-                HeroItem(
-                    modifier = Modifier
-                        .height(220.dp)
-                        .width(250.dp)
-                        .clickable {},
-                    imageUrl = "$BASE_URL/${film!!.poster_path}"
-                )
+            ){ upcoming->
+                upcoming?.let { film->
+                    HeroItem(
+                        modifier = Modifier
+                            .height(220.dp)
+                            .width(250.dp)
+                            .clickable { },
+                        upcomingMovies = film
+                    )
+                }
             }
         }
     }
@@ -364,19 +327,18 @@ fun PopularRow(
 @Composable
 fun HeroItem(
     modifier: Modifier,
-    imageUrl: String
+    upcomingMovies: UpcomingMovies
 ){
-    Card(modifier = modifier
-        .padding(4.dp)){
+    val painter = rememberImagePainter(
+        data = "$IMAGE_BASE_URL/${upcomingMovies.poster_path}"){
+        placeholder(R.drawable.ic_place)
+    }
+
+    Card(
+        modifier = modifier
+    ){
         Image(
-            painter = rememberImagePainter(
-                data = imageUrl,
-                builder = {
-                    placeholder(R.drawable.ic_place)
-                    crossfade(true)
-                }
-            ),
-            modifier = Modifier.fillMaxSize(),
+            painter = painter,
             contentScale = ContentScale.Crop,
             contentDescription = "Image Banner"
         )
