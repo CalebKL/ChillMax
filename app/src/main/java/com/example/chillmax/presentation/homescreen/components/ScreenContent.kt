@@ -1,15 +1,18 @@
 package com.example.chillmax.presentation.homescreen.components
 
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -19,6 +22,8 @@ import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
 import com.example.chillmax.domain.models.*
 import com.example.chillmax.presentation.homescreen.HomeViewModel
 import com.example.chillmax.presentation.ui.theme.EXTRA_SMALL_PADDING
@@ -26,6 +31,7 @@ import com.example.chillmax.presentation.ui.theme.HERO_HEIGHT
 import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
 import com.example.chillmax.util.Constants.BASE_URL
 import com.example.chillmax.util.Constants.IMAGE_BASE_URL
+import com.example.chillmax.R
 
 @Composable
 fun ScreenContent(
@@ -92,16 +98,17 @@ fun TVTopRatedPagingRequest(
                 CircularProgressIndicator(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .wrapContentWidth(Alignment.CenterHorizontally)
+                        .wrapContentWidth(Alignment.CenterHorizontally),
+                    strokeWidth = 2.dp
                 )
                 false
             }
             error != null ->{
-                EmptyScreen()
+               Text(text = "Oops,Something went wrong")
                 false
             }
             tvTopRated.itemCount <1 ->{
-                EmptyScreen()
+                Text(text = "Oops,Something went wrong")
                 false
             }
             else ->{
@@ -346,15 +353,32 @@ fun PopularRow(
                         .height(220.dp)
                         .width(250.dp)
                         .clickable {},
-                    imageUrl = "$BASE_URL/${film?.poster_path}"
+                    imageUrl = "$BASE_URL/${film!!.poster_path}"
                 )
             }
         }
     }
 }
 
+@ExperimentalCoilApi
 @Composable
 fun HeroItem(
     modifier: Modifier,
     imageUrl: String
-){}
+){
+    Card(modifier = modifier
+        .padding(4.dp)){
+        Image(
+            painter = rememberImagePainter(
+                data = imageUrl,
+                builder = {
+                    placeholder(R.drawable.ic_place)
+                    crossfade(true)
+                }
+            ),
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop,
+            contentDescription = "Image Banner"
+        )
+    }
+}
