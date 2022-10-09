@@ -11,3 +11,4 @@ data class UpcomingMoviesApiResponses(
     val nextPage: Int? =null,
     val upcomingMovies: List<UpcomingMovies> = emptyList()
 )
+

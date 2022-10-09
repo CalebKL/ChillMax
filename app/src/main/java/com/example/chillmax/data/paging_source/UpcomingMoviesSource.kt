@@ -33,9 +33,9 @@ class UpcomingMoviesSource @Inject constructor(
                 )
             }
         }catch (e: IOException){
-            LoadResult.Error(e)
+            return LoadResult.Error(e)
         }catch (e: HttpException){
-            LoadResult.Error(e)
+            return LoadResult.Error(e)
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.example.chillmax.presentation.homescreen.components
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
@@ -20,13 +19,12 @@ import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
 @Composable
 fun Genres(
     viewModel: HomeViewModel
-) {
-    val genres = if(viewModel.selectedOption.value == "Tv Shows"){
-        viewModel.tvGenres.value
-    }else{
+) { 
+    val genres = if(viewModel.selectedOption.value == "Movies"){
         viewModel.movieGenres.value
+    }else{
+        viewModel.tvGenres.value
     }
-
     LazyRow(
         modifier = Modifier.fillMaxWidth()
     ){
