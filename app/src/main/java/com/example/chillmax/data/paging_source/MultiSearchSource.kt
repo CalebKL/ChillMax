@@ -4,6 +4,8 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.chillmax.data.remote.ChillMaxApi
 import com.example.chillmax.domain.models.MultiSearch
+import retrofit2.HttpException
+import java.io.IOException
 import javax.inject.Inject
 
 class MultiSearchSource @Inject constructor(
@@ -32,7 +34,9 @@ class MultiSearchSource @Inject constructor(
                     )
             }
 
-        }catch (e:Exception){
+        }catch (e: IOException){
+            LoadResult.Error(e)
+        }catch (e: HttpException){
             LoadResult.Error(e)
         }
     }
