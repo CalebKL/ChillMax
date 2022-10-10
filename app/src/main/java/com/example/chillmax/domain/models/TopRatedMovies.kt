@@ -1,11 +1,9 @@
 package com.example.chillmax.domain.models
 
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 
-@Serializable
 data class TopRatedMovies(
     @SerializedName("adult")
     val adult: Boolean,

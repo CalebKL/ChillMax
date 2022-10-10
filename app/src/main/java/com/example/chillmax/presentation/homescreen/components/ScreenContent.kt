@@ -101,7 +101,7 @@ fun ScreenContent(
                                     .height(220.dp)
                                     .width(130.dp)
                                     .clickable { },
-                                imageUrl = "$IMAGE_BASE_URL/${film?.poster_path}"
+                                imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
                         }
                     }else{
@@ -111,7 +111,7 @@ fun ScreenContent(
                                     .height(220.dp)
                                     .width(130.dp)
                                     .clickable { },
-                                imageUrl = "$IMAGE_BASE_URL/${film?.poster_path}"
+                                imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
                         }
                     }

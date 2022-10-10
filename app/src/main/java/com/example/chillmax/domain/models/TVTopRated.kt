@@ -1,9 +1,7 @@
 package com.example.chillmax.domain.models
 
 import com.google.gson.annotations.SerializedName
-import kotlinx.serialization.Serializable
 
-@Serializable
 data class TVTopRated(
     @SerializedName("backdrop_path")
     val backdrop_path: String,
