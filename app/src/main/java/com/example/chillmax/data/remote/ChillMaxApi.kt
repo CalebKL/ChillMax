@@ -39,7 +39,7 @@ interface ChillMaxApi {
     suspend fun getUpcomingMovies(
         @Query("page") page :Int = STARTING_PAGE,
         @Query("api_key") api_key: String = API_KEY,
-        @Query("language") language: String = "en",
+        @Query("language") language: String = "en-US",
     ): UpcomingMoviesApiResponses
 
     @GET("tv/airing_today")

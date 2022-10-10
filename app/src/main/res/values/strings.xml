@@ -6,4 +6,5 @@
     <string name="search_icon">Search Icon</string>
     <string name="chillmax">ChillMax</string>
     <string name="error_icon">Error Icon</string>
+    <string name="top_rated">Top Rated</string>
 </resources>
