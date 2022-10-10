@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -23,6 +24,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
@@ -32,20 +34,22 @@ import com.example.chillmax.presentation.ui.theme.EXTRA_SMALL_PADDING
 import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
 import com.example.chillmax.util.Constants.IMAGE_BASE_URL
 import com.example.chillmax.R
+import retrofit2.HttpException
+import java.io.IOException
 
 @ExperimentalCoilApi
 @Composable
 fun ScreenContent(
     navController: NavHostController,
-    tvTopRated: LazyPagingItems<TVTopRated>,
     upcomingMovies: LazyPagingItems<UpcomingMovies>,
     tvPopular: LazyPagingItems<TVPopular>,
     tvAiringToday: LazyPagingItems<TVAiringToday>,
-    topRatedMovies: LazyPagingItems<TopRatedMovies>,
     popularMovies: LazyPagingItems<PopularMovies>,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
-    Log.d("ScreenContent", upcomingMovies.loadState.toString())
+    val tvTopRated = viewModel.getTVTopRated.value.collectAsLazyPagingItems()
+    val topRatedMovies = viewModel.topRatedMovies.value.collectAsLazyPagingItems()
+    Log.d("ScreenContent", topRatedMovies.loadState.toString())
 
     LazyColumn(
         modifier = Modifier
@@ -82,6 +86,77 @@ fun ScreenContent(
             )
             Spacer(modifier = Modifier.height(SMALL_PADDING))
         }
+        item {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(220.dp),
+                contentAlignment = Alignment.Center
+            ){
+                LazyRow{
+                    if (viewModel.selectedOption.value =="Tv Shows"){
+                        items(tvTopRated){ film->
+                            HeroItem(
+                                modifier = Modifier
+                                    .height(220.dp)
+                                    .width(130.dp)
+                                    .clickable { },
+                                imageUrl = "$IMAGE_BASE_URL/${film?.poster_path}"
+                            )
+                        }
+                    }else{
+                        items(topRatedMovies){ film->
+                            HeroItem(
+                                modifier = Modifier
+                                    .height(220.dp)
+                                    .width(130.dp)
+                                    .clickable { },
+                                imageUrl = "$IMAGE_BASE_URL/${film?.poster_path}"
+                            )
+                        }
+                    }
+                    if (topRatedMovies.loadState.append == LoadState.Loading){
+                        item {
+                            CircularProgressIndicator(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .wrapContentWidth(Alignment.CenterHorizontally)
+                            )
+                        }
+                    }
+                }
+                topRatedMovies.apply {
+                    loadState
+                    when(loadState.refresh){
+                        is LoadState.Loading ->{
+                            CircularProgressIndicator(
+                                modifier = Modifier,
+                                color = Color.Red,
+                                strokeWidth = 2.dp
+                            )
+                        }
+                        is LoadState.Error ->{
+                            val error = topRatedMovies.loadState.refresh as LoadState.Error
+                            Text(
+                                text = when(error.error){
+                                    is HttpException ->{
+                                        "Oops! Something Went Wrong"
+                                    }
+                                    is IOException ->{
+                                        "Couldn't Reach Server! Check Your Internet Connection"
+                                    }
+                                    else->{
+                                        "Unknown Error"
+                                    }
+                                },
+                                textAlign = TextAlign.Center,
+                                color = Color.Red
+                            )
+                        }else->{}
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -90,18 +165,19 @@ fun ScreenContent(
 @Composable
 fun HeroItem(
     modifier: Modifier,
-    tvTopRated: TVTopRated
+    imageUrl:String
 ){
-    val painter = rememberImagePainter(
-        data = "$IMAGE_BASE_URL${tvTopRated.poster_path}"){
-        placeholder(R.drawable.ic_place)
-    }
-
     Card(
         modifier = modifier
     ){
         Image(
-            painter = painter,
+            painter = rememberImagePainter(
+                data = imageUrl,
+                builder = {
+                    placeholder(R.drawable.ic_place)
+                    crossfade(true)
+                }
+            ),
             contentScale = ContentScale.Crop,
             contentDescription = "Image Banner"
         )

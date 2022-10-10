@@ -34,11 +34,9 @@ fun HomeScreen(
         },
         content = {
             ScreenContent(navController = navController,
-                tvTopRated =tvTopRated ,
                 upcomingMovies =upcomingMovies ,
                 tvPopular = tvPopular,
                 tvAiringToday = tvAiringToday,
-                topRatedMovies = topRatedMovies ,
                 popularMovies = popularMovies
             )
         }
