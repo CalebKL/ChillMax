@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class TVTopRatedApiResponses(
     @SerializedName("page")
     val page: Int,
-    @SerializedName("searches")
+    @SerializedName("results")
     val searches: List<TVTopRated>,
     @SerializedName("total_pages")
     val totalPages: Int,

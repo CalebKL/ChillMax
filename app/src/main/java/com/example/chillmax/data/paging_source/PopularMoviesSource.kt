@@ -24,7 +24,7 @@ class PopularMoviesSource @Inject constructor(
             LoadResult.Page(
                 data = popularMovies.searches,
                 prevKey = if (nextPage == 1) null else nextPage - 1,
-                nextKey = if (popularMovies.searches.isEmpty()) null else popularMovies.page +1
+                nextKey = if (popularMovies.searches.isEmpty()) null else popularMovies.page + 1
             )
         }catch (e:IOException){
             LoadResult.Error(e)

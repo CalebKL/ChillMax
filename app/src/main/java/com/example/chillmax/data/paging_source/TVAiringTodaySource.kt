@@ -23,7 +23,7 @@ class TVAiringTodaySource @Inject constructor(
             LoadResult.Page(
                 data = tvAiringToday.searches,
                 prevKey = if (nextPage == 1) null else nextPage - 1,
-                nextKey = if (tvAiringToday.searches.isEmpty()) null else tvAiringToday.page +1
+                nextKey = if (tvAiringToday.searches.isEmpty()) null else tvAiringToday.page + 1
             )
         }catch (e: IOException){
             LoadResult.Error(e)

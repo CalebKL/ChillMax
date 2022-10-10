@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 data class UpcomingMoviesApiResponses(
     @SerializedName("page")
     val page: Int,
-    @SerializedName("searches")
+    @SerializedName("results")
     val searches: List<UpcomingMovies>,
     @SerializedName("total_pages")
     val totalPages: Int,

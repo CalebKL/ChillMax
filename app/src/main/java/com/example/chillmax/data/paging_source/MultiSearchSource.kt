@@ -23,7 +23,7 @@ class MultiSearchSource @Inject constructor(
             LoadResult.Page(
                 data = multiSearch.searches,
                 prevKey = if (nextPage == 1) null else nextPage - 1,
-                nextKey = if (multiSearch.searches.isEmpty()) null else multiSearch.page +1
+                nextKey = if (multiSearch.searches.isEmpty()) null else multiSearch.page + 1
             )
 
         }catch (e: IOException){

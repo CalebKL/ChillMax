@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class MultiSearchApiResponse(
     @SerializedName("page")
     val page: Int,
-    @SerializedName("searches")
+    @SerializedName("results")
     val searches: List<MultiSearch>,
     @SerializedName("total_pages")
     val totalPages: Int,

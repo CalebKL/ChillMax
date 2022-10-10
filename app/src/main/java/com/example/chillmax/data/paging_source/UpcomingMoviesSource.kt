@@ -22,7 +22,7 @@ class UpcomingMoviesSource @Inject constructor(
             LoadResult.Page(
                 data = upcomingMovies.searches,
                 prevKey = if (nextPage == 1) null else nextPage - 1,
-                nextKey = if (upcomingMovies.searches.isEmpty()) null else upcomingMovies.page +1
+                nextKey = if (upcomingMovies.searches.isEmpty()) null else upcomingMovies.page + 1
             )
         }catch (e: IOException){
             return LoadResult.Error(e)

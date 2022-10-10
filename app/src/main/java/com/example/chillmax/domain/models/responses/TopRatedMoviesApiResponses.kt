@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 data class TopRatedMoviesApiResponses(
     @SerializedName("page")
     val page: Int,
-    @SerializedName("searches")
+    @SerializedName("results")
     val searches: List<TopRatedMovies>,
     @SerializedName("total_pages")
     val totalPages: Int,

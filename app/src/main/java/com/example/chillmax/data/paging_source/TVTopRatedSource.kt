@@ -22,7 +22,7 @@ class TVTopRatedSource @Inject constructor(
             LoadResult.Page(
                 data = tvTopRated.searches,
                 prevKey = if (nextPage == 1) null else nextPage - 1,
-                nextKey = if (tvTopRated.searches.isEmpty()) null else tvTopRated.page +1
+                nextKey = if (tvTopRated.searches.isEmpty()) null else tvTopRated.page + 1
             )
         }catch (e: IOException){
             LoadResult.Error(e)

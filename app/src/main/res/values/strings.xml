@@ -7,4 +7,6 @@
     <string name="chillmax">ChillMax</string>
     <string name="error_icon">Error Icon</string>
     <string name="top_rated">Top Rated</string>
+    <string name="image_banner">Image Banner</string>
+    <string name="genres">Genres</string>
 </resources>

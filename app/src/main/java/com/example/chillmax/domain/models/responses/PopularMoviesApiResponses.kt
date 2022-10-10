@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
 data class PopularMoviesApiResponses(
     @SerializedName("page")
     val page: Int,
-    @SerializedName("searches")
+    @SerializedName("results")
     val searches: List<PopularMovies>,
     @SerializedName("total_pages")
     val totalPages: Int,

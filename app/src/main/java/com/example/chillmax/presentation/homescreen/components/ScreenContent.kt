@@ -34,6 +34,7 @@ import com.example.chillmax.presentation.ui.theme.EXTRA_SMALL_PADDING
 import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
 import com.example.chillmax.util.Constants.IMAGE_BASE_URL
 import com.example.chillmax.R
+import com.example.chillmax.presentation.ui.theme.MEDIUM_PADDING
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -67,16 +68,17 @@ fun ScreenContent(
             Text(
                 modifier = Modifier
                     .padding(start = SMALL_PADDING),
-                text = "Genres",
+                text = stringResource(R.string.genres),
                 color = Color.White,
                 fontWeight = FontWeight.Bold
             )
-            Spacer(modifier = Modifier.height(EXTRA_SMALL_PADDING))
+            Spacer(modifier = Modifier.height(MEDIUM_PADDING))
         }
         item {
             Genres(
                 viewModel = viewModel()
             )
+            Spacer(modifier = Modifier.height(MEDIUM_PADDING))
         }
         item {
             Text(
@@ -84,7 +86,7 @@ fun ScreenContent(
                 color = Color.White,
                 fontSize = 18.sp
             )
-            Spacer(modifier = Modifier.height(SMALL_PADDING))
+            Spacer(modifier = Modifier.height(MEDIUM_PADDING))
         }
         item {
             Box(
@@ -174,12 +176,12 @@ fun HeroItem(
             painter = rememberImagePainter(
                 data = imageUrl,
                 builder = {
-                    placeholder(R.drawable.ic_place)
+                    placeholder(R.drawable.ic_placeholder)
                     crossfade(true)
                 }
             ),
             contentScale = ContentScale.Crop,
-            contentDescription = "Image Banner"
+            contentDescription = stringResource(R.string.image_banner)
         )
     }
 }
