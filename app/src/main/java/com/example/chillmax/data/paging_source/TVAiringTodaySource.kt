@@ -18,21 +18,13 @@ class TVAiringTodaySource @Inject constructor(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TVAiringToday> {
         return try {
-            val apiResponse = chillMaxApi.getTVAiringToday()
-            val tvAiringToday = apiResponse.tvAiringToday
-            if (tvAiringToday.isNotEmpty()) {
-                LoadResult.Page(
-                    data = tvAiringToday,
-                    prevKey = apiResponse.prevPage,
-                    nextKey = apiResponse.nextPage
-                )
-            } else {
-                LoadResult.Page(
-                    data = emptyList(),
-                    prevKey = null,
-                    nextKey = null
-                )
-            }
+            val nextPage = params.key ?: 1
+            val tvAiringToday = chillMaxApi.getTVAiringToday(nextPage)
+            LoadResult.Page(
+                data = tvAiringToday.searches,
+                prevKey = if (nextPage == 1) null else nextPage - 1,
+                nextKey = if (tvAiringToday.searches.isEmpty()) null else tvAiringToday.page +1
+            )
         }catch (e: IOException){
             LoadResult.Error(e)
         }catch (e: HttpException){

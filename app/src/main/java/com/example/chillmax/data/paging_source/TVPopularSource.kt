@@ -17,21 +17,13 @@ class TVPopularSource @Inject constructor(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TVPopular> {
         return try {
-            val apiResponse = chillMaxApi.getTVPopular()
-            val tvPopular = apiResponse.tvPopular
-            if (tvPopular.isNotEmpty()) {
-                LoadResult.Page(
-                    data = tvPopular,
-                    prevKey = apiResponse.prevPage,
-                    nextKey = apiResponse.nextPage
-                )
-            } else {
-                LoadResult.Page(
-                    data = emptyList(),
-                    prevKey = null,
-                    nextKey = null
-                )
-            }
+            val nextPage = params.key ?: 1
+            val tvPopular = chillMaxApi.getTVPopular(nextPage)
+            LoadResult.Page(
+                data = tvPopular.searches,
+                prevKey = if (nextPage == 1) null else nextPage - 1,
+                nextKey = if (tvPopular.searches.isEmpty()) null else tvPopular.page +1
+            )
         }catch (e: IOException){
             LoadResult.Error(e)
         }catch (e: HttpException){

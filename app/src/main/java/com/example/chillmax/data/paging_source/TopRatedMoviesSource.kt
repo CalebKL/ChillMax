@@ -17,21 +17,13 @@ class TopRatedMoviesSource @Inject constructor(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TopRatedMovies> {
         return try {
-            val apiResponse = chillMaxApi.getTopRatedMovies()
-            val topRatedMovies = apiResponse.topRatedMovies
-            if (topRatedMovies.isNotEmpty()) {
-                LoadResult.Page(
-                    data = topRatedMovies,
-                    prevKey = apiResponse.prevPage,
-                    nextKey = apiResponse.nextPage
-                )
-            } else {
-                LoadResult.Page(
-                    data = emptyList(),
-                    prevKey = null,
-                    nextKey = null
-                )
-            }
+            val nextPage = params.key ?: 1
+            val topRatedMovies = chillMaxApi.getTopRatedMovies(nextPage)
+            LoadResult.Page(
+                data = topRatedMovies.searches,
+                prevKey = if (nextPage == 1) null else nextPage - 1,
+                nextKey = if (topRatedMovies.searches.isEmpty()) null else topRatedMovies.page +1
+            )
         }catch (e: IOException){
             LoadResult.Error(e)
         }catch (e: HttpException){

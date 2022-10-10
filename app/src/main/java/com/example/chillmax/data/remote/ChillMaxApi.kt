@@ -23,16 +23,16 @@ interface ChillMaxApi {
 
     @GET("movie/popular")
     suspend fun getPopularMovies(
+        @Query("page") page :Int = STARTING_PAGE,
         @Query("api_key") api_key: String = API_KEY,
         @Query("language") language: String = "en-US",
-        @Query("page") page :Int = STARTING_PAGE
     ): PopularMoviesApiResponses
 
     @GET("movie/top_rated")
     suspend fun getTopRatedMovies(
+        @Query("page") page :Int = STARTING_PAGE,
         @Query("api_key") api_key: String = API_KEY,
         @Query("language") language: String = "en-US",
-        @Query("page") page :Int = STARTING_PAGE
     ): TopRatedMoviesApiResponses
 
     @GET("movie/upcoming")
@@ -51,16 +51,16 @@ interface ChillMaxApi {
 
     @GET("tv/top_rated")
     suspend fun getTVTopRated(
+        @Query("page") page :Int = STARTING_PAGE,
         @Query("api_key") api_key: String = API_KEY,
-        @Query("language") language: String = "en-US",
-        @Query("page") page :Int = STARTING_PAGE
+        @Query("language") language: String = "en-US"
     ): TVTopRatedApiResponses
 
     @GET("tv/popular")
     suspend fun getTVPopular(
+        @Query("page") page :Int = STARTING_PAGE,
         @Query("api_key") api_key: String = API_KEY,
-        @Query("language") language: String = "en-US",
-        @Query("page") page :Int = STARTING_PAGE
+        @Query("language") language: String = "en-US"
     ): TVPopularApiResponses
 
     @GET("tv/{tv_id}/credits")
@@ -79,6 +79,7 @@ interface ChillMaxApi {
 
     @GET("search/movie")
     suspend fun multiSearch(
+        @Query("page") page :Int = STARTING_PAGE,
         @Query("api_key") api_key: String = API_KEY,
         @Query("query") query: String,
     ): MultiSearchApiResponse
