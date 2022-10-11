@@ -5,7 +5,6 @@ import com.example.chillmax.domain.models.TVTopRated
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
-@Serializable
 data class PopularMoviesApiResponses(
     @SerializedName("page")
     val page: Int,
