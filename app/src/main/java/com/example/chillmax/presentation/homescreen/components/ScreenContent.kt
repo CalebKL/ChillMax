@@ -43,13 +43,13 @@ import java.io.IOException
 fun ScreenContent(
     navController: NavHostController,
     upcomingMovies: LazyPagingItems<UpcomingMovies>,
-    tvPopular: LazyPagingItems<TVPopular>,
     tvAiringToday: LazyPagingItems<TVAiringToday>,
-    popularMovies: LazyPagingItems<PopularMovies>,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val tvTopRated = viewModel.getTVTopRated.value.collectAsLazyPagingItems()
     val topRatedMovies = viewModel.topRatedMovies.value.collectAsLazyPagingItems()
+    val tvPopular = viewModel.tvPopular.value.collectAsLazyPagingItems()
+    val popularMovies = viewModel.popularMovies.value.collectAsLazyPagingItems()
     Log.d("ScreenContent", topRatedMovies.loadState.toString())
 
     LazyColumn(
@@ -158,6 +158,87 @@ fun ScreenContent(
                     }
                 }
             }
+            Spacer(modifier = Modifier.height(MEDIUM_PADDING))
+        }
+        item {
+            Text(
+                text = stringResource(R.string.popular),
+                color = Color.White,
+                fontSize = 18.sp
+            )
+            Spacer(modifier = Modifier.height(MEDIUM_PADDING))
+        }
+        item {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(220.dp),
+                contentAlignment = Alignment.Center
+            ){
+                LazyRow{
+                    if (viewModel.selectedOption.value =="Tv Shows"){
+                        items(tvPopular){ film->
+                            HeroItem(
+                                modifier = Modifier
+                                    .height(220.dp)
+                                    .width(130.dp)
+                                    .clickable { },
+                                imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
+                            )
+                        }
+                    }else{
+                        items(popularMovies){ film->
+                            HeroItem(
+                                modifier = Modifier
+                                    .height(220.dp)
+                                    .width(130.dp)
+                                    .clickable { },
+                                imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
+                            )
+                        }
+                    }
+                    if (popularMovies.loadState.append == LoadState.Loading){
+                        item {
+                            CircularProgressIndicator(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .wrapContentWidth(Alignment.CenterHorizontally)
+                            )
+                        }
+                    }
+                }
+                popularMovies.apply {
+                    loadState
+                    when(loadState.refresh){
+                        is LoadState.Loading ->{
+                            CircularProgressIndicator(
+                                modifier = Modifier,
+                                color = Color.Red,
+                                strokeWidth = 2.dp
+                            )
+                        }
+                        is LoadState.Error ->{
+                            val error = topRatedMovies.loadState.refresh as LoadState.Error
+                            Text(
+                                text = when(error.error){
+                                    is HttpException ->{
+                                        "Oops! Something Went Wrong"
+                                    }
+                                    is IOException ->{
+                                        "Couldn't Reach Server! Check Your Internet Connection"
+                                    }
+                                    else->{
+                                        "Unknown Error"
+                                    }
+                                },
+                                textAlign = TextAlign.Center,
+                                color = Color.Red
+                            )
+                        }else->{}
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.height(MEDIUM_PADDING))
         }
     }
 }

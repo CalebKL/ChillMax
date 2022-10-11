@@ -33,11 +33,10 @@ fun HomeScreen(
             })
         },
         content = {
-            ScreenContent(navController = navController,
+            ScreenContent(
+                navController = navController,
                 upcomingMovies =upcomingMovies ,
-                tvPopular = tvPopular,
                 tvAiringToday = tvAiringToday,
-                popularMovies = popularMovies
             )
         }
     )
