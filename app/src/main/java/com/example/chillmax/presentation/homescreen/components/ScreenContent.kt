@@ -218,7 +218,69 @@ fun ScreenContent(
                             )
                         }
                         is LoadState.Error ->{
-                            val error = topRatedMovies.loadState.refresh as LoadState.Error
+                            val error = popularMovies.loadState.refresh as LoadState.Error
+                            Text(
+                                text = when(error.error){
+                                    is HttpException ->{
+                                        "Oops! Something Went Wrong"
+                                    }
+                                    is IOException ->{
+                                        "Couldn't Reach Server! Check Your Internet Connection"
+                                    }
+                                    else->{
+                                        "Unknown Error"
+                                    }
+                                },
+                                textAlign = TextAlign.Center,
+                                color = Color.Red
+                            )
+                        }else->{}
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.height(MEDIUM_PADDING))
+        }
+        item {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(220.dp),
+                contentAlignment = Alignment.Center
+            ){
+                LazyRow{
+                    if (viewModel.selectedOption.value =="Tv Shows"){
+                        items(tvAiringToday){ film->
+                            HeroItem(
+                                modifier = Modifier
+                                    .height(220.dp)
+                                    .width(130.dp)
+                                    .clickable { },
+                                imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
+                            )
+                        }
+                    }
+                    if (tvAiringToday.loadState.append == LoadState.Loading){
+                        item {
+                            CircularProgressIndicator(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .wrapContentWidth(Alignment.CenterHorizontally)
+                            )
+                        }
+                    }
+                }
+                tvAiringToday.apply {
+                    loadState
+                    when(loadState.refresh){
+                        is LoadState.Loading ->{
+                            CircularProgressIndicator(
+                                modifier = Modifier,
+                                color = Color.Red,
+                                strokeWidth = 2.dp
+                            )
+                        }
+                        is LoadState.Error ->{
+                            val error = tvAiringToday.loadState.refresh as LoadState.Error
                             Text(
                                 text = when(error.error){
                                     is HttpException ->{
