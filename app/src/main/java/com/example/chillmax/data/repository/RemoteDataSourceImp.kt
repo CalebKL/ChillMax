@@ -3,18 +3,14 @@ package com.example.chillmax.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.example.chillmax.data.local.ChillMaxDatabase
 import com.example.chillmax.data.paging_source.*
 import com.example.chillmax.data.remote.ChillMaxApi
 import com.example.chillmax.domain.models.*
-import com.example.chillmax.domain.models.responses.GenresApiResponses
-import com.example.chillmax.domain.models.responses.MovieCreditsApiResponses
-import com.example.chillmax.domain.models.responses.TVCreditsApiResponse
+import com.example.chillmax.domain.models.responses.*
 import com.example.chillmax.domain.repository.RemoteDataSource
 import com.example.chillmax.util.Constants.ITEMS_PER_PAGE
 import com.example.chillmax.util.Resource
 import kotlinx.coroutines.flow.Flow
-import java.security.PrivateKey
 
 class RemoteDataSourceImp(
     private val chillMaxApi: ChillMaxApi
@@ -46,8 +42,13 @@ class RemoteDataSourceImp(
         ).flow
     }
 
-    override suspend fun getPopularMoviesDetails(movieId: Int): Resource<PopularMovies> {
-        TODO("Not yet implemented")
+    override suspend fun getPopularMoviesDetails(movieId: Int): Resource<PopularMoviesApiResponses> {
+        val response = try {
+            chillMaxApi.getPopularMovies(movieId)
+        }catch (e: Exception){
+            return Resource.Error("Unexpected Error")
+        }
+        return Resource.Success(response)
     }
 
     override fun getTopRatedMovies(): Flow<PagingData<TopRatedMovies>> {
@@ -59,8 +60,13 @@ class RemoteDataSourceImp(
         ).flow
     }
 
-    override suspend fun getTopRatedMoviesDetails(movieId: Int): Resource<TopRatedMovies> {
-        TODO("Not yet implemented")
+    override suspend fun getTopRatedMoviesDetails(movieId: Int): Resource<TopRatedMoviesApiResponses> {
+        val response = try {
+            chillMaxApi.getTopRatedMovies(movieId)
+        }catch (e: Exception){
+            return Resource.Error("Unexpected Error")
+        }
+        return Resource.Success(response)
     }
 
     override fun getUpcomingMovies(): Flow<PagingData<UpcomingMovies>> {
@@ -72,8 +78,13 @@ class RemoteDataSourceImp(
         ).flow
     }
 
-    override suspend fun getUpcomingMoviesDetails(movieId: Int): Resource<UpcomingMovies> {
-        TODO("Not yet implemented")
+    override suspend fun getUpcomingMoviesDetails(movieId: Int): Resource<UpcomingMoviesApiResponses> {
+        val response = try {
+            chillMaxApi.getUpcomingMovies(movieId)
+        }catch (e: Exception){
+            return Resource.Error("Unexpected Error")
+        }
+        return Resource.Success(response)
     }
 
     override fun getTVAiringToday(): Flow<PagingData<TVAiringToday>> {
@@ -85,8 +96,13 @@ class RemoteDataSourceImp(
         ).flow
     }
 
-    override suspend fun getTVAiringTodayDetails(tvId: Int): Resource<TVAiringToday> {
-        TODO("Not yet implemented")
+    override suspend fun getTVAiringTodayDetails(tvId: Int): Resource<TVAiringTodayApiResponses> {
+        val response = try {
+            chillMaxApi.getTVAiringToday(tvId)
+        }catch (e: Exception){
+            return Resource.Error("Unexpected Error")
+        }
+        return Resource.Success(response)
     }
 
     override fun getTVTopRated(): Flow<PagingData<TVTopRated>> {
@@ -98,8 +114,13 @@ class RemoteDataSourceImp(
         ).flow
     }
 
-    override suspend fun getTVTopRatedDetails(tvId: Int): Resource<TVTopRated> {
-        TODO("Not yet implemented")
+    override suspend fun getTVTopRatedDetails(tvId: Int): Resource<TVTopRatedApiResponses> {
+        val response = try {
+            chillMaxApi.getTVTopRated(tvId)
+        }catch (e: Exception){
+            return Resource.Error("Unexpected Error")
+        }
+        return Resource.Success(response)
     }
 
     override fun getTVPopular(): Flow<PagingData<TVPopular>> {
@@ -111,8 +132,13 @@ class RemoteDataSourceImp(
         ).flow
     }
 
-    override suspend fun getTVPopularDetails(tvId: Int): Resource<TVPopular> {
-        TODO("Not yet implemented")
+    override suspend fun getTVPopularDetails(tvId: Int): Resource<TVPopularApiResponses> {
+        val response = try {
+            chillMaxApi.getTVPopular(tvId)
+        }catch (e: Exception){
+            return Resource.Error("Unexpected Error")
+        }
+        return Resource.Success(response)
     }
 
     override suspend fun getTVCredits(tvSeriesId: Int): Resource<TVCreditsApiResponse> {
