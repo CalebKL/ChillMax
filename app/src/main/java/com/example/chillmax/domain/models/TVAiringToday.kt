@@ -1,6 +1,5 @@
 package com.example.chillmax.domain.models
 
-import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
 
 @Serializable
