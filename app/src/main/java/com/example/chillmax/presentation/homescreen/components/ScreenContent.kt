@@ -44,14 +44,15 @@ import java.io.IOException
 @Composable
 fun ScreenContent(
     navController: NavHostController,
-    upcomingMovies: LazyPagingItems<UpcomingMovies>,
-    tvAiringToday: LazyPagingItems<TVAiringToday>,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val tvTopRated = viewModel.getTVTopRated.value.collectAsLazyPagingItems()
     val topRatedMovies = viewModel.topRatedMovies.value.collectAsLazyPagingItems()
     val tvPopular = viewModel.tvPopular.value.collectAsLazyPagingItems()
     val popularMovies = viewModel.popularMovies.value.collectAsLazyPagingItems()
+    val tvAiringToday = viewModel.tvAiringToday.value.collectAsLazyPagingItems()
+    val upcomingMovies = viewModel.upcomingMovies.value.collectAsLazyPagingItems()
+
     Log.d("ScreenContent", topRatedMovies.loadState.toString())
 
     LazyColumn(
@@ -105,7 +106,8 @@ fun ScreenContent(
                                     .height(220.dp)
                                     .width(130.dp)
                                     .clickable {
-                                               navController.navigate(Screen.DetailsScreen.passDetailsId(film?.id!!))
+                                        navController.navigate(Screen.DetailsScreen.passDetailsId(
+                                            film?.id!!))
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
@@ -117,7 +119,8 @@ fun ScreenContent(
                                     .height(220.dp)
                                     .width(130.dp)
                                     .clickable {
-                                        navController.navigate(Screen.DetailsScreen.passDetailsId(film?.id!!))
+                                        navController.navigate(Screen.DetailsScreen.passDetailsId(
+                                            film?.id!!))
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
@@ -189,7 +192,8 @@ fun ScreenContent(
                                     .height(220.dp)
                                     .width(130.dp)
                                     .clickable {
-                                        navController.navigate(Screen.DetailsScreen.passDetailsId(film?.id!!))
+                                        navController.navigate(Screen.DetailsScreen.passDetailsId(
+                                            film?.id!!))
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
@@ -201,7 +205,8 @@ fun ScreenContent(
                                     .height(220.dp)
                                     .width(130.dp)
                                     .clickable {
-                                        navController.navigate(Screen.DetailsScreen.passDetailsId(film?.id!!))
+                                        navController.navigate(Screen.DetailsScreen.passDetailsId(
+                                            film?.id!!))
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
@@ -277,7 +282,8 @@ fun ScreenContent(
                                     .height(220.dp)
                                     .width(130.dp)
                                     .clickable {
-                                        navController.navigate(Screen.DetailsScreen.passDetailsId(film?.id!!))
+                                        navController.navigate(Screen.DetailsScreen.passDetailsId(
+                                            film?.id!!))
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
@@ -289,7 +295,8 @@ fun ScreenContent(
                                     .height(220.dp)
                                     .width(130.dp)
                                     .clickable {
-                                        navController.navigate(Screen.DetailsScreen.passDetailsId(film?.id!!))
+                                        navController.navigate(Screen.DetailsScreen.passDetailsId(
+                                            film?.id!!))
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
