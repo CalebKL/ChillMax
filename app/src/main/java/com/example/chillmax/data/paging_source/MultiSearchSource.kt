@@ -18,21 +18,13 @@ class MultiSearchSource @Inject constructor(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MultiSearch> {
         return try {
-            val apiResponse = chillMaxApi.multiSearch(query = query)
-            val multiSearch = apiResponse.multiSearch
-            if (multiSearch.isNotEmpty()){
-                LoadResult.Page(
-                    data = multiSearch,
-                    prevKey = apiResponse.prevPage,
-                    nextKey = apiResponse.nextPage
-                )
-                }else{
-                    LoadResult.Page(
-                        data = emptyList(),
-                        prevKey = null,
-                        nextKey = null
-                    )
-            }
+            val nextPage = params.key ?: 1
+            val multiSearch = chillMaxApi.multiSearch(nextPage, query = query)
+            LoadResult.Page(
+                data = multiSearch.searches,
+                prevKey = if (nextPage == 1) null else nextPage - 1,
+                nextKey = if (multiSearch.searches.isEmpty()) null else multiSearch.page + 1
+            )
 
         }catch (e: IOException){
             LoadResult.Error(e)

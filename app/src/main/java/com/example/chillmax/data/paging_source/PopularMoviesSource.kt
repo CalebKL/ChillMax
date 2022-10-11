@@ -5,6 +5,7 @@ import androidx.paging.PagingState
 import com.example.chillmax.data.remote.ChillMaxApi
 import com.example.chillmax.domain.models.PopularMovies
 import retrofit2.HttpException
+import retrofit2.http.Query
 import java.io.IOException
 import javax.inject.Inject
 
@@ -18,21 +19,13 @@ class PopularMoviesSource @Inject constructor(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PopularMovies> {
         return try {
-           val apiResponse = chillMaxApi.getPopularMovies()
-            val popularMovies = apiResponse.popularMovies
-            if (popularMovies.isNotEmpty()){
-                LoadResult.Page(
-                    data = popularMovies,
-                    prevKey = apiResponse.prevPage,
-                    nextKey = apiResponse.nextPage
-                )
-                }else{
-                LoadResult.Page(
-                    data = emptyList(),
-                    prevKey = null,
-                    nextKey = null
-                )
-            }
+            val nextPage = params.key ?: 1
+            val popularMovies = chillMaxApi.getPopularMovies(nextPage)
+            LoadResult.Page(
+                data = popularMovies.searches,
+                prevKey = if (nextPage == 1) null else nextPage - 1,
+                nextKey = if (popularMovies.searches.isEmpty()) null else popularMovies.page + 1
+            )
         }catch (e:IOException){
             LoadResult.Error(e)
         }catch (e:HttpException){

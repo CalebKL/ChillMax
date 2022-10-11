@@ -4,15 +4,13 @@ import com.example.chillmax.data.remote.ChillMaxApi
 import com.example.chillmax.data.repository.RemoteDataSourceImp
 import com.example.chillmax.domain.repository.RemoteDataSource
 import com.example.chillmax.util.Constants.BASE_URL
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.serialization.json.Json
-import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -34,20 +32,15 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofitInstance(okHttpClient: OkHttpClient): Retrofit{
-        val contentType = MediaType.get("application/json")
+    fun providesApi(okHttpClient: OkHttpClient): ChillMaxApi{
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
-            .addConverterFactory(Json.asConverterFactory(contentType = contentType))
             .build()
+            .create(ChillMaxApi::class.java)
     }
 
-    @Provides
-    @Singleton
-    fun provideChillMaxApi(retrofit: Retrofit): ChillMaxApi{
-        return retrofit.create(ChillMaxApi::class.java)
-    }
 
     @Provides
     @Singleton
