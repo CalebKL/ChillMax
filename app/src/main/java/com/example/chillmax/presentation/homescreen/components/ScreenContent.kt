@@ -34,7 +34,9 @@ import com.example.chillmax.presentation.ui.theme.EXTRA_SMALL_PADDING
 import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
 import com.example.chillmax.util.Constants.IMAGE_BASE_URL
 import com.example.chillmax.R
+import com.example.chillmax.navigation.Screen
 import com.example.chillmax.presentation.ui.theme.MEDIUM_PADDING
+import com.example.chillmax.util.Constants.DETAILS_ID
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -102,7 +104,9 @@ fun ScreenContent(
                                 modifier = Modifier
                                     .height(220.dp)
                                     .width(130.dp)
-                                    .clickable { },
+                                    .clickable {
+                                               navController.navigate(Screen.DetailsScreen.passDetailsId(film?.id!!))
+                                    },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
                         }
@@ -112,7 +116,9 @@ fun ScreenContent(
                                 modifier = Modifier
                                     .height(220.dp)
                                     .width(130.dp)
-                                    .clickable { },
+                                    .clickable {
+                                        navController.navigate(Screen.DetailsScreen.passDetailsId(film?.id!!))
+                                    },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
                         }
@@ -182,7 +188,9 @@ fun ScreenContent(
                                 modifier = Modifier
                                     .height(220.dp)
                                     .width(130.dp)
-                                    .clickable { },
+                                    .clickable {
+                                        navController.navigate(Screen.DetailsScreen.passDetailsId(film?.id!!))
+                                    },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
                         }
@@ -192,7 +200,9 @@ fun ScreenContent(
                                 modifier = Modifier
                                     .height(220.dp)
                                     .width(130.dp)
-                                    .clickable { },
+                                    .clickable {
+                                        navController.navigate(Screen.DetailsScreen.passDetailsId(film?.id!!))
+                                    },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
                         }
@@ -266,7 +276,9 @@ fun ScreenContent(
                                 modifier = Modifier
                                     .height(220.dp)
                                     .width(130.dp)
-                                    .clickable { },
+                                    .clickable {
+                                        navController.navigate(Screen.DetailsScreen.passDetailsId(film?.id!!))
+                                    },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
                         }
@@ -276,7 +288,9 @@ fun ScreenContent(
                                 modifier = Modifier
                                     .height(220.dp)
                                     .width(130.dp)
-                                    .clickable { },
+                                    .clickable {
+                                        navController.navigate(Screen.DetailsScreen.passDetailsId(film?.id!!))
+                                    },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
                         }
