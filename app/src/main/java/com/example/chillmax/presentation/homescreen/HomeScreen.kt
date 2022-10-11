@@ -4,6 +4,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.annotation.ExperimentalCoilApi
@@ -17,15 +18,9 @@ import com.example.chillmax.presentation.homescreen.components.ScreenContent
 @ExperimentalCoilApi
 @Composable
 fun HomeScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: HomeViewModel = hiltViewModel(),
 ) {
-    val homeViewModel = hiltViewModel<HomeViewModel>()
-    val tvTopRated = homeViewModel.getTVTopRated.value.collectAsLazyPagingItems()
-    val upcomingMovies = homeViewModel.upcomingMovies.value.collectAsLazyPagingItems()
-    val tvPopular = homeViewModel.tvPopular.value.collectAsLazyPagingItems()
-    val tvAiringToday = homeViewModel.tvAiringToday.value.collectAsLazyPagingItems()
-    val topRatedMovies = homeViewModel.topRatedMovies.value.collectAsLazyPagingItems()
-    val popularMovies = homeViewModel.popularMovies.value.collectAsLazyPagingItems()
     Scaffold(
         topBar = {
             HomeTopAppBar(onSearchClick = {
@@ -35,8 +30,7 @@ fun HomeScreen(
         content = {
             ScreenContent(
                 navController = navController,
-                upcomingMovies =upcomingMovies ,
-                tvAiringToday = tvAiringToday,
+                viewModel = viewModel
             )
         }
     )

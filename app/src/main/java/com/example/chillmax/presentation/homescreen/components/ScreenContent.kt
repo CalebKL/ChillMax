@@ -34,7 +34,9 @@ import com.example.chillmax.presentation.ui.theme.EXTRA_SMALL_PADDING
 import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
 import com.example.chillmax.util.Constants.IMAGE_BASE_URL
 import com.example.chillmax.R
+import com.example.chillmax.navigation.Screen
 import com.example.chillmax.presentation.ui.theme.MEDIUM_PADDING
+import com.example.chillmax.util.Constants.DETAILS_ID
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -42,14 +44,15 @@ import java.io.IOException
 @Composable
 fun ScreenContent(
     navController: NavHostController,
-    upcomingMovies: LazyPagingItems<UpcomingMovies>,
-    tvAiringToday: LazyPagingItems<TVAiringToday>,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val tvTopRated = viewModel.getTVTopRated.value.collectAsLazyPagingItems()
     val topRatedMovies = viewModel.topRatedMovies.value.collectAsLazyPagingItems()
     val tvPopular = viewModel.tvPopular.value.collectAsLazyPagingItems()
     val popularMovies = viewModel.popularMovies.value.collectAsLazyPagingItems()
+    val tvAiringToday = viewModel.tvAiringToday.value.collectAsLazyPagingItems()
+    val upcomingMovies = viewModel.upcomingMovies.value.collectAsLazyPagingItems()
+
     Log.d("ScreenContent", topRatedMovies.loadState.toString())
 
     LazyColumn(
@@ -102,7 +105,10 @@ fun ScreenContent(
                                 modifier = Modifier
                                     .height(220.dp)
                                     .width(130.dp)
-                                    .clickable { },
+                                    .clickable {
+                                        navController.navigate(Screen.DetailsScreen.passDetailsId(
+                                            film?.id!!))
+                                    },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
                         }
@@ -112,7 +118,10 @@ fun ScreenContent(
                                 modifier = Modifier
                                     .height(220.dp)
                                     .width(130.dp)
-                                    .clickable { },
+                                    .clickable {
+                                        navController.navigate(Screen.DetailsScreen.passDetailsId(
+                                            film?.id!!))
+                                    },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
                         }
@@ -182,7 +191,10 @@ fun ScreenContent(
                                 modifier = Modifier
                                     .height(220.dp)
                                     .width(130.dp)
-                                    .clickable { },
+                                    .clickable {
+                                        navController.navigate(Screen.DetailsScreen.passDetailsId(
+                                            film?.id!!))
+                                    },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
                         }
@@ -192,7 +204,10 @@ fun ScreenContent(
                                 modifier = Modifier
                                     .height(220.dp)
                                     .width(130.dp)
-                                    .clickable { },
+                                    .clickable {
+                                        navController.navigate(Screen.DetailsScreen.passDetailsId(
+                                            film?.id!!))
+                                    },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
                         }
@@ -218,7 +233,97 @@ fun ScreenContent(
                             )
                         }
                         is LoadState.Error ->{
-                            val error = topRatedMovies.loadState.refresh as LoadState.Error
+                            val error = popularMovies.loadState.refresh as LoadState.Error
+                            Text(
+                                text = when(error.error){
+                                    is HttpException ->{
+                                        "Oops! Something Went Wrong"
+                                    }
+                                    is IOException ->{
+                                        "Couldn't Reach Server! Check Your Internet Connection"
+                                    }
+                                    else->{
+                                        "Unknown Error"
+                                    }
+                                },
+                                textAlign = TextAlign.Center,
+                                color = Color.Red
+                            )
+                        }else->{}
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.height(MEDIUM_PADDING))
+        }
+        item {
+            Text(
+                text = if (viewModel.selectedOption.value == "Tv Shows") {
+                    stringResource(R.string.airing_today)
+                }else{
+                     stringResource(R.string.upcoming)
+                     },
+                color = Color.White,
+                fontSize = 18.sp
+            )
+            Spacer(modifier = Modifier.height(MEDIUM_PADDING))
+        }
+        item {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(220.dp),
+                contentAlignment = Alignment.Center
+            ){
+                LazyRow{
+                    if (viewModel.selectedOption.value =="Tv Shows"){
+                        items(tvAiringToday){ film->
+                            HeroItem(
+                                modifier = Modifier
+                                    .height(220.dp)
+                                    .width(130.dp)
+                                    .clickable {
+                                        navController.navigate(Screen.DetailsScreen.passDetailsId(
+                                            film?.id!!))
+                                    },
+                                imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
+                            )
+                        }
+                    }else{
+                        items(upcomingMovies){ film->
+                            HeroItem(
+                                modifier = Modifier
+                                    .height(220.dp)
+                                    .width(130.dp)
+                                    .clickable {
+                                        navController.navigate(Screen.DetailsScreen.passDetailsId(
+                                            film?.id!!))
+                                    },
+                                imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
+                            )
+                        }
+                    }
+                    if (upcomingMovies.loadState.append == LoadState.Loading){
+                        item {
+                            CircularProgressIndicator(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .wrapContentWidth(Alignment.CenterHorizontally)
+                            )
+                        }
+                    }
+                }
+                upcomingMovies.apply {
+                    loadState
+                    when(loadState.refresh){
+                        is LoadState.Loading ->{
+                            CircularProgressIndicator(
+                                modifier = Modifier,
+                                color = Color.Red,
+                                strokeWidth = 2.dp
+                            )
+                        }
+                        is LoadState.Error ->{
+                            val error = upcomingMovies.loadState.refresh as LoadState.Error
                             Text(
                                 text = when(error.error){
                                     is HttpException ->{

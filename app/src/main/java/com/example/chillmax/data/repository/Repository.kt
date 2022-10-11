@@ -2,9 +2,7 @@ package com.example.chillmax.data.repository
 
 import androidx.paging.PagingData
 import com.example.chillmax.domain.models.*
-import com.example.chillmax.domain.models.responses.GenresApiResponses
-import com.example.chillmax.domain.models.responses.MovieCreditsApiResponses
-import com.example.chillmax.domain.models.responses.TVCreditsApiResponse
+import com.example.chillmax.domain.models.responses.*
 import com.example.chillmax.domain.repository.DataStoreOperations
 import com.example.chillmax.domain.repository.LocalDataSource
 import com.example.chillmax.domain.repository.RemoteDataSource
@@ -17,6 +15,24 @@ class Repository @Inject constructor(
     private val remote: RemoteDataSource,
     private val dataStoreOperations: DataStoreOperations
 ){
+    suspend fun getPopularMoviesDetails(movieId:Int): Resource<PopularMoviesApiResponses>{
+        return remote.getPopularMoviesDetails(movieId = movieId)
+    }
+    suspend fun getTopRatedMoviesDetails(movieId:Int):Resource<TopRatedMoviesApiResponses>{
+        return remote.getTopRatedMoviesDetails(movieId= movieId)
+    }
+    suspend fun getUpcomingMoviesDetails(movieId:Int):Resource<UpcomingMoviesApiResponses>{
+        return remote.getUpcomingMoviesDetails(movieId = movieId)
+    }
+    suspend fun getTVAiringTodayDetails(tvId:Int):Resource<TVAiringTodayApiResponses>{
+        return remote.getTVAiringTodayDetails(tvId = tvId)
+    }
+    suspend fun getTVTopRatedDetails(tvId:Int):Resource<TVTopRatedApiResponses>{
+        return remote.getTVTopRatedDetails(tvId = tvId)
+    }
+    suspend fun getTVPopularDetails(tvId:Int): Resource<TVPopularApiResponses>{
+        return remote.getTVPopularDetails(tvId = tvId)
+    }
     suspend fun getMovieGenres(): Resource<GenresApiResponses> {
        return remote.getMovieGenres()
     }
