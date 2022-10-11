@@ -46,6 +46,10 @@ class RemoteDataSourceImp(
         ).flow
     }
 
+    override suspend fun getPopularMoviesDetails(movieId: Int): Resource<PopularMovies> {
+        TODO("Not yet implemented")
+    }
+
     override fun getTopRatedMovies(): Flow<PagingData<TopRatedMovies>> {
         return Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE),
@@ -53,6 +57,10 @@ class RemoteDataSourceImp(
                 TopRatedMoviesSource(chillMaxApi = chillMaxApi)
             }
         ).flow
+    }
+
+    override suspend fun getTopRatedMoviesDetails(movieId: Int): Resource<TopRatedMovies> {
+        TODO("Not yet implemented")
     }
 
     override fun getUpcomingMovies(): Flow<PagingData<UpcomingMovies>> {
@@ -64,6 +72,10 @@ class RemoteDataSourceImp(
         ).flow
     }
 
+    override suspend fun getUpcomingMoviesDetails(movieId: Int): Resource<UpcomingMovies> {
+        TODO("Not yet implemented")
+    }
+
     override fun getTVAiringToday(): Flow<PagingData<TVAiringToday>> {
         return Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE),
@@ -71,6 +83,10 @@ class RemoteDataSourceImp(
                 TVAiringTodaySource(chillMaxApi = chillMaxApi)
             }
         ).flow
+    }
+
+    override suspend fun getTVAiringTodayDetails(tvId: Int): Resource<TVAiringToday> {
+        TODO("Not yet implemented")
     }
 
     override fun getTVTopRated(): Flow<PagingData<TVTopRated>> {
@@ -82,6 +98,10 @@ class RemoteDataSourceImp(
         ).flow
     }
 
+    override suspend fun getTVTopRatedDetails(tvId: Int): Resource<TVTopRated> {
+        TODO("Not yet implemented")
+    }
+
     override fun getTVPopular(): Flow<PagingData<TVPopular>> {
         return Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE),
@@ -89,6 +109,10 @@ class RemoteDataSourceImp(
                 TVPopularSource(chillMaxApi = chillMaxApi)
             }
         ).flow
+    }
+
+    override suspend fun getTVPopularDetails(tvId: Int): Resource<TVPopular> {
+        TODO("Not yet implemented")
     }
 
     override suspend fun getTVCredits(tvSeriesId: Int): Resource<TVCreditsApiResponse> {

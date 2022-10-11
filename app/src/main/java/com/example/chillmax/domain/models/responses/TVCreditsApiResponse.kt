@@ -1,14 +1,16 @@
 package com.example.chillmax.domain.models.responses
 
 import com.example.chillmax.domain.models.TVCredits
-import com.example.chillmax.domain.models.TopRatedMovies
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
 
-@Serializable
+
 data class TVCreditsApiResponse(
-    val success: Boolean,
-    val message: String? = null,
-    val prevPage: Int? = null,
-    val nextPage: Int? =null,
-    val tvCredits: List<TVCredits> = emptyList()
+    @SerializedName("page")
+    val page: Int,
+    @SerializedName("results")
+    val searches: List<TVCredits>,
+    @SerializedName("total_pages")
+    val totalPages: Int,
+    @SerializedName("total_results")
+    val totalResults: Int
 )

@@ -1,7 +1,6 @@
 package com.example.chillmax.domain.models
 
 import com.google.gson.annotations.SerializedName
-import kotlinx.serialization.Serializable
 
 data class TVAiringToday(
     @SerializedName("backdrop_path")
