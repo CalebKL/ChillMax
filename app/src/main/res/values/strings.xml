@@ -10,4 +10,6 @@
     <string name="image_banner">Image Banner</string>
     <string name="genres">Genres</string>
     <string name="popular">Popular</string>
+    <string name="airing_today">Airing Today</string>
+    <string name="upcoming">Upcoming</string>
 </resources>

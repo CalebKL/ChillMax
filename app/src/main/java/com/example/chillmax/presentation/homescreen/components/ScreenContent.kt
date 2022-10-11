@@ -241,6 +241,18 @@ fun ScreenContent(
             Spacer(modifier = Modifier.height(MEDIUM_PADDING))
         }
         item {
+            Text(
+                text = if (viewModel.selectedOption.value == "Tv Shows") {
+                    stringResource(R.string.airing_today)
+                }else{
+                     stringResource(R.string.upcoming)
+                     },
+                color = Color.White,
+                fontSize = 18.sp
+            )
+            Spacer(modifier = Modifier.height(MEDIUM_PADDING))
+        }
+        item {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -258,8 +270,18 @@ fun ScreenContent(
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
                         }
+                    }else{
+                        items(upcomingMovies){ film->
+                            HeroItem(
+                                modifier = Modifier
+                                    .height(220.dp)
+                                    .width(130.dp)
+                                    .clickable { },
+                                imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
+                            )
+                        }
                     }
-                    if (tvAiringToday.loadState.append == LoadState.Loading){
+                    if (upcomingMovies.loadState.append == LoadState.Loading){
                         item {
                             CircularProgressIndicator(
                                 modifier = Modifier
@@ -269,7 +291,7 @@ fun ScreenContent(
                         }
                     }
                 }
-                tvAiringToday.apply {
+                upcomingMovies.apply {
                     loadState
                     when(loadState.refresh){
                         is LoadState.Loading ->{
@@ -280,7 +302,7 @@ fun ScreenContent(
                             )
                         }
                         is LoadState.Error ->{
-                            val error = tvAiringToday.loadState.refresh as LoadState.Error
+                            val error = upcomingMovies.loadState.refresh as LoadState.Error
                             Text(
                                 text = when(error.error){
                                     is HttpException ->{
