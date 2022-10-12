@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -13,9 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.chillmax.R
-import com.example.chillmax.domain.models.TVCredits
+import com.example.chillmax.domain.models.MovieCredits
 import com.example.chillmax.domain.models.responses.MovieCreditsApiResponses
-import com.example.chillmax.domain.models.responses.TVCreditsApiResponse
 import com.example.chillmax.presentation.ui.theme.EXTRA_SMALL_PADDING
 import com.example.chillmax.presentation.ui.theme.SHEET_PADDING
 import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
@@ -29,9 +29,10 @@ fun DetailsContent(
 }
 
 @Composable
-fun BottomSheetContent(
+fun MovieBottomSheetContent(
     filmName:String,
     releaseDay: String,
+    casts: List<MovieCreditsApiResponses>,
     overview: String,
     sheetColor: Color = MaterialTheme.colors.surface,
     contentColor: Color = Color.LightGray
@@ -39,20 +40,26 @@ fun BottomSheetContent(
     Column(
         modifier = Modifier
             .background(sheetColor)
-            .padding(SHEET_PADDING)
+            .padding(all = SHEET_PADDING)
     ){
-        Text(
-            text = filmName,
-            color = contentColor,
-            fontWeight = FontWeight.Bold,
-            fontSize = 18.sp
-        )
+      Row(
+          modifier = Modifier
+              .fillMaxWidth(),
+          verticalAlignment = Alignment.CenterVertically
+      ){
+          Text(
+              text = filmName,
+              color = contentColor,
+              fontWeight = FontWeight.Bold,
+              fontSize = 14.sp
+          )
+      }
         Spacer(modifier = Modifier.height(SMALL_PADDING))
         Text(
             text = stringResource(R.string.release_date),
             color = contentColor,
             fontWeight = FontWeight.Bold,
-            fontSize = 18.sp
+            fontSize = 14.sp
         )
         Spacer(modifier = Modifier.height(EXTRA_SMALL_PADDING))
         Text(
@@ -71,8 +78,18 @@ fun BottomSheetContent(
     }
 }
 
+@Composable
+fun BackgroundColorSpan() {
+
+}
+
 @Preview
 @Composable
 fun BottomSheetContentPreview() {
-    BottomSheetContent(filmName = "Vikings", releaseDay = "20th July 2019", overview ="kendenfkef rcrfnrfkrf" )
+    MovieBottomSheetContent(
+        filmName = "Vikings",
+        releaseDay = "20th July 2019",
+        overview = "kendenfkef rcrfnrfkrf",
+        casts = emptyList()
+    )
 }
