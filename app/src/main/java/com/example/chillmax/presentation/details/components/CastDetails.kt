@@ -16,10 +16,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import coil.annotation.ExperimentalCoilApi
 import com.example.chillmax.R
 import com.example.chillmax.domain.models.responses.MovieCreditsApiResponses
 import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
+import com.example.chillmax.util.Constants.IMAGE_BASE_URL
 
+@ExperimentalCoilApi
 @Composable
 fun CastDetails(
     casts: MovieCreditsApiResponses?
@@ -65,14 +69,13 @@ fun CastDetails(
             horizontalArrangement = Arrangement.SpaceBetween
         ){
             items(casts?.searches!!){ cast->
-
+                CastItem(
+                    size = 100.dp,
+                    imageUrl = "${IMAGE_BASE_URL}/${cast.profile_path}",
+                    castName = cast.name
+                )
             }
         }
     }
 }
 
-@Preview
-@Composable
-fun CastDetailsPreview() {
-    CastDetails()
-}

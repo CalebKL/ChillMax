@@ -75,6 +75,7 @@ fun MovieBottomSheetContent(
             fontWeight = FontWeight.Medium,
             fontSize = 10.sp
         )
+
     }
 }
 
