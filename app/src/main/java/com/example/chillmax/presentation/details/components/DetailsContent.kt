@@ -36,12 +36,13 @@ import com.example.chillmax.domain.models.responses.TopRatedMoviesApiResponses
 import com.example.chillmax.presentation.details.DetailsViewModel
 import com.example.chillmax.presentation.ui.theme.*
 import com.example.chillmax.util.Resource
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @ExperimentalMaterialApi
 @ExperimentalCoilApi
 @Composable
 fun DetailsContent(
-    navController:NavHostController,
+    navigator: DestinationsNavigator,
     selectedHero: TopRatedMoviesDetails?,
     ) {
     val scaffoldState = rememberBottomSheetScaffoldState(
@@ -75,7 +76,7 @@ fun DetailsContent(
                 MovieBackgroundColorSpan(
                     posterUrl = hero.poster_path,
                     onCloseClick ={
-                        navController.popBackStack()
+
                     }
                 )
             }

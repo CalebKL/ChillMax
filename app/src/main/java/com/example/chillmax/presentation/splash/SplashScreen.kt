@@ -7,14 +7,23 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.chillmax.navigation.Screen
+import coil.annotation.ExperimentalCoilApi
+import com.example.chillmax.presentation.destinations.HomeScreenDestination
+import com.example.chillmax.presentation.destinations.WelcomeScreenDestination
 import com.example.chillmax.presentation.splash.components.Splash
 import com.example.chillmax.util.Constants.SPLASH_SCREEN_DELAY
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.delay
 
+
+@Destination
 @Composable
+@ExperimentalCoilApi
+@ExperimentalPagerApi
 fun SplashScreen(
-    navController: NavHostController
+    navigator:DestinationsNavigator
 ) {
     val splashViewModel = hiltViewModel<SplashViewModel>()
     val onBoardingCompleted by splashViewModel.onBoardingCompleted.collectAsState()
@@ -35,11 +44,11 @@ fun SplashScreen(
     LaunchedEffect(key1 = true){
         startAnimation = true
         delay(SPLASH_SCREEN_DELAY)
-        navController.popBackStack()
+        navigator.popBackStack()
         if (onBoardingCompleted){
-            navController.navigate(Screen.HomeScreen.route)
+            navigator.navigate(HomeScreenDestination)
         }else{
-            navController.navigate(Screen.WelcomeScreen.route)
+            navigator.navigate(WelcomeScreenDestination)
         }
     }
     Splash(offset = offSet, alpha = alphaState)

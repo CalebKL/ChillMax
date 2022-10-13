@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,29 +22,27 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
 import androidx.paging.LoadState
-import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import com.example.chillmax.domain.models.*
 import com.example.chillmax.presentation.homescreen.HomeViewModel
 import com.example.chillmax.presentation.ui.theme.EXTRA_SMALL_PADDING
 import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
 import com.example.chillmax.util.Constants.IMAGE_BASE_URL
 import com.example.chillmax.R
-import com.example.chillmax.navigation.Screen
+import com.example.chillmax.presentation.destinations.DetailsScreenDestination
 import com.example.chillmax.presentation.ui.theme.MEDIUM_PADDING
-import com.example.chillmax.util.Constants.DETAILS_ID
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import retrofit2.HttpException
 import java.io.IOException
 
 @ExperimentalCoilApi
 @Composable
+@ExperimentalMaterialApi
 fun ScreenContent(
-    navController: NavHostController,
+    navigator: DestinationsNavigator,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val tvTopRated = viewModel.getTVTopRated.value.collectAsLazyPagingItems()
@@ -106,7 +105,7 @@ fun ScreenContent(
                                     .height(220.dp)
                                     .width(130.dp)
                                     .clickable {
-                                        navController.navigate(Screen.DetailsScreen.passDetailsId(film!!.id))
+                                               navigator.navigate(DetailsScreenDestination)
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
@@ -118,8 +117,7 @@ fun ScreenContent(
                                     .height(220.dp)
                                     .width(130.dp)
                                     .clickable {
-                                        navController.navigate(Screen.DetailsScreen.passDetailsId(
-                                            film!!.id))
+
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
@@ -191,8 +189,7 @@ fun ScreenContent(
                                     .height(220.dp)
                                     .width(130.dp)
                                     .clickable {
-                                        navController.navigate(Screen.DetailsScreen.passDetailsId(
-                                            film!!.id))
+
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
@@ -204,8 +201,7 @@ fun ScreenContent(
                                     .height(220.dp)
                                     .width(130.dp)
                                     .clickable {
-                                        navController.navigate(Screen.DetailsScreen.passDetailsId(
-                                            film?.id!!))
+
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
@@ -281,8 +277,7 @@ fun ScreenContent(
                                     .height(220.dp)
                                     .width(130.dp)
                                     .clickable {
-                                        navController.navigate(Screen.DetailsScreen.passDetailsId(
-                                            film?.id!!))
+
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
@@ -294,8 +289,7 @@ fun ScreenContent(
                                     .height(220.dp)
                                     .width(130.dp)
                                     .clickable {
-                                        navController.navigate(Screen.DetailsScreen.passDetailsId(
-                                            film?.id!!))
+
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )

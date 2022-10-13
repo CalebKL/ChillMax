@@ -1,33 +1,28 @@
 package com.example.chillmax.presentation.welcome
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
-import androidx.paging.ExperimentalPagingApi
-import com.example.chillmax.R
+import coil.annotation.ExperimentalCoilApi
 import com.example.chillmax.domain.models.OnBoarding
-import com.example.chillmax.navigation.Screen
-import com.example.chillmax.presentation.ui.theme.Purple700
-import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
-import com.example.chillmax.presentation.welcome.components.FinishButton
+import com.example.chillmax.presentation.destinations.HomeScreenDestination
+import com.example.chillmax.presentation.destinations.SplashScreenDestination
 import com.example.chillmax.presentation.welcome.components.PagerScreen
-import com.google.accompanist.pager.*
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.rememberPagerState
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
+@Destination(start = true)
 @Composable
+@ExperimentalCoilApi
 @ExperimentalPagerApi
 fun WelcomeScreen(
-    navController: NavHostController,
+    navigator: DestinationsNavigator,
     welcomeViewModel: WelcomeViewModel = hiltViewModel(),
 )
 {
@@ -51,8 +46,8 @@ fun WelcomeScreen(
             PagerScreen(
                 onBoarding = pages[position],
                 onFinishClick = {
-                    navController.popBackStack()
-                    navController.navigate(Screen.HomeScreen.route)
+                    navigator.popBackStack()
+                    navigator.navigate(HomeScreenDestination)
                     welcomeViewModel.saveOnBoardingState(completed = true)
                 },
                 pagerState = pagerState
