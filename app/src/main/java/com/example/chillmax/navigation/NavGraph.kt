@@ -28,6 +28,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 @Composable
 fun SetupNavigation(
     navController: NavHostController,
+    topRatedMoviesDetails: TopRatedMoviesDetails
 ) {
     NavHost(
         navController = navController,

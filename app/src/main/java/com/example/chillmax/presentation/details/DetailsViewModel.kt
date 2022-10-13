@@ -18,25 +18,33 @@ import javax.inject.Inject
 import com.example.chillmax.util.Constants.DETAILS_ID
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.io.IOException
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
     private val useCases: UseCases,
     savedStateHandle: SavedStateHandle
 ): ViewModel() {
+    private val _movieDetails = MutableStateFlow<DetailsState>(DetailsState.Loading)
+    val movieDetails: StateFlow<DetailsState> get() = _movieDetails
 
-    private val _selectedHero: MutableStateFlow<TopRatedMoviesDetails?> = MutableStateFlow(null)
-    val selectedHero: StateFlow<TopRatedMoviesDetails?> = _selectedHero
-
-    init {
-       viewModelScope.launch(Dispatchers.IO){
-           val movieId = savedStateHandle.get<Int>(DETAILS_ID)
-           _selectedHero.value = movieId?.let {
-               useCases.getTopRatedMoviesDetailsUseCase(movieId = movieId)
-           }
-           _selectedHero.value?.id?.let { Log.d("Hero", it.toString()) }
-       }
+    fun getMovieDetails(movieId: Int){
+        viewModelScope.launch {
+            try {
+                useCases.getTopRatedMoviesDetailsUseCase(movieId).also {
+                    _movieDetails.value = DetailsState.Success(it)
+                }
+            } catch (e: HttpException) {
+                _movieDetails.value =
+                    DetailsState.Error(e.localizedMessage ?: "Problem Connecting to Internet")
+            } catch (e: IOException) {
+                _movieDetails.value =
+                    DetailsState.Error(e.localizedMessage ?: "Unknown Error")
+            }
+        }
     }
+
     private suspend fun selectedTopRatedMovies(movieId: Int){
         useCases.getTopRatedMoviesDetailsUseCase(movieId =movieId)
     }

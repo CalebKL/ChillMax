@@ -1,10 +1,7 @@
 package com.example.chillmax.presentation.details
 
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.produceState
+import androidx.compose.runtime.*
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
@@ -26,8 +23,12 @@ import kotlinx.coroutines.flow.emptyFlow
 fun DetailsScreen(
     navController: NavHostController,
     viewModel: DetailsViewModel = hiltViewModel(),
-
+    currentFilm: TopRatedMoviesDetails
 ) {
-    val selectedHero by viewModel.selectedHero.collectAsState()
-    DetailsContent(navController = navController, selectedHero = selectedHero)
+    val film by remember{ mutableStateOf(currentFilm)}
+    LaunchedEffect(key1 = film){
+        viewModel.getMovieDetails(film.id)
+    }
+   DetailsContent(navController = navController, selectedHero = film)
+
 }
