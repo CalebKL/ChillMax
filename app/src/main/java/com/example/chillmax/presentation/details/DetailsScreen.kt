@@ -26,11 +26,7 @@ import kotlinx.coroutines.flow.emptyFlow
 fun DetailsScreen(
     navigator: DestinationsNavigator,
     viewModel: DetailsViewModel = hiltViewModel(),
-    currentFilm: TopRatedMoviesDetails
 ) {
-    val film by remember{ mutableStateOf(currentFilm)}
-    LaunchedEffect(key1 = film){
-        viewModel.getMovieDetails(film.id)
-    }
+
 
 }

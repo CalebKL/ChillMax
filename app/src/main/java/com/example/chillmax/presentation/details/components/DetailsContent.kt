@@ -37,13 +37,19 @@ import com.example.chillmax.presentation.details.DetailsViewModel
 import com.example.chillmax.presentation.ui.theme.*
 import com.example.chillmax.util.Resource
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import java.lang.reflect.Array.get
 
 @ExperimentalMaterialApi
 @ExperimentalCoilApi
 @Composable
 fun DetailsContent(
     navigator: DestinationsNavigator,
-    selectedHero: TopRatedMoviesDetails?,
+    filmName: String,
+    posterUrl: String,
+    releaseDate: String,
+    overview: String,
+    casts: Resource<MovieCreditsApiResponses>
+
     ) {
     val scaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Expanded)
@@ -65,21 +71,20 @@ fun DetailsContent(
         ),
         sheetPeekHeight = SHEET_PEEK_HEIGHT,
         sheetContent = {
-                       selectedHero?.let {
-                           MovieBottomSheetContent(
-                               hero = it
-                           )
-                       }
+                    MovieBottomSheetContent(
+                        releaseDate = releaseDate,
+                        casts =casts,
+                        overview =overview,
+                        filmName = filmName,
+                    )
         },
         content = {
-            selectedHero?.let { hero->
-                MovieBackgroundColorSpan(
-                    posterUrl = hero.poster_path,
-                    onCloseClick ={
-
-                    }
-                )
-            }
+            MovieBackgroundColorSpan(
+                posterUrl = posterUrl,
+                onCloseClick = {
+                    navigator.popBackStack()
+                }
+            )
         }
     )
 }
@@ -87,27 +92,30 @@ fun DetailsContent(
 @ExperimentalCoilApi
 @Composable
 fun MovieBottomSheetContent(
-    hero: TopRatedMoviesDetails,
+    releaseDate: String,
+    casts: Resource<MovieCreditsApiResponses>,
+    overview: String,
+    filmName: String,
     sheetColor: Color = MaterialTheme.colors.surface,
     contentColor: Color = Color.LightGray
-){
+) {
     Column(
         modifier = Modifier
             .background(sheetColor)
             .padding(all = SHEET_PADDING)
-    ){
-      Row(
-          modifier = Modifier
-              .fillMaxWidth(),
-          verticalAlignment = Alignment.CenterVertically
-      ){
-          Text(
-              text = hero.title,
-              color = contentColor,
-              fontWeight = FontWeight.Bold,
-              fontSize = 14.sp
-          )
-      }
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = filmName,
+                color = contentColor,
+                fontWeight = FontWeight.Bold,
+                fontSize = 14.sp
+            )
+        }
         Spacer(modifier = Modifier.height(SMALL_PADDING))
         Text(
             text = stringResource(R.string.release_date),
@@ -117,69 +125,68 @@ fun MovieBottomSheetContent(
         )
         Spacer(modifier = Modifier.height(EXTRA_SMALL_PADDING))
         Text(
-            text = hero.release_date,
+            text = releaseDate,
             color = contentColor,
             fontWeight = FontWeight.Medium,
             fontSize = 10.sp
         )
         Spacer(modifier = Modifier.height(EXTRA_SMALL_PADDING))
         Text(
-            text = hero.overview,
+            text = overview,
             color = contentColor,
             fontWeight = FontWeight.Medium,
             fontSize = 10.sp
         )
         Spacer(modifier = Modifier.height(EXTRA_SMALL_PADDING))
-//        if (casts is Resource.Success){
-//            CastDetails(casts = casts.data!!)
+        if (casts is Resource.Success) {
+            CastDetails(casts = casts.data!!)
 
+        }
     }
 }
-
 @ExperimentalCoilApi
 @Composable
 fun MovieBackgroundColorSpan(
     posterUrl: String,
     imageFraction: Float = 1f,
-    backgroundColor:Color = MaterialTheme.colors.surface,
-    onCloseClick:()->Unit
+    backgroundColor: Color = MaterialTheme.colors.surface,
+    onCloseClick: () -> Unit
+){ Box(
+    modifier = Modifier
+        .fillMaxSize()
+        .background(backgroundColor)
+
 ) {
-    Box(
+    Image(
         modifier = Modifier
-            .fillMaxSize()
-            .background(backgroundColor)
-    ){
-        Image(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(fraction = imageFraction + 0.4f)
-                .align(Alignment.TopStart),
-            painter = rememberImagePainter(
-                data = posterUrl,
-                builder = {
-                    placeholder(R.drawable.ic_placeholder)
-                    crossfade(true)
-                }
-            ),
-            contentScale = ContentScale.Crop,
-            contentDescription = stringResource(R.string.background_image)
-        )
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End
-        ){
-            IconButton(
-                onClick = { onCloseClick()}
-            ) {
-                Icon(
-                    modifier= Modifier.size(INFO_ICON_SIZE),
-                    imageVector = Icons.Default.Close,
-                    contentDescription = stringResource(R.string.close_button),
-                    tint = Color.White
-                )
+            .fillMaxWidth()
+            .fillMaxHeight(fraction = imageFraction + 0.4f)
+            .align(Alignment.TopStart),
+        painter = rememberImagePainter(
+            data = posterUrl,
+            builder = {
+                placeholder(R.drawable.ic_placeholder)
+                crossfade(true)
             }
+        ),
+        contentScale = ContentScale.Crop,
+        contentDescription = stringResource(R.string.background_image)
+    )
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.End
+    ) {
+        IconButton(
+            onClick = { onCloseClick() })
+        { Icon(
+            modifier = Modifier.size(INFO_ICON_SIZE),
+            imageVector = Icons.Default.Close,
+            contentDescription = stringResource(R.string.close_button),
+            tint = Color.White
+        )
         }
     }
+}
 }
 
 @ExperimentalMaterialApi

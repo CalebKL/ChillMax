@@ -24,26 +24,7 @@ import java.io.IOException
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
     private val useCases: UseCases,
-    savedStateHandle: SavedStateHandle
 ): ViewModel() {
-    private val _movieDetails = MutableStateFlow<DetailsState>(DetailsState.Loading)
-    val movieDetails: StateFlow<DetailsState> get() = _movieDetails
-
-    fun getMovieDetails(movieId: Int){
-        viewModelScope.launch {
-            try {
-                useCases.getTopRatedMoviesDetailsUseCase(movieId).also {
-                    _movieDetails.value = DetailsState.Success(it)
-                }
-            } catch (e: HttpException) {
-                _movieDetails.value =
-                    DetailsState.Error(e.localizedMessage ?: "Problem Connecting to Internet")
-            } catch (e: IOException) {
-                _movieDetails.value =
-                    DetailsState.Error(e.localizedMessage ?: "Unknown Error")
-            }
-        }
-    }
 
     private suspend fun selectedTopRatedMovies(movieId: Int){
         useCases.getTopRatedMoviesDetailsUseCase(movieId =movieId)
