@@ -1,5 +1,7 @@
 package com.example.chillmax.data.remote
 
+import com.example.chillmax.domain.models.TopRatedMovies
+import com.example.chillmax.domain.models.TopRatedMoviesDetails
 import com.example.chillmax.domain.models.responses.*
 import com.example.chillmax.util.Constants.API_KEY
 import com.example.chillmax.util.Constants.STARTING_PAGE
@@ -34,6 +36,14 @@ interface ChillMaxApi {
         @Query("api_key") api_key: String = API_KEY,
         @Query("language") language: String = "en-US",
     ): TopRatedMoviesApiResponses
+
+    @GET("movie/top_rated")
+    suspend fun getTopRatedMoviesDetails(
+        @Query("page") page :Int = STARTING_PAGE,
+        @Query("api_key") api_key: String = API_KEY,
+        @Query("language") language: String = "en-US",
+    ): TopRatedMoviesDetails
+
 
     @GET("movie/upcoming")
     suspend fun getUpcomingMovies(

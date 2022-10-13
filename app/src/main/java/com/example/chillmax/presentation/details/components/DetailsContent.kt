@@ -1,16 +1,21 @@
 package com.example.chillmax.presentation.details.components
 
 import android.util.Log
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.modifier.modifierLocalOf
@@ -18,32 +23,70 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.chillmax.R
 import com.example.chillmax.domain.models.MovieCredits
+import com.example.chillmax.domain.models.TopRatedMovies
+import com.example.chillmax.domain.models.TopRatedMoviesDetails
 import com.example.chillmax.domain.models.responses.MovieCreditsApiResponses
-import com.example.chillmax.presentation.ui.theme.EXTRA_SMALL_PADDING
-import com.example.chillmax.presentation.ui.theme.INFO_ICON_SIZE
-import com.example.chillmax.presentation.ui.theme.SHEET_PADDING
-import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
+import com.example.chillmax.domain.models.responses.TopRatedMoviesApiResponses
+import com.example.chillmax.presentation.details.DetailsViewModel
+import com.example.chillmax.presentation.ui.theme.*
 import com.example.chillmax.util.Resource
 
+@ExperimentalMaterialApi
+@ExperimentalCoilApi
 @Composable
 fun DetailsContent(
-    navController:NavHostController
-) {
+    navController:NavHostController,
+    selectedHero: TopRatedMoviesDetails?,
+    ) {
+    val scaffoldState = rememberBottomSheetScaffoldState(
+        bottomSheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Expanded)
+    )
 
+    val currentSheetFraction = scaffoldState.currentSheetFraction
+
+    val radiusAnim by animateDpAsState(
+        targetValue =
+        if (currentSheetFraction ==1f)
+            EXTRA_LARGE_PADDING
+        else RADIUS_DP
+    )
+    BottomSheetScaffold(
+        scaffoldState = scaffoldState,
+        sheetShape = RoundedCornerShape(
+            topStart = radiusAnim,
+            topEnd = radiusAnim
+        ),
+        sheetPeekHeight = SHEET_PEEK_HEIGHT,
+        sheetContent = {
+                       selectedHero?.let {
+                           MovieBottomSheetContent(
+                               hero = it
+                           )
+                       }
+        },
+        content = {
+            selectedHero?.let { hero->
+                MovieBackgroundColorSpan(
+                    posterUrl = hero.poster_path,
+                    onCloseClick ={
+                        navController.popBackStack()
+                    }
+                )
+            }
+        }
+    )
 }
 
 @ExperimentalCoilApi
 @Composable
 fun MovieBottomSheetContent(
-    filmName:String,
-    releaseDay: String,
-    casts: Resource<MovieCreditsApiResponses>,
-    overview: String,
+    hero: TopRatedMoviesDetails,
     sheetColor: Color = MaterialTheme.colors.surface,
     contentColor: Color = Color.LightGray
 ){
@@ -58,7 +101,7 @@ fun MovieBottomSheetContent(
           verticalAlignment = Alignment.CenterVertically
       ){
           Text(
-              text = filmName,
+              text = hero.title,
               color = contentColor,
               fontWeight = FontWeight.Bold,
               fontSize = 14.sp
@@ -73,28 +116,28 @@ fun MovieBottomSheetContent(
         )
         Spacer(modifier = Modifier.height(EXTRA_SMALL_PADDING))
         Text(
-            text = releaseDay,
+            text = hero.release_date,
             color = contentColor,
             fontWeight = FontWeight.Medium,
             fontSize = 10.sp
         )
         Spacer(modifier = Modifier.height(EXTRA_SMALL_PADDING))
         Text(
-            text = overview,
+            text = hero.overview,
             color = contentColor,
             fontWeight = FontWeight.Medium,
             fontSize = 10.sp
         )
         Spacer(modifier = Modifier.height(EXTRA_SMALL_PADDING))
-        if (casts is Resource.Success){
-            CastDetails(casts = casts.data!!)
-        }
+//        if (casts is Resource.Success){
+//            CastDetails(casts = casts.data!!)
+
     }
 }
 
 @ExperimentalCoilApi
 @Composable
-fun BackgroundColorSpan(
+fun MovieBackgroundColorSpan(
     posterUrl: String,
     imageFraction: Float = 1f,
     backgroundColor:Color = MaterialTheme.colors.surface,

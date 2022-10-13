@@ -12,7 +12,7 @@ interface RemoteDataSource {
     fun getPopularMovies(): Flow<PagingData<PopularMovies>>
     suspend fun getPopularMoviesDetails(movieId:Int):Resource<PopularMoviesApiResponses>
     fun getTopRatedMovies(): Flow<PagingData<TopRatedMovies>>
-    suspend fun getTopRatedMoviesDetails(movieId:Int):Resource<TopRatedMoviesApiResponses>
+    suspend fun getTopRatedMoviesDetails(movieId:Int):TopRatedMoviesDetails
     fun getUpcomingMovies(): Flow<PagingData<UpcomingMovies>>
     suspend fun getUpcomingMoviesDetails(movieId:Int):Resource<UpcomingMoviesApiResponses>
     fun getTVAiringToday(): Flow<PagingData<TVAiringToday>>

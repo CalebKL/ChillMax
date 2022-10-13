@@ -1,19 +1,45 @@
 package com.example.chillmax.presentation.details
 
+import android.util.Log
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.example.chillmax.domain.models.MovieCredits
-import com.example.chillmax.domain.models.TVCredits
-import com.example.chillmax.domain.models.TVTopRated
+import androidx.lifecycle.viewModelScope
+import com.example.chillmax.domain.models.*
 import com.example.chillmax.domain.models.responses.*
 import com.example.chillmax.domain.use_cases.UseCases
 import com.example.chillmax.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
+import com.example.chillmax.util.Constants.DETAILS_ID
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    private val useCases: UseCases
+    private val useCases: UseCases,
+    savedStateHandle: SavedStateHandle
 ): ViewModel() {
+
+    private val _selectedHero: MutableStateFlow<TopRatedMoviesDetails?> = MutableStateFlow(null)
+    val selectedHero: StateFlow<TopRatedMoviesDetails?> = _selectedHero
+
+    init {
+       viewModelScope.launch(Dispatchers.IO){
+           val movieId = savedStateHandle.get<Int>(DETAILS_ID)
+           _selectedHero.value = movieId?.let {
+               useCases.getTopRatedMoviesDetailsUseCase(movieId = movieId)
+           }
+           _selectedHero.value?.id?.let { Log.d("Hero", it.toString()) }
+       }
+    }
+    private suspend fun selectedTopRatedMovies(movieId: Int){
+        useCases.getTopRatedMoviesDetailsUseCase(movieId =movieId)
+    }
 
     suspend fun getTVTopRatedDetails(tvId:Int): Resource<TVTopRatedApiResponses>{
         return useCases.getTVTopRatedDetailsUseCase(tvId = tvId)
@@ -31,7 +57,7 @@ class DetailsViewModel @Inject constructor(
         return useCases.getTVAiringDetailsUseCase(tvId = tvId)
     }
 
-    suspend fun getTopRatedMoviesDetails(movieId:Int):Resource<TopRatedMoviesApiResponses>{
+    suspend fun getTopRatedMoviesDetails(movieId:Int):TopRatedMoviesDetails{
         return useCases.getTopRatedMoviesDetailsUseCase(movieId = movieId)
     }
 

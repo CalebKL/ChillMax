@@ -50,7 +50,7 @@ object RepositoryModule {
             getUpcomingMoviesDetailsUseCase = GetUpcomingMoviesDetailsUseCase(repository),
             getTVPopularDetailsUseCase = GetTVPopularDetailsUseCase(repository),
             getTopRatedMoviesDetailsUseCase = GetTopRatedMoviesDetailsUseCase(repository),
-            getTVTopRatedDetailsUseCase = GetTVTopRatedDetailsUseCase(repository)
+            getTVTopRatedDetailsUseCase = GetTVTopRatedDetailsUseCase(repository),
         )
     }
 }

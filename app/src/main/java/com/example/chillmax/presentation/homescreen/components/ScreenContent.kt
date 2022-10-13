@@ -106,8 +106,7 @@ fun ScreenContent(
                                     .height(220.dp)
                                     .width(130.dp)
                                     .clickable {
-                                        navController.navigate(Screen.DetailsScreen.passDetailsId(
-                                            film?.id!!))
+                                        navController.navigate(Screen.DetailsScreen.passDetailsId(film!!.id))
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
@@ -120,7 +119,7 @@ fun ScreenContent(
                                     .width(130.dp)
                                     .clickable {
                                         navController.navigate(Screen.DetailsScreen.passDetailsId(
-                                            film?.id!!))
+                                            film!!.id))
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
@@ -193,7 +192,7 @@ fun ScreenContent(
                                     .width(130.dp)
                                     .clickable {
                                         navController.navigate(Screen.DetailsScreen.passDetailsId(
-                                            film?.id!!))
+                                            film!!.id))
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
