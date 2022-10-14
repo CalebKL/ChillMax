@@ -1,9 +1,6 @@
 package com.example.chillmax.domain.models
 
-import androidx.room.Entity
-import com.example.chillmax.util.Constants.MY_LIST_DATABASE_TABLE
 import com.google.gson.annotations.SerializedName
-import kotlinx.serialization.Serializable
 
 
 data class TopRatedMoviesDetails(

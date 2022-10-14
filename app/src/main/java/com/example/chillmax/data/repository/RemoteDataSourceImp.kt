@@ -60,13 +60,13 @@ class RemoteDataSourceImp(
         ).flow
     }
 
-    override suspend fun getTopRatedMoviesDetails(movieId: Int):TopRatedMoviesDetails {
+    override suspend fun getTopRatedMoviesDetails(movieId: Int):Resource<TopRatedMoviesDetails> {
         val response = try {
             chillMaxApi.getTopRatedMoviesDetails(movieId)
         }catch (e: Exception){
-            return error(e)
+            return Resource.Error("Unexpected Error")
         }
-        return response
+        return Resource.Success(response)
     }
 
     override fun getUpcomingMovies(): Flow<PagingData<UpcomingMovies>> {

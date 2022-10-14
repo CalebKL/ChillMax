@@ -3,11 +3,13 @@ package com.example.chillmax.presentation.splash
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.*
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
+import com.example.chillmax.presentation.destinations.DetailsScreenDestination
 import com.example.chillmax.presentation.destinations.HomeScreenDestination
 import com.example.chillmax.presentation.destinations.WelcomeScreenDestination
 import com.example.chillmax.presentation.splash.components.Splash
@@ -22,6 +24,7 @@ import kotlinx.coroutines.delay
 @Composable
 @ExperimentalCoilApi
 @ExperimentalPagerApi
+@ExperimentalMaterialApi
 fun SplashScreen(
     navigator:DestinationsNavigator
 ) {

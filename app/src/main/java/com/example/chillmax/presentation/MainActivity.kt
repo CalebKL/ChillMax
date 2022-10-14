@@ -8,6 +8,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import coil.annotation.ExperimentalCoilApi
 import com.example.chillmax.presentation.ui.theme.ChillMaxTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.ramcosta.composedestinations.DestinationsNavHost
 import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalMaterialApi
@@ -19,7 +20,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ChillMaxTheme {
-
+                DestinationsNavHost(navGraph = NavGraphs.root)
             }
         }
     }

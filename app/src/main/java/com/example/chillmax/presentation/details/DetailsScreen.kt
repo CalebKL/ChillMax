@@ -1,32 +1,47 @@
 package com.example.chillmax.presentation.details
 
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.*
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
-import com.example.chillmax.domain.models.TopRatedMovies
 import com.example.chillmax.domain.models.TopRatedMoviesDetails
 import com.example.chillmax.domain.models.responses.MovieCreditsApiResponses
-import com.example.chillmax.domain.models.responses.TopRatedMoviesApiResponses
 import com.example.chillmax.presentation.details.components.DetailsContent
 import com.example.chillmax.util.Constants.IMAGE_BASE_URL
 import com.example.chillmax.util.Resource
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.emptyFlow
+
 
 @Destination
 @ExperimentalMaterialApi
 @ExperimentalCoilApi
 @Composable
 fun DetailsScreen(
-    navigator: DestinationsNavigator,
+    navigator:DestinationsNavigator,
+    movieId:Int,
     viewModel: DetailsViewModel = hiltViewModel(),
 ) {
+    val scrollState = rememberLazyListState()
+    val details = produceState<Resource<TopRatedMoviesDetails>>(initialValue = Resource.Loading()) {
+        value = viewModel.getTopRatedMoviesDetails(movieId)
+    }.value
 
+    val casts = produceState<Resource<MovieCreditsApiResponses>>(initialValue = Resource.Loading()) {
+        value = viewModel.getMovieCredits(movieId)
+    }.value
 
+    if (details is Resource.Success){
+        DetailsContent(
+            navigator = navigator,
+            filmName =  details.data?.title.toString(),
+            posterUrl = "${IMAGE_BASE_URL}/${details.data?.poster_path}",
+            releaseDate = details.data?.release_date.toString(),
+            overview = details.data?.overview.toString(),
+        )
+    } else{
+        CircularProgressIndicator()
+    }
 }

@@ -2,6 +2,7 @@ package com.example.chillmax.presentation.welcome
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,13 +21,13 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @Destination(start = true)
 @Composable
 @ExperimentalCoilApi
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 fun WelcomeScreen(
     navigator: DestinationsNavigator,
     welcomeViewModel: WelcomeViewModel = hiltViewModel(),
 )
 {
-
     val pages = listOf(
         OnBoarding.First,
         OnBoarding.Second,

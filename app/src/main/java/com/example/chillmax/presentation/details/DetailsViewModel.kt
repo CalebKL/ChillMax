@@ -1,33 +1,21 @@
 package com.example.chillmax.presentation.details
 
 import android.util.Log
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.chillmax.domain.models.*
+import com.example.chillmax.domain.models.TopRatedMoviesDetails
 import com.example.chillmax.domain.models.responses.*
 import com.example.chillmax.domain.use_cases.UseCases
 import com.example.chillmax.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
-import com.example.chillmax.util.Constants.DETAILS_ID
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import retrofit2.HttpException
-import java.io.IOException
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
     private val useCases: UseCases,
 ): ViewModel() {
 
-    private suspend fun selectedTopRatedMovies(movieId: Int){
-        useCases.getTopRatedMoviesDetailsUseCase(movieId =movieId)
+    private suspend fun selectedTopRatedMovies(movieId: Int): Resource<TopRatedMoviesDetails>{
+        return useCases.getTopRatedMoviesDetailsUseCase(movieId =movieId)
     }
 
     suspend fun getTVTopRatedDetails(tvId:Int): Resource<TVTopRatedApiResponses>{
@@ -46,8 +34,11 @@ class DetailsViewModel @Inject constructor(
         return useCases.getTVAiringDetailsUseCase(tvId = tvId)
     }
 
-    suspend fun getTopRatedMoviesDetails(movieId:Int):TopRatedMoviesDetails{
-        return useCases.getTopRatedMoviesDetailsUseCase(movieId = movieId)
+    suspend fun getTopRatedMoviesDetails(movieId:Int):Resource<TopRatedMoviesDetails>{
+        val result = useCases.getTopRatedMoviesDetailsUseCase(movieId)
+        Log.d("getTopRatedMoviesDetails", result.data.toString())
+        return result
+
     }
 
     suspend fun getTVPopularDetails(tvId:Int): Resource<TVPopularApiResponses>{

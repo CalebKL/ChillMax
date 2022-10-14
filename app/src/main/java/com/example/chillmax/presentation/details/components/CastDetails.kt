@@ -1,6 +1,7 @@
 package com.example.chillmax.presentation.details.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
@@ -25,7 +26,8 @@ import com.example.chillmax.util.Constants.IMAGE_BASE_URL
 @ExperimentalCoilApi
 @Composable
 fun CastDetails(
-    casts: MovieCreditsApiResponses?
+    casts: MovieCreditsApiResponses?,
+    swipeState: LazyListState
 ){
     Column(
         modifier = Modifier
@@ -64,6 +66,7 @@ fun CastDetails(
         }
         Spacer(modifier = Modifier.height(SMALL_PADDING))
         LazyRow(
+            state= swipeState,
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ){

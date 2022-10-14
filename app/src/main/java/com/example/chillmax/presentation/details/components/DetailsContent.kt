@@ -3,8 +3,12 @@ package com.example.chillmax.presentation.details.components
 import android.util.Log
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -48,7 +52,6 @@ fun DetailsContent(
     posterUrl: String,
     releaseDate: String,
     overview: String,
-    casts: Resource<MovieCreditsApiResponses>
 
     ) {
     val scaffoldState = rememberBottomSheetScaffoldState(
@@ -69,11 +72,9 @@ fun DetailsContent(
             topStart = radiusAnim,
             topEnd = radiusAnim
         ),
-        sheetPeekHeight = SHEET_PEEK_HEIGHT,
         sheetContent = {
                     MovieBottomSheetContent(
                         releaseDate = releaseDate,
-                        casts =casts,
                         overview =overview,
                         filmName = filmName,
                     )
@@ -93,12 +94,12 @@ fun DetailsContent(
 @Composable
 fun MovieBottomSheetContent(
     releaseDate: String,
-    casts: Resource<MovieCreditsApiResponses>,
     overview: String,
     filmName: String,
     sheetColor: Color = MaterialTheme.colors.surface,
     contentColor: Color = Color.LightGray
 ) {
+    val state = rememberLazyListState()
     Column(
         modifier = Modifier
             .background(sheetColor)
@@ -138,10 +139,7 @@ fun MovieBottomSheetContent(
             fontSize = 10.sp
         )
         Spacer(modifier = Modifier.height(EXTRA_SMALL_PADDING))
-        if (casts is Resource.Success) {
-            CastDetails(casts = casts.data!!)
 
-        }
     }
 }
 @ExperimentalCoilApi

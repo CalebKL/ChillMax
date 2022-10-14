@@ -105,7 +105,6 @@ fun ScreenContent(
                                     .height(220.dp)
                                     .width(130.dp)
                                     .clickable {
-                                               navigator.navigate(DetailsScreenDestination)
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
@@ -117,7 +116,7 @@ fun ScreenContent(
                                     .height(220.dp)
                                     .width(130.dp)
                                     .clickable {
-
+                                               navigator.navigate(DetailsScreenDestination(film?.id!!))
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )

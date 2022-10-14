@@ -9,7 +9,7 @@ import com.example.chillmax.util.Resource
 class GetTopRatedMoviesDetailsUseCase(
     private val repository: Repository
 ) {
-    suspend operator fun invoke(movieId:Int): TopRatedMoviesDetails{
+    suspend operator fun invoke(movieId:Int): Resource<TopRatedMoviesDetails>{
         return repository.getTopRatedMoviesDetails(movieId = movieId)
     }
 }

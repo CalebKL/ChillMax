@@ -18,7 +18,7 @@ class Repository @Inject constructor(
     suspend fun getPopularMoviesDetails(movieId:Int): Resource<PopularMoviesApiResponses>{
         return remote.getPopularMoviesDetails(movieId = movieId)
     }
-    suspend fun getTopRatedMoviesDetails(movieId:Int):TopRatedMoviesDetails{
+    suspend fun getTopRatedMoviesDetails(movieId:Int):Resource<TopRatedMoviesDetails>{
         return remote.getTopRatedMoviesDetails(movieId= movieId)
     }
     suspend fun getUpcomingMoviesDetails(movieId:Int):Resource<UpcomingMoviesApiResponses>{
