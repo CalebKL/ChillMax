@@ -15,6 +15,15 @@ import kotlinx.coroutines.flow.Flow
 class RemoteDataSourceImp(
     private val chillMaxApi: ChillMaxApi
 ):RemoteDataSource {
+    override suspend fun getMovieDetails(movieId: Int):Resource<MoviesDetails> {
+        val response = try {
+            chillMaxApi.getMovieDetails(movieId)
+        }catch (e:Exception){
+            return Resource.Error("Unknown Error")
+        }
+        return Resource.Success(response)
+    }
+
     override suspend fun getMovieGenres(): Resource<GenresApiResponses> {
         val response = try {
             chillMaxApi.getMovieGenres()
@@ -58,15 +67,6 @@ class RemoteDataSourceImp(
                 TopRatedMoviesSource(chillMaxApi = chillMaxApi)
             }
         ).flow
-    }
-
-    override suspend fun getTopRatedMoviesDetails(movieId: Int):Resource<TopRatedMoviesDetails> {
-        val response = try {
-            chillMaxApi.getMovieDetails(movieId)
-        }catch (e: Exception){
-            return Resource.Error("Unexpected Error")
-        }
-        return Resource.Success(response)
     }
 
     override fun getUpcomingMovies(): Flow<PagingData<UpcomingMovies>> {
