@@ -13,4 +13,10 @@
     <string name="airing_today">Airing Today</string>
     <string name="upcoming">Upcoming</string>
     <string name="release_date">Release Date</string>
+    <string name="casts">Casts</string>
+    <string name="view_all">View all</string>
+    <string name="arrow_forward">Arrow Forward</string>
+    <string name="cast_image">Cast image</string>
+    <string name="background_image">Background Image</string>
+    <string name="close_button">Close button</string>
 </resources>

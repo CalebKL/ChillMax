@@ -2,6 +2,7 @@ package com.example.chillmax.data.repository
 
 import com.example.chillmax.data.local.ChillMaxDatabase
 import com.example.chillmax.domain.models.MyList
+import com.example.chillmax.domain.models.TopRatedMoviesDetails
 import com.example.chillmax.domain.repository.LocalDataSource
 import kotlinx.coroutines.flow.Flow
 

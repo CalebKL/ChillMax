@@ -1,8 +1,12 @@
 package com.example.chillmax.data.remote
 
+import com.example.chillmax.domain.models.MoviesDetails
+import com.example.chillmax.domain.models.TopRatedMovies
+import com.example.chillmax.domain.models.TopRatedMoviesDetails
 import com.example.chillmax.domain.models.responses.*
 import com.example.chillmax.util.Constants.API_KEY
 import com.example.chillmax.util.Constants.STARTING_PAGE
+import com.example.chillmax.util.Resource
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -34,6 +38,14 @@ interface ChillMaxApi {
         @Query("api_key") api_key: String = API_KEY,
         @Query("language") language: String = "en-US",
     ): TopRatedMoviesApiResponses
+
+    @GET("movie/{movie_id}")
+    suspend fun getMovieDetails(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = API_KEY,
+        @Query("language") language: String = "en-Us"
+    ): MoviesDetails
+
 
     @GET("movie/upcoming")
     suspend fun getUpcomingMovies(

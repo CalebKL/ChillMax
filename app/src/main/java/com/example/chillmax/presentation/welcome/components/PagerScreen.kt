@@ -13,10 +13,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import com.example.chillmax.R
 import com.example.chillmax.domain.models.OnBoarding
-import com.example.chillmax.navigation.Screen
 import com.example.chillmax.presentation.ui.theme.INDICATOR_WIDTH
 import com.example.chillmax.presentation.ui.theme.LARGE_PADDING
 import com.example.chillmax.presentation.ui.theme.Purple700
@@ -25,7 +23,6 @@ import com.example.chillmax.util.Constants.CURRENT_PAGE
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.PagerState
-import com.google.accompanist.pager.rememberPagerState
 
 @ExperimentalPagerApi
 @Composable

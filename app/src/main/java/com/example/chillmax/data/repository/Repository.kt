@@ -18,8 +18,8 @@ class Repository @Inject constructor(
     suspend fun getPopularMoviesDetails(movieId:Int): Resource<PopularMoviesApiResponses>{
         return remote.getPopularMoviesDetails(movieId = movieId)
     }
-    suspend fun getTopRatedMoviesDetails(movieId:Int):Resource<TopRatedMoviesApiResponses>{
-        return remote.getTopRatedMoviesDetails(movieId= movieId)
+    suspend fun getMoviesDetails(movieId:Int):Resource<MoviesDetails>{
+        return remote.getMovieDetails(movieId= movieId)
     }
     suspend fun getUpcomingMoviesDetails(movieId:Int):Resource<UpcomingMoviesApiResponses>{
         return remote.getUpcomingMoviesDetails(movieId = movieId)
@@ -87,4 +87,5 @@ class Repository @Inject constructor(
     fun readOnBoardingState(): Flow<Boolean>{
        return dataStoreOperations.readOnBoardingState()
     }
+
 }

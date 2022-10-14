@@ -1,9 +1,9 @@
 package com.example.chillmax.presentation.details
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.chillmax.domain.models.MovieCredits
-import com.example.chillmax.domain.models.TVCredits
-import com.example.chillmax.domain.models.TVTopRated
+import com.example.chillmax.domain.models.MoviesDetails
+import com.example.chillmax.domain.models.TopRatedMoviesDetails
 import com.example.chillmax.domain.models.responses.*
 import com.example.chillmax.domain.use_cases.UseCases
 import com.example.chillmax.util.Resource
@@ -12,8 +12,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    private val useCases: UseCases
+    private val useCases: UseCases,
 ): ViewModel() {
+
+    suspend fun getMoviesDetails(movieId: Int): Resource<MoviesDetails>{
+        val result = useCases.getMoviesDetailsUseCase(movieId)
+        Log.d("getMoviesDetails", result.data.toString())
+        return result
+    }
 
     suspend fun getTVTopRatedDetails(tvId:Int): Resource<TVTopRatedApiResponses>{
         return useCases.getTVTopRatedDetailsUseCase(tvId = tvId)
@@ -31,9 +37,6 @@ class DetailsViewModel @Inject constructor(
         return useCases.getTVAiringDetailsUseCase(tvId = tvId)
     }
 
-    suspend fun getTopRatedMoviesDetails(movieId:Int):Resource<TopRatedMoviesApiResponses>{
-        return useCases.getTopRatedMoviesDetailsUseCase(movieId = movieId)
-    }
 
     suspend fun getTVPopularDetails(tvId:Int): Resource<TVPopularApiResponses>{
         return useCases.getTVPopularDetailsUseCase(tvId = tvId)
