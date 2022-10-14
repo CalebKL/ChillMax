@@ -39,7 +39,7 @@ interface ChillMaxApi {
         @Query("language") language: String = "en-US",
     ): TopRatedMoviesApiResponses
 
-    @GET("/movie/{movie_id}")
+    @GET("movie/{movie_id}")
     suspend fun getMovieDetails(
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String = API_KEY,

@@ -6,6 +6,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.*
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
+import com.example.chillmax.domain.models.MoviesDetails
 import com.example.chillmax.domain.models.TopRatedMoviesDetails
 import com.example.chillmax.domain.models.responses.MovieCreditsApiResponses
 import com.example.chillmax.presentation.details.components.DetailsContent
@@ -25,8 +26,8 @@ fun DetailsScreen(
     viewModel: DetailsViewModel = hiltViewModel(),
 ) {
     val scrollState = rememberLazyListState()
-    val details = produceState<Resource<TopRatedMoviesDetails>>(initialValue = Resource.Loading()) {
-        value = viewModel.getTopRatedMoviesDetails(movieId)
+    val details = produceState<Resource<MoviesDetails>>(initialValue = Resource.Loading()) {
+        value = viewModel.getMoviesDetails(movieId)
     }.value
 
     val casts = produceState<Resource<MovieCreditsApiResponses>>(initialValue = Resource.Loading()) {

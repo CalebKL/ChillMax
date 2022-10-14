@@ -16,7 +16,9 @@ class DetailsViewModel @Inject constructor(
 ): ViewModel() {
 
     suspend fun getMoviesDetails(movieId: Int): Resource<MoviesDetails>{
-        return useCases.getMoviesDetailsUseCase(movieId)
+        val result = useCases.getMoviesDetailsUseCase(movieId)
+        Log.d("getMoviesDetails", result.data.toString())
+        return result
     }
 
     suspend fun getTVTopRatedDetails(tvId:Int): Resource<TVTopRatedApiResponses>{
