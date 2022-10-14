@@ -62,7 +62,7 @@ class RemoteDataSourceImp(
 
     override suspend fun getTopRatedMoviesDetails(movieId: Int):Resource<TopRatedMoviesDetails> {
         val response = try {
-            chillMaxApi.getTopRatedMoviesDetails(movieId)
+            chillMaxApi.getMovieDetails(movieId)
         }catch (e: Exception){
             return Resource.Error("Unexpected Error")
         }
