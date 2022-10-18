@@ -26,6 +26,7 @@ import androidx.compose.ui.modifier.modifierLocalOf
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -64,14 +65,15 @@ fun DetailsContent(
         targetValue =
         if (currentSheetFraction ==1f)
             EXTRA_LARGE_PADDING
-        else RADIUS_DP
-    )
+        else RADIUS_DP)
+
     BottomSheetScaffold(
         scaffoldState = scaffoldState,
         sheetShape = RoundedCornerShape(
             topStart = radiusAnim,
             topEnd = radiusAnim
         ),
+        sheetPeekHeight = SHEET_PEEK_HEIGHT,
         sheetContent = {
                     MovieBottomSheetContent(
                         releaseDate = releaseDate,
@@ -82,6 +84,7 @@ fun DetailsContent(
         content = {
             MovieBackgroundColorSpan(
                 posterUrl = posterUrl,
+                imageFraction = currentSheetFraction,
                 onCloseClick = {
                     navigator.popBackStack()
                 }
@@ -99,7 +102,6 @@ fun MovieBottomSheetContent(
     sheetColor: Color = MaterialTheme.colors.surface,
     contentColor: Color = Color.LightGray
 ) {
-    val state = rememberLazyListState()
     Column(
         modifier = Modifier
             .background(sheetColor)
@@ -189,7 +191,7 @@ fun MovieBackgroundColorSpan(
 
 @ExperimentalMaterialApi
 val BottomSheetScaffoldState.currentSheetFraction:Float
-    get() {
+    get(){
         val fraction = bottomSheetState.progress.fraction
         val targetValue = bottomSheetState.targetValue
         val currentValue = bottomSheetState.currentValue
