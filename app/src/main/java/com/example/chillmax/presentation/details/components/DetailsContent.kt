@@ -73,7 +73,6 @@ fun DetailsContent(
             topStart = radiusAnim,
             topEnd = radiusAnim
         ),
-        sheetPeekHeight = SHEET_PEEK_HEIGHT,
         sheetContent = {
                     MovieBottomSheetContent(
                         releaseDate = releaseDate,
