@@ -56,7 +56,7 @@ fun DetailsContent(
 
     ) {
     val scaffoldState = rememberBottomSheetScaffoldState(
-        bottomSheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Expanded)
+        bottomSheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
     )
 
     val currentSheetFraction = scaffoldState.currentSheetFraction
@@ -73,6 +73,7 @@ fun DetailsContent(
             topStart = radiusAnim,
             topEnd = radiusAnim
         ),
+        sheetPeekHeight = 100.dp,
         sheetContent = {
                     MovieBottomSheetContent(
                         releaseDate = releaseDate,
@@ -150,47 +151,48 @@ fun MovieBackgroundColorSpan(
     imageFraction: Float = 1f,
     backgroundColor: Color = MaterialTheme.colors.surface,
     onCloseClick: () -> Unit
-){ Box(
-    modifier = Modifier
-        .fillMaxSize()
-        .background(backgroundColor)
-
 ) {
-    Image(
+    Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(fraction = imageFraction + 0.4f)
-            .align(Alignment.TopStart),
-        painter = rememberImagePainter(
-            data = posterUrl,
-            builder = {
-                placeholder(R.drawable.ic_placeholder)
-                crossfade(true)
-            }
-        ),
-        contentScale = ContentScale.Crop,
-        contentDescription = stringResource(R.string.background_image)
-    )
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.End
+            .fillMaxSize()
+            .background(backgroundColor)
+
     ) {
-        IconButton(
-            onClick = { onCloseClick() })
-        { Icon(
-            modifier = Modifier.size(INFO_ICON_SIZE),
-            imageVector = Icons.Default.Close,
-            contentDescription = stringResource(R.string.close_button),
-            tint = Color.White
+        Image(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(fraction = imageFraction + 0.4f)
+                .align(Alignment.TopStart),
+            painter = rememberImagePainter(
+                data = posterUrl,
+                builder = {
+                    placeholder(R.drawable.ic_placeholder)
+                    crossfade(true)
+                }
+            ),
+            contentScale = ContentScale.Crop,
+            contentDescription = stringResource(R.string.background_image)
         )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End
+        ) {
+            IconButton(
+                onClick = { onCloseClick() })
+            {
+                Icon(
+                    modifier = Modifier.size(INFO_ICON_SIZE),
+                    imageVector = Icons.Default.Close,
+                    contentDescription = stringResource(R.string.close_button),
+                    tint = Color.White
+                )
+            }
         }
     }
 }
-}
-
 @ExperimentalMaterialApi
 val BottomSheetScaffoldState.currentSheetFraction:Float
-    get(){
+    get() {
         val fraction = bottomSheetState.progress.fraction
         val targetValue = bottomSheetState.targetValue
         val currentValue = bottomSheetState.currentValue
