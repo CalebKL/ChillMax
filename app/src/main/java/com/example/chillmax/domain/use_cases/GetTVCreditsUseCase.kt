@@ -8,7 +8,7 @@ import com.example.chillmax.util.Resource
 class GetTVCreditsUseCase(
     private val repository: Repository
 ){
-    suspend operator fun invoke(tvSeriesId: Int): Resource<TVCredits>{
+    suspend operator fun invoke(tvSeriesId: Int): Resource<TVCreditsApiResponse>{
         return repository.getTVCredits(tvSeriesId = tvSeriesId)
     }
 }

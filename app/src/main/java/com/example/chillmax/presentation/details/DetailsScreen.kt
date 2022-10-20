@@ -32,7 +32,7 @@ fun DetailsScreen(
         value = viewModel.getMoviesDetails(movieId)
     }.value
 
-    val casts = produceState<Resource<MovieCredits>>(initialValue = Resource.Loading()) {
+    val casts = produceState<Resource<MovieCreditsApiResponses>>(initialValue = Resource.Loading()) {
         value = viewModel.getMovieCredits(movieId)
     }.value
 

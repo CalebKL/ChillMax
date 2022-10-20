@@ -70,11 +70,11 @@ fun CastDetails(
             horizontalArrangement = Arrangement.SpaceBetween,
             state = scrollState
         ){
-            items(casts?.searches!!){ cast->
+            items(casts?.casts!!){ cast->
                 CastItem(
                     size = 100.dp,
                     imageUrl = "${IMAGE_BASE_URL}/${cast.profile_path}",
-                    castName = cast.name
+                    castName = cast.name.toString()
                 )
             }
         }

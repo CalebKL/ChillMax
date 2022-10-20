@@ -143,7 +143,7 @@ class RemoteDataSourceImp(
         return Resource.Success(response)
     }
 
-    override suspend fun getTVCredits(tvSeriesId: Int): Resource<TVCredits> {
+    override suspend fun getTVCredits(tvSeriesId: Int): Resource<TVCreditsApiResponse> {
         val response = try {
             chillMaxApi.getTVCredits(tvSeriesId = tvSeriesId)
         }catch (e: Exception){
@@ -152,7 +152,7 @@ class RemoteDataSourceImp(
         return Resource.Success(response)
     }
 
-    override suspend fun getMovieCredits(movieId: Int): Resource<Resource<MovieCreditsApiResponses>> {
+    override suspend fun getMovieCredits(movieId: Int): Resource<MovieCreditsApiResponses> {
         val response = try {
             chillMaxApi.getMovieCredits(movieId = movieId)
         }catch (e:Exception){

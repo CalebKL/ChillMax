@@ -45,10 +45,10 @@ class DetailsViewModel @Inject constructor(
         return useCases.getTVPopularDetailsUseCase(tvId = tvId)
     }
 
-    suspend fun getTVCredits(tvSeriesId:Int):Resource<TVCredits>{
+    suspend fun getTVCredits(tvSeriesId:Int):Resource<TVCreditsApiResponse>{
         return useCases.getTVCreditsUseCase(tvSeriesId= tvSeriesId)
     }
-    suspend fun getMovieCredits(movieId:Int):Resource<MovieCredits>{
+    suspend fun getMovieCredits(movieId:Int):Resource<MovieCreditsApiResponses>{
         val result = useCases.getMovieCreditsUseCase(movieId = movieId)
         Log.d("DetailsViewModel", result.data.toString())
         return result

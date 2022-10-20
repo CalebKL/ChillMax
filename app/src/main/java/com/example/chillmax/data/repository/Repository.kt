@@ -57,10 +57,10 @@ class Repository @Inject constructor(
     fun getTVPopular(): Flow<PagingData<TVPopular>>{
         return remote.getTVPopular()
     }
-    suspend fun getTVCredits(tvSeriesId: Int): Resource<TVCredits>{
+    suspend fun getTVCredits(tvSeriesId: Int): Resource<TVCreditsApiResponse>{
         return remote.getTVCredits(tvSeriesId = tvSeriesId)
     }
-    suspend fun getMovieCredits(movieId: Int): Resource<MovieCredits>{
+    suspend fun getMovieCredits(movieId: Int): Resource<MovieCreditsApiResponses>{
         return remote.getMovieCredits(movieId = movieId)
     }
     fun multiSearch(query: String): Flow<PagingData<MultiSearch>>{
