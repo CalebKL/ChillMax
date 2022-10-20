@@ -18,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
@@ -33,6 +34,7 @@ import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.chillmax.R
+import com.example.chillmax.domain.models.Genres
 import com.example.chillmax.domain.models.MovieCredits
 import com.example.chillmax.domain.models.TopRatedMovies
 import com.example.chillmax.domain.models.TopRatedMoviesDetails
@@ -53,8 +55,9 @@ fun DetailsContent(
     posterUrl: String,
     releaseDate: String,
     overview: String,
-
-    ) {
+    casts: Resource<MovieCreditsApiResponses>,
+    state: LazyListState
+) {
     val scaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
     )
@@ -79,6 +82,8 @@ fun DetailsContent(
                         releaseDate = releaseDate,
                         overview =overview,
                         filmName = filmName,
+                        casts = casts,
+                        state = state
                     )
         },
         content = {
@@ -99,8 +104,10 @@ fun MovieBottomSheetContent(
     releaseDate: String,
     overview: String,
     filmName: String,
+    casts: Resource<MovieCreditsApiResponses>,
     sheetColor: Color = MaterialTheme.colors.surface,
-    contentColor: Color = Color.LightGray
+    contentColor: Color = Color.LightGray,
+    state: LazyListState
 ) {
     Column(
         modifier = Modifier
@@ -141,6 +148,10 @@ fun MovieBottomSheetContent(
             fontSize = 10.sp
         )
         Spacer(modifier = Modifier.height(EXTRA_SMALL_PADDING))
+        if(casts is Resource.Success){
+            Log.d("DetailsContent", casts.data.toString())
+            CastDetails(casts = casts.data!!, scrollState = state)
+        }
 
     }
 }

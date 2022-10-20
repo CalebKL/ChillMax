@@ -6,6 +6,8 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.*
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
+import com.example.chillmax.domain.models.Genres
+import com.example.chillmax.domain.models.MovieCredits
 import com.example.chillmax.domain.models.MoviesDetails
 import com.example.chillmax.domain.models.TopRatedMoviesDetails
 import com.example.chillmax.domain.models.responses.MovieCreditsApiResponses
@@ -30,7 +32,7 @@ fun DetailsScreen(
         value = viewModel.getMoviesDetails(movieId)
     }.value
 
-    val casts = produceState<Resource<MovieCreditsApiResponses>>(initialValue = Resource.Loading()) {
+    val casts = produceState<Resource<MovieCredits>>(initialValue = Resource.Loading()) {
         value = viewModel.getMovieCredits(movieId)
     }.value
 
@@ -41,6 +43,8 @@ fun DetailsScreen(
             posterUrl = "${IMAGE_BASE_URL}/${details.data?.poster_path}",
             releaseDate = details.data?.release_date.toString(),
             overview = details.data?.overview.toString(),
+            casts = casts,
+            state = scrollState
         )
     } else{
         CircularProgressIndicator()

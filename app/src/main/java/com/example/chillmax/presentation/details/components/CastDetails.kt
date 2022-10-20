@@ -27,7 +27,7 @@ import com.example.chillmax.util.Constants.IMAGE_BASE_URL
 @Composable
 fun CastDetails(
     casts: MovieCreditsApiResponses?,
-    swipeState: LazyListState
+    scrollState: LazyListState
 ){
     Column(
         modifier = Modifier
@@ -66,9 +66,9 @@ fun CastDetails(
         }
         Spacer(modifier = Modifier.height(SMALL_PADDING))
         LazyRow(
-            state= swipeState,
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
+            state = scrollState
         ){
             items(casts?.searches!!){ cast->
                 CastItem(

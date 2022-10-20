@@ -1,5 +1,6 @@
 package com.example.chillmax.data.repository
 
+import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -21,6 +22,7 @@ class RemoteDataSourceImp(
         }catch (e:Exception){
             return Resource.Error("Unknown Error")
         }
+        Log.d("MovieDetails", "$response")
         return Resource.Success(response)
     }
 
@@ -141,7 +143,7 @@ class RemoteDataSourceImp(
         return Resource.Success(response)
     }
 
-    override suspend fun getTVCredits(tvSeriesId: Int): Resource<TVCreditsApiResponse> {
+    override suspend fun getTVCredits(tvSeriesId: Int): Resource<TVCredits> {
         val response = try {
             chillMaxApi.getTVCredits(tvSeriesId = tvSeriesId)
         }catch (e: Exception){
@@ -150,12 +152,13 @@ class RemoteDataSourceImp(
         return Resource.Success(response)
     }
 
-    override suspend fun getMovieCredits(movieId: Int): Resource<MovieCreditsApiResponses> {
+    override suspend fun getMovieCredits(movieId: Int): Resource<Resource<MovieCreditsApiResponses>> {
         val response = try {
             chillMaxApi.getMovieCredits(movieId = movieId)
         }catch (e:Exception){
             return Resource.Error("Unexpected Error")
         }
+        Log.d("MovieCredits", "$response")
         return Resource.Success(response)
     }
 

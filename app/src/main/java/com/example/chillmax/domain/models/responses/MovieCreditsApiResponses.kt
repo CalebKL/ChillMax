@@ -6,12 +6,8 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 data class MovieCreditsApiResponses(
-    @SerializedName("page")
-    val page: Int,
-    @SerializedName("searches")
-    val searches: List<MovieCredits>,
-    @SerializedName("total_pages")
-    val totalPages: Int,
-    @SerializedName("total_results")
-    val totalResults: Int
+    @SerializedName("id")
+    val id: Int,
+    @SerializedName("casts")
+    val casts: List<MovieCredits>
 )

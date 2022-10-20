@@ -5,12 +5,8 @@ import com.google.gson.annotations.SerializedName
 
 
 data class TVCreditsApiResponse(
-    @SerializedName("page")
-    val page: Int,
-    @SerializedName("results")
-    val searches: List<TVCredits>,
-    @SerializedName("total_pages")
-    val totalPages: Int,
-    @SerializedName("total_results")
-    val totalResults: Int
+    @SerializedName("id")
+    val id: Int,
+    @SerializedName("casts")
+    val casts: List<TVCredits>
 )

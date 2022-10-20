@@ -1,8 +1,6 @@
 package com.example.chillmax.data.remote
 
-import com.example.chillmax.domain.models.MoviesDetails
-import com.example.chillmax.domain.models.TopRatedMovies
-import com.example.chillmax.domain.models.TopRatedMoviesDetails
+import com.example.chillmax.domain.models.*
 import com.example.chillmax.domain.models.responses.*
 import com.example.chillmax.util.Constants.API_KEY
 import com.example.chillmax.util.Constants.STARTING_PAGE
