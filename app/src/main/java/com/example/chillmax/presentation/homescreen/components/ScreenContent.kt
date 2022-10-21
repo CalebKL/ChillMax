@@ -1,6 +1,5 @@
 package com.example.chillmax.presentation.homescreen.components
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,14 +11,13 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.HorizontalAlignmentLine
-import androidx.compose.ui.modifier.ModifierLocal
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -32,13 +30,12 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import com.example.chillmax.presentation.homescreen.HomeViewModel
-import com.example.chillmax.presentation.ui.theme.EXTRA_SMALL_PADDING
-import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
-import com.example.chillmax.util.Constants.IMAGE_BASE_URL
 import com.example.chillmax.R
 import com.example.chillmax.presentation.destinations.DetailsScreenDestination
+import com.example.chillmax.presentation.homescreen.HomeViewModel
 import com.example.chillmax.presentation.ui.theme.MEDIUM_PADDING
+import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
+import com.example.chillmax.util.Constants.IMAGE_BASE_URL
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import retrofit2.HttpException
 import java.io.IOException
@@ -56,8 +53,7 @@ fun ScreenContent(
     val popularMovies = viewModel.popularMovies.value.collectAsLazyPagingItems()
     val tvAiringToday = viewModel.tvAiringToday.value.collectAsLazyPagingItems()
     val upcomingMovies = viewModel.upcomingMovies.value.collectAsLazyPagingItems()
-
-    Log.d("ScreenContent", topRatedMovies.loadState.toString())
+    val searchText:String by viewModel.searchText
 
     LazyColumn(
         modifier = Modifier
@@ -73,33 +69,12 @@ fun ScreenContent(
             Spacer(modifier = Modifier.height(SMALL_PADDING))
         }
         item {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(shape = RoundedCornerShape(8.dp))
-                    .background(Color.DarkGray)
-                    .padding(top = 8.dp, bottom = 8.dp)
-                    .clickable { },
-                horizontalArrangement = Arrangement.Start,
-            ){
-                Icon(
-                    modifier = Modifier
-                        .weight(1f)
-                        .alpha(ContentAlpha.medium)
-                        .padding(start = 16.dp),
-                    imageVector = Icons.Default.Search,
-                    contentDescription = stringResource(id = R.string.search_icon)
-                )
-                Text(
-                    modifier = Modifier
-                        .weight(6f)
-                        .alpha(ContentAlpha.medium)                     ,
-                    text = stringResource(R.string.search
-                    ),
-                    style = MaterialTheme.typography.h6
-                )
-            }
-            Spacer(modifier = Modifier.height(MEDIUM_PADDING))
+            SearchBar(
+                search = searchText,
+                onSearchClicked = {},
+                onCloseClick = {  },
+                onTextChanged ={}
+            )
         }
         item {
             Text(
