@@ -27,21 +27,20 @@ import com.example.chillmax.util.Constants.IMAGE_BASE_URL
 @Composable
 fun CastDetails(
     casts: MovieCreditsApiResponses?,
-    swipeState: LazyListState
+    scrollState: LazyListState
 ){
     Column(
-        modifier = Modifier
-            .padding(SMALL_PADDING)
+        modifier = Modifier.padding(SMALL_PADDING),
+        horizontalAlignment = Alignment.CenterHorizontally
     ){
         Row(
             modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ){
             Text(
                 modifier= Modifier.weight(8f),
                 text = stringResource(R.string.casts),
-                style = MaterialTheme.typography.h4,
+                style = MaterialTheme.typography.h6,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
@@ -54,7 +53,7 @@ fun CastDetails(
 
             )
             IconButton(
-                modifier= Modifier.weight(1f),
+                modifier= Modifier.weight(2f),
                 onClick = { }
             ) {
                 Icon(
@@ -64,16 +63,15 @@ fun CastDetails(
                 )
             }
         }
-        Spacer(modifier = Modifier.height(SMALL_PADDING))
         LazyRow(
-            state= swipeState,
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
+            state = scrollState
         ){
-            items(casts?.searches!!){ cast->
+            items(casts!!.casts){ cast->
                 CastItem(
                     size = 100.dp,
-                    imageUrl = "${IMAGE_BASE_URL}/${cast.profile_path}",
+                    imageUrl = "${IMAGE_BASE_URL}/${cast.profilePath}",
                     castName = cast.name
                 )
             }

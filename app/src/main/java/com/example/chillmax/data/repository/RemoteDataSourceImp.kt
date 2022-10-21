@@ -1,5 +1,6 @@
 package com.example.chillmax.data.repository
 
+import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -21,6 +22,7 @@ class RemoteDataSourceImp(
         }catch (e:Exception){
             return Resource.Error("Unknown Error")
         }
+        Log.d("MovieDetails", "$response")
         return Resource.Success(response)
     }
 
@@ -156,6 +158,7 @@ class RemoteDataSourceImp(
         }catch (e:Exception){
             return Resource.Error("Unexpected Error")
         }
+        Log.d("MovieCredits", "$response")
         return Resource.Success(response)
     }
 

@@ -20,7 +20,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.delay
 
 
-@Destination
+@Destination(start = true)
 @Composable
 @ExperimentalCoilApi
 @ExperimentalPagerApi

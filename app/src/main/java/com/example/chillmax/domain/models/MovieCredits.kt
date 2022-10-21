@@ -1,14 +1,12 @@
 package com.example.chillmax.domain.models
 
 import com.google.gson.annotations.SerializedName
-import kotlinx.serialization.Serializable
 
-@Serializable
 data class MovieCredits(
     @SerializedName("adult")
     val adult: Boolean,
     @SerializedName("cast_id")
-    val cast_id: Int,
+    val castId: Int,
     @SerializedName("character")
     val character: String,
     @SerializedName("credit_id")
@@ -18,7 +16,7 @@ data class MovieCredits(
     @SerializedName("id")
     val id: Int,
     @SerializedName("known_for_department")
-    val known_for_department: String,
+    val knownForDepartment: String,
     @SerializedName("name")
     val name: String,
     @SerializedName("order")
@@ -28,5 +26,5 @@ data class MovieCredits(
     @SerializedName("popularity")
     val popularity: Double,
     @SerializedName("profile_path")
-    val profile_path: String
+    val profilePath: String
 )

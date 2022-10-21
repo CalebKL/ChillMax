@@ -1,18 +1,21 @@
 package com.example.chillmax.presentation.homescreen.components
 
-import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
@@ -27,13 +30,12 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import com.example.chillmax.presentation.homescreen.HomeViewModel
-import com.example.chillmax.presentation.ui.theme.EXTRA_SMALL_PADDING
-import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
-import com.example.chillmax.util.Constants.IMAGE_BASE_URL
 import com.example.chillmax.R
 import com.example.chillmax.presentation.destinations.DetailsScreenDestination
+import com.example.chillmax.presentation.homescreen.HomeViewModel
 import com.example.chillmax.presentation.ui.theme.MEDIUM_PADDING
+import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
+import com.example.chillmax.util.Constants.IMAGE_BASE_URL
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import retrofit2.HttpException
 import java.io.IOException
@@ -52,29 +54,29 @@ fun ScreenContent(
     val tvAiringToday = viewModel.tvAiringToday.value.collectAsLazyPagingItems()
     val upcomingMovies = viewModel.upcomingMovies.value.collectAsLazyPagingItems()
 
-    Log.d("ScreenContent", topRatedMovies.loadState.toString())
-
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
+            .padding(16.dp)
     ) {
         item {
             FilmCategory(
-                items = listOf("Movies", "Tv Shows"),
+                items = listOf("Movies", "Tv Shows", "My List"),
                 modifier = Modifier.fillMaxWidth(),
                 viewModel = viewModel()
             )
-            Spacer(modifier = Modifier.height(EXTRA_SMALL_PADDING))
+            Spacer(modifier = Modifier.height(SMALL_PADDING))
         }
         item {
             Text(
                 modifier = Modifier
                     .padding(start = SMALL_PADDING),
-                text = stringResource(R.string.genres),
+                text = stringResource(R.string.categories),
                 color = Color.White,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Medium,
+                style = MaterialTheme.typography.subtitle1
             )
-            Spacer(modifier = Modifier.height(MEDIUM_PADDING))
+            Spacer(modifier = Modifier.height(SMALL_PADDING))
         }
         item {
             Genres(
@@ -97,16 +99,18 @@ fun ScreenContent(
                     .height(220.dp),
                 contentAlignment = Alignment.Center
             ){
-                LazyRow{
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ){
                     if (viewModel.selectedOption.value =="Tv Shows"){
                         items(tvTopRated){ film->
                             HeroItem(
                                 modifier = Modifier
-                                    .height(220.dp)
-                                    .width(130.dp)
+                                    .height(200.dp)
+                                    .width(200.dp)
                                     .clickable {
                                     },
-                                imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
+                                imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}",
                             )
                         }
                     }else{
@@ -114,11 +118,11 @@ fun ScreenContent(
                             HeroItem(
                                 modifier = Modifier
                                     .height(220.dp)
-                                    .width(130.dp)
+                                    .width(200.dp)
                                     .clickable {
-                                               navigator.navigate(DetailsScreenDestination(film?.id!!))
+                                        navigator.navigate(DetailsScreenDestination(film?.id!!))
                                     },
-                                imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
+                                imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}",
                             )
                         }
                     }
@@ -185,24 +189,24 @@ fun ScreenContent(
                         items(tvPopular){ film->
                             HeroItem(
                                 modifier = Modifier
-                                    .height(220.dp)
-                                    .width(130.dp)
+                                    .height(200.dp)
+                                    .width(200.dp)
                                     .clickable {
 
                                     },
-                                imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
+                                imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}",
                             )
                         }
                     }else{
                         items(popularMovies){ film->
                             HeroItem(
                                 modifier = Modifier
-                                    .height(220.dp)
-                                    .width(130.dp)
+                                    .height(200.dp)
+                                    .width(200.dp)
                                     .clickable {
 
                                     },
-                                imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
+                                imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}",
                             )
                         }
                     }
@@ -273,24 +277,24 @@ fun ScreenContent(
                         items(tvAiringToday){ film->
                             HeroItem(
                                 modifier = Modifier
-                                    .height(220.dp)
-                                    .width(130.dp)
+                                    .height(200.dp)
+                                    .width(200.dp)
                                     .clickable {
 
                                     },
-                                imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
+                                imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}",
                             )
                         }
                     }else{
                         items(upcomingMovies){ film->
                             HeroItem(
                                 modifier = Modifier
-                                    .height(220.dp)
-                                    .width(130.dp)
+                                    .height(200.dp)
+                                    .width(200.dp)
                                     .clickable {
 
                                     },
-                                imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
+                                imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}",
                             )
                         }
                     }
@@ -345,7 +349,7 @@ fun ScreenContent(
 @Composable
 fun HeroItem(
     modifier: Modifier,
-    imageUrl:String
+    imageUrl:String,
 ){
     Card(
         modifier = modifier

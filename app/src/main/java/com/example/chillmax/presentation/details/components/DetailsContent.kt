@@ -18,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
@@ -26,12 +27,14 @@ import androidx.compose.ui.modifier.modifierLocalOf
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.chillmax.R
+import com.example.chillmax.domain.models.Genres
 import com.example.chillmax.domain.models.MovieCredits
 import com.example.chillmax.domain.models.TopRatedMovies
 import com.example.chillmax.domain.models.TopRatedMoviesDetails
@@ -52,10 +55,11 @@ fun DetailsContent(
     posterUrl: String,
     releaseDate: String,
     overview: String,
-
-    ) {
+    casts: Resource<MovieCreditsApiResponses>,
+    state: LazyListState
+) {
     val scaffoldState = rememberBottomSheetScaffoldState(
-        bottomSheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Expanded)
+        bottomSheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
     )
 
     val currentSheetFraction = scaffoldState.currentSheetFraction
@@ -64,24 +68,28 @@ fun DetailsContent(
         targetValue =
         if (currentSheetFraction ==1f)
             EXTRA_LARGE_PADDING
-        else RADIUS_DP
-    )
+        else RADIUS_DP)
+
     BottomSheetScaffold(
         scaffoldState = scaffoldState,
         sheetShape = RoundedCornerShape(
             topStart = radiusAnim,
             topEnd = radiusAnim
         ),
+        sheetPeekHeight = 140.dp,
         sheetContent = {
                     MovieBottomSheetContent(
                         releaseDate = releaseDate,
                         overview =overview,
                         filmName = filmName,
+                        casts = casts,
+                        state = state
                     )
         },
         content = {
             MovieBackgroundColorSpan(
                 posterUrl = posterUrl,
+                imageFraction = currentSheetFraction,
                 onCloseClick = {
                     navigator.popBackStack()
                 }
@@ -96,10 +104,11 @@ fun MovieBottomSheetContent(
     releaseDate: String,
     overview: String,
     filmName: String,
+    casts: Resource<MovieCreditsApiResponses>,
     sheetColor: Color = MaterialTheme.colors.surface,
-    contentColor: Color = Color.LightGray
+    contentColor: Color = Color.LightGray,
+    state: LazyListState
 ) {
-    val state = rememberLazyListState()
     Column(
         modifier = Modifier
             .background(sheetColor)
@@ -114,7 +123,7 @@ fun MovieBottomSheetContent(
                 text = filmName,
                 color = contentColor,
                 fontWeight = FontWeight.Bold,
-                fontSize = 14.sp
+                style = MaterialTheme.typography.h6
             )
         }
         Spacer(modifier = Modifier.height(SMALL_PADDING))
@@ -122,23 +131,32 @@ fun MovieBottomSheetContent(
             text = stringResource(R.string.release_date),
             color = contentColor,
             fontWeight = FontWeight.Bold,
-            fontSize = 14.sp
+            style = MaterialTheme.typography.h6
         )
         Spacer(modifier = Modifier.height(EXTRA_SMALL_PADDING))
         Text(
             text = releaseDate,
             color = contentColor,
-            fontWeight = FontWeight.Medium,
-            fontSize = 10.sp
+            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.subtitle2
+        )
+        Spacer(modifier = Modifier.height(EXTRA_SMALL_PADDING))
+        Text(
+            text = stringResource(R.string.synopsis),
+            color = contentColor,
+            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.subtitle2
         )
         Spacer(modifier = Modifier.height(EXTRA_SMALL_PADDING))
         Text(
             text = overview,
             color = contentColor,
             fontWeight = FontWeight.Medium,
-            fontSize = 10.sp
-        )
+            style = MaterialTheme.typography.subtitle1)
         Spacer(modifier = Modifier.height(EXTRA_SMALL_PADDING))
+        if(casts is Resource.Success){
+            CastDetails(casts = casts.data!!, scrollState = state)
+        }
 
     }
 }
@@ -149,44 +167,45 @@ fun MovieBackgroundColorSpan(
     imageFraction: Float = 1f,
     backgroundColor: Color = MaterialTheme.colors.surface,
     onCloseClick: () -> Unit
-){ Box(
-    modifier = Modifier
-        .fillMaxSize()
-        .background(backgroundColor)
-
 ) {
-    Image(
+    Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(fraction = imageFraction + 0.4f)
-            .align(Alignment.TopStart),
-        painter = rememberImagePainter(
-            data = posterUrl,
-            builder = {
-                placeholder(R.drawable.ic_placeholder)
-                crossfade(true)
-            }
-        ),
-        contentScale = ContentScale.Crop,
-        contentDescription = stringResource(R.string.background_image)
-    )
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.End
+            .fillMaxSize()
+            .background(backgroundColor)
+
     ) {
-        IconButton(
-            onClick = { onCloseClick() })
-        { Icon(
-            modifier = Modifier.size(INFO_ICON_SIZE),
-            imageVector = Icons.Default.Close,
-            contentDescription = stringResource(R.string.close_button),
-            tint = Color.White
+        Image(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(fraction = imageFraction + 0.4f)
+                .align(Alignment.TopStart),
+            painter = rememberImagePainter(
+                data = posterUrl,
+                builder = {
+                    placeholder(R.drawable.ic_placeholder)
+                    crossfade(true)
+                }
+            ),
+            contentScale = ContentScale.Crop,
+            contentDescription = stringResource(R.string.background_image)
         )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End
+        ) {
+            IconButton(
+                onClick = { onCloseClick() })
+            {
+                Icon(
+                    modifier = Modifier.size(INFO_ICON_SIZE),
+                    imageVector = Icons.Default.Close,
+                    contentDescription = stringResource(R.string.close_button),
+                    tint = Color.White
+                )
+            }
         }
     }
 }
-}
-
 @ExperimentalMaterialApi
 val BottomSheetScaffoldState.currentSheetFraction:Float
     get() {

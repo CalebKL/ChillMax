@@ -1,9 +1,10 @@
 package com.example.chillmax.presentation.details
 
 import android.util.Log
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.chillmax.domain.models.MoviesDetails
-import com.example.chillmax.domain.models.TopRatedMoviesDetails
+import com.example.chillmax.domain.models.*
 import com.example.chillmax.domain.models.responses.*
 import com.example.chillmax.domain.use_cases.UseCases
 import com.example.chillmax.util.Resource
@@ -22,7 +23,9 @@ class DetailsViewModel @Inject constructor(
     }
 
     suspend fun getTVTopRatedDetails(tvId:Int): Resource<TVTopRatedApiResponses>{
-        return useCases.getTVTopRatedDetailsUseCase(tvId = tvId)
+        val result = useCases.getTVTopRatedDetailsUseCase(tvId = tvId)
+        Log.d("getMoviesDetails", result.data.toString())
+        return result
     }
 
     suspend fun getPopularMoviesDetails(movieId:Int): Resource<PopularMoviesApiResponses>{
@@ -46,6 +49,9 @@ class DetailsViewModel @Inject constructor(
         return useCases.getTVCreditsUseCase(tvSeriesId= tvSeriesId)
     }
     suspend fun getMovieCredits(movieId:Int):Resource<MovieCreditsApiResponses>{
-        return useCases.getMovieCreditsUseCase(movieId = movieId)
+        val result = useCases.getMovieCreditsUseCase(movieId = movieId)
+        Log.d("DetailsViewModel", result.data.toString())
+        return result
     }
+
 }
