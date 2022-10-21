@@ -8,6 +8,6 @@ import kotlinx.serialization.Serializable
 data class MovieCreditsApiResponses(
     @SerializedName("id")
     val id: Int,
-    @SerializedName("casts")
+    @SerializedName("cast")
     val casts: List<MovieCredits>
 )
