@@ -37,7 +37,6 @@ class HomeViewModel @Inject constructor(
         _selectedGenre.value = genres
     }
 
-    val searchText: MutableState<String> =mutableStateOf("")
     private val _getTVGenres = mutableStateOf<List<Genres>>(emptyList())
     val tvGenres: State<List<Genres>> = _getTVGenres
 

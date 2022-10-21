@@ -23,4 +23,6 @@
     <string name="search_movie_series">Search Movie/Tv Show</string>
     <string name="search">Search...</string>
     <string name="close_click">close click</string>
+    <string name="profile_icon">Profile_icon</string>
+    <string name="categories">Categories</string>
 </resources>

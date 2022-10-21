@@ -1,4 +1,4 @@
-package com.example.chillmax.presentation.homescreen.components
+package com.example.chillmax.presentation.search.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
