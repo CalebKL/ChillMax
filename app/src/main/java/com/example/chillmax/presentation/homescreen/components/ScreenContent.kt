@@ -2,19 +2,24 @@ package com.example.chillmax.presentation.homescreen.components
 
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.HorizontalAlignmentLine
+import androidx.compose.ui.modifier.ModifierLocal
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -57,6 +62,7 @@ fun ScreenContent(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
+            .padding(16.dp)
     ) {
         item {
             FilmCategory(
@@ -64,7 +70,36 @@ fun ScreenContent(
                 modifier = Modifier.fillMaxWidth(),
                 viewModel = viewModel()
             )
-            Spacer(modifier = Modifier.height(EXTRA_SMALL_PADDING))
+            Spacer(modifier = Modifier.height(SMALL_PADDING))
+        }
+        item {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(shape = RoundedCornerShape(8.dp))
+                    .background(Color.DarkGray)
+                    .padding(top = 8.dp, bottom = 8.dp)
+                    .clickable { },
+                horizontalArrangement = Arrangement.Start,
+            ){
+                Icon(
+                    modifier = Modifier
+                        .weight(1f)
+                        .alpha(ContentAlpha.medium)
+                        .padding(start = 16.dp),
+                    imageVector = Icons.Default.Search,
+                    contentDescription = stringResource(id = R.string.search_icon)
+                )
+                Text(
+                    modifier = Modifier
+                        .weight(6f)
+                        .alpha(ContentAlpha.medium)                     ,
+                    text = stringResource(R.string.search
+                    ),
+                    style = MaterialTheme.typography.h6
+                )
+            }
+            Spacer(modifier = Modifier.height(MEDIUM_PADDING))
         }
         item {
             Text(
@@ -102,8 +137,8 @@ fun ScreenContent(
                         items(tvTopRated){ film->
                             HeroItem(
                                 modifier = Modifier
-                                    .height(220.dp)
-                                    .width(130.dp)
+                                    .height(300.dp)
+                                    .width(200.dp)
                                     .clickable {
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
@@ -113,10 +148,10 @@ fun ScreenContent(
                         items(topRatedMovies){ film->
                             HeroItem(
                                 modifier = Modifier
-                                    .height(220.dp)
-                                    .width(130.dp)
+                                    .height(300.dp)
+                                    .width(200.dp)
                                     .clickable {
-                                               navigator.navigate(DetailsScreenDestination(film?.id!!))
+                                        navigator.navigate(DetailsScreenDestination(film?.id!!))
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}"
                             )
