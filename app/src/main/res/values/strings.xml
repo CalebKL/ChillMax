@@ -19,4 +19,5 @@
     <string name="cast_image">Cast image</string>
     <string name="background_image">Background Image</string>
     <string name="close_button">Close button</string>
+    <string name="synopsis">Synopsis</string>
 </resources>

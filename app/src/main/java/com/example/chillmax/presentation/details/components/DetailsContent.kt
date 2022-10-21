@@ -76,7 +76,7 @@ fun DetailsContent(
             topStart = radiusAnim,
             topEnd = radiusAnim
         ),
-        sheetPeekHeight = 100.dp,
+        sheetPeekHeight = 140.dp,
         sheetContent = {
                     MovieBottomSheetContent(
                         releaseDate = releaseDate,
@@ -123,7 +123,7 @@ fun MovieBottomSheetContent(
                 text = filmName,
                 color = contentColor,
                 fontWeight = FontWeight.Bold,
-                fontSize = 14.sp
+                style = MaterialTheme.typography.h6
             )
         }
         Spacer(modifier = Modifier.height(SMALL_PADDING))
@@ -131,25 +131,30 @@ fun MovieBottomSheetContent(
             text = stringResource(R.string.release_date),
             color = contentColor,
             fontWeight = FontWeight.Bold,
-            fontSize = 14.sp
+            style = MaterialTheme.typography.h6
         )
         Spacer(modifier = Modifier.height(EXTRA_SMALL_PADDING))
         Text(
             text = releaseDate,
             color = contentColor,
-            fontWeight = FontWeight.Medium,
-            fontSize = 10.sp
+            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.subtitle2
+        )
+        Spacer(modifier = Modifier.height(EXTRA_SMALL_PADDING))
+        Text(
+            text = stringResource(R.string.synopsis),
+            color = contentColor,
+            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.subtitle2
         )
         Spacer(modifier = Modifier.height(EXTRA_SMALL_PADDING))
         Text(
             text = overview,
             color = contentColor,
             fontWeight = FontWeight.Medium,
-            fontSize = 10.sp
-        )
+            style = MaterialTheme.typography.subtitle1)
         Spacer(modifier = Modifier.height(EXTRA_SMALL_PADDING))
         if(casts is Resource.Success){
-            Log.d("DetailsContent", casts.data.toString())
             CastDetails(casts = casts.data!!, scrollState = state)
         }
 

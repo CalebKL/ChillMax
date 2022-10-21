@@ -30,18 +30,17 @@ fun CastDetails(
     scrollState: LazyListState
 ){
     Column(
-        modifier = Modifier
-            .padding(SMALL_PADDING)
+        modifier = Modifier.padding(SMALL_PADDING),
+        horizontalAlignment = Alignment.CenterHorizontally
     ){
         Row(
             modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ){
             Text(
                 modifier= Modifier.weight(8f),
                 text = stringResource(R.string.casts),
-                style = MaterialTheme.typography.h4,
+                style = MaterialTheme.typography.h6,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
@@ -54,7 +53,7 @@ fun CastDetails(
 
             )
             IconButton(
-                modifier= Modifier.weight(1f),
+                modifier= Modifier.weight(2f),
                 onClick = { }
             ) {
                 Icon(
@@ -64,7 +63,6 @@ fun CastDetails(
                 )
             }
         }
-        Spacer(modifier = Modifier.height(SMALL_PADDING))
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
