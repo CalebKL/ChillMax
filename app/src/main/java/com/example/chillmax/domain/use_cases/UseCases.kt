@@ -7,7 +7,7 @@ class UseCases(
     val addToMyListUseCase: AddToMyListUseCase,
     val deleteAllContentFromMyListUseCase: DeleteAllContentFromMyListUseCase,
     val deleteOneFromMyListUseCase: DeleteOneFromMyListUseCase,
-    val getMovieCreditsUseCase: GetMovieCreditsUseCase,
+    val castDetailsUseCase: CastDetailsUseCase,
     val getMovieGenresUseCase: GetMovieGenresUseCase,
     val getMyListUseCase: GetMyListUseCase,
     val getPopularMoviesUseCase: GetPopularMoviesUseCase,

@@ -116,7 +116,7 @@ class RemoteDataSourceImp(
         return Resource.Success(response)
     }
 
-    override suspend fun getMovieCredits(movieId: Int): Resource<MovieCreditsApiResponses> {
+    override suspend fun getCastDetails(movieId: Int): Resource<CastDetailsApiResponse> {
         val response = try {
             chillMaxApi.getMovieCredits(movieId = movieId)
         }catch (e:Exception){

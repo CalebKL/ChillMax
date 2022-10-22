@@ -1,8 +1,6 @@
 package com.example.chillmax.presentation.details
 
 import android.util.Log
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.chillmax.domain.models.*
 import com.example.chillmax.domain.models.responses.*
@@ -30,8 +28,8 @@ class DetailsViewModel @Inject constructor(
     suspend fun getTVCredits(tvSeriesId:Int):Resource<TVCreditsApiResponse>{
         return useCases.getTVCreditsUseCase(tvSeriesId= tvSeriesId)
     }
-    suspend fun getMovieCredits(movieId:Int):Resource<MovieCreditsApiResponses>{
-        val result = useCases.getMovieCreditsUseCase(movieId = movieId)
+    suspend fun getMovieCredits(movieId:Int):Resource<CastDetailsApiResponse>{
+        val result = useCases.castDetailsUseCase(movieId = movieId)
         Log.d("DetailsViewModel", result.data.toString())
         return result
     }

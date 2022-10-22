@@ -2,7 +2,7 @@ package com.example.chillmax.domain.models
 
 import com.google.gson.annotations.SerializedName
 
-data class MovieCredits(
+data class CastDetails(
     @SerializedName("adult")
     val adult: Boolean,
     @SerializedName("cast_id")

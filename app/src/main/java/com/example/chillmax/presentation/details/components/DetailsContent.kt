@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.chillmax.R
-import com.example.chillmax.domain.models.responses.MovieCreditsApiResponses
+import com.example.chillmax.domain.models.responses.CastDetailsApiResponse
 import com.example.chillmax.presentation.ui.theme.*
 import com.example.chillmax.util.Resource
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -36,7 +36,7 @@ fun DetailsContent(
     posterUrl: String,
     releaseDate: String,
     overview: String,
-    casts: Resource<MovieCreditsApiResponses>,
+    casts: Resource<CastDetailsApiResponse>,
     state: LazyListState
 ) {
     val scaffoldState = rememberBottomSheetScaffoldState(
@@ -85,7 +85,7 @@ fun MovieBottomSheetContent(
     releaseDate: String,
     overview: String,
     filmName: String,
-    casts: Resource<MovieCreditsApiResponses>,
+    casts: Resource<CastDetailsApiResponse>,
     sheetColor: Color = MaterialTheme.colors.surface,
     contentColor: Color = Color.LightGray,
     state: LazyListState

@@ -19,14 +19,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import com.example.chillmax.R
-import com.example.chillmax.domain.models.responses.MovieCreditsApiResponses
+import com.example.chillmax.domain.models.responses.CastDetailsApiResponse
 import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
 import com.example.chillmax.util.Constants.IMAGE_BASE_URL
 
 @ExperimentalCoilApi
 @Composable
 fun CastDetails(
-    casts: MovieCreditsApiResponses?,
+    casts: CastDetailsApiResponse?,
     scrollState: LazyListState
 ){
     Column(

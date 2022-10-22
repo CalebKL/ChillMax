@@ -7,7 +7,7 @@ import androidx.compose.runtime.*
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
 import com.example.chillmax.domain.models.MoviesDetails
-import com.example.chillmax.domain.models.responses.MovieCreditsApiResponses
+import com.example.chillmax.domain.models.responses.CastDetailsApiResponse
 import com.example.chillmax.presentation.details.components.DetailsContent
 import com.example.chillmax.util.Constants.IMAGE_BASE_URL
 import com.example.chillmax.util.Resource
@@ -29,7 +29,7 @@ fun DetailsScreen(
         value = viewModel.getMoviesDetails(movieId)
     }.value
 
-    val casts = produceState<Resource<MovieCreditsApiResponses>>(initialValue = Resource.Loading()) {
+    val casts = produceState<Resource<CastDetailsApiResponse>>(initialValue = Resource.Loading()) {
         value = viewModel.getMovieCredits(movieId)
     }.value
 

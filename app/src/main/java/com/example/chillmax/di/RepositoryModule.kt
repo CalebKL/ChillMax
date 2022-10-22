@@ -30,7 +30,7 @@ object RepositoryModule {
             addToMyListUseCase = AddToMyListUseCase(repository),
             deleteAllContentFromMyListUseCase = DeleteAllContentFromMyListUseCase(repository),
             deleteOneFromMyListUseCase = DeleteOneFromMyListUseCase(repository),
-            getMovieCreditsUseCase = GetMovieCreditsUseCase(repository),
+            castDetailsUseCase = CastDetailsUseCase(repository),
             getMovieGenresUseCase = GetMovieGenresUseCase(repository),
             getMyListUseCase = GetMyListUseCase(repository),
             getPopularMoviesUseCase = GetPopularMoviesUseCase(repository),

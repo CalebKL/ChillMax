@@ -18,6 +18,6 @@ interface RemoteDataSource {
     fun getTVTopRated(): Flow<PagingData<TVTopRated>>
     fun getTVPopular(): Flow<PagingData<TVPopular>>
     suspend fun getTVCredits(tvSeriesId: Int): Resource<TVCreditsApiResponse>
-    suspend fun getMovieCredits(movieId:Int): Resource<MovieCreditsApiResponses>
+    suspend fun getCastDetails(movieId:Int): Resource<CastDetailsApiResponse>
     fun multiSearch(query: String): Flow<PagingData<MultiSearch>>
 }
