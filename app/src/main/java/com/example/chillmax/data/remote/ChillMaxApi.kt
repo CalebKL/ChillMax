@@ -44,6 +44,12 @@ interface ChillMaxApi {
         @Query("language") language: String = "en-Us"
     ): MoviesDetails
 
+    @GET("tv/{tv_id}")
+    suspend fun getTVDetails(
+        @Path("tv_id") tv_id: Int,
+        @Query("api_key") apiKey: String = API_KEY,
+        @Query("language") language: String = "en-Us"
+    ): TVDetails
 
     @GET("movie/upcoming")
     suspend fun getUpcomingMovies(
