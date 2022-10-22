@@ -30,14 +30,13 @@ object RepositoryModule {
             addToMyListUseCase = AddToMyListUseCase(repository),
             deleteAllContentFromMyListUseCase = DeleteAllContentFromMyListUseCase(repository),
             deleteOneFromMyListUseCase = DeleteOneFromMyListUseCase(repository),
-            getMovieCreditsUseCase = GetMovieCreditsUseCase(repository),
+            castDetailsUseCase = CastDetailsUseCase(repository),
             getMovieGenresUseCase = GetMovieGenresUseCase(repository),
             getMyListUseCase = GetMyListUseCase(repository),
             getPopularMoviesUseCase = GetPopularMoviesUseCase(repository),
             getSelectedFromMyListUseCase = GetSelectedFromMyListUseCase(repository),
             getTopRatedMoviesUseCase = GetTopRatedMoviesUseCase(repository),
             getTVAiringTodayUseCase = GetTVAiringTodayUseCase(repository),
-            getTVCreditsUseCase = GetTVCreditsUseCase(repository),
             getTVGenresUseCase = GetTVGenresUseCase(repository),
             getTVPopularUseCase = GetTVPopularUseCase(repository),
             getUpcomingMoviesUseCase = GetUpcomingMoviesUseCase(repository),
@@ -45,12 +44,8 @@ object RepositoryModule {
             getTvTopRatedUseCase = TVTopRatedUseCase(repository),
             readOnBoardingUseCase = ReadOnBoardingUseCase(repository),
             saveOnBoardingUseCase = SaveOnBoardingUseCase(repository),
-            getPopularMoviesDetailsUseCase = GetPopularMoviesDetailsUseCase(repository),
-            getTVAiringDetailsUseCase = GetTVAiringDetailsUseCase(repository),
-            getUpcomingMoviesDetailsUseCase = GetUpcomingMoviesDetailsUseCase(repository),
-            getTVPopularDetailsUseCase = GetTVPopularDetailsUseCase(repository),
-            getTVTopRatedDetailsUseCase = GetTVTopRatedDetailsUseCase(repository),
-            getMoviesDetailsUseCase = GetMoviesDetailsUseCase(repository)
+            getMoviesDetailsUseCase = GetMoviesDetailsUseCase(repository),
+            getTVDetailsUseCase = GetTVDetailsUseCase(repository)
         )
     }
 }

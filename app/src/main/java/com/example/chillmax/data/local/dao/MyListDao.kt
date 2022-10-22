@@ -2,7 +2,6 @@ package com.example.chillmax.data.local.dao
 
 import androidx.room.*
 import com.example.chillmax.domain.models.MyList
-import com.example.chillmax.domain.models.TopRatedMoviesDetails
 import kotlinx.coroutines.flow.Flow
 
 @Dao

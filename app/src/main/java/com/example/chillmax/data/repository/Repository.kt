@@ -15,23 +15,12 @@ class Repository @Inject constructor(
     private val remote: RemoteDataSource,
     private val dataStoreOperations: DataStoreOperations
 ){
-    suspend fun getPopularMoviesDetails(movieId:Int): Resource<PopularMoviesApiResponses>{
-        return remote.getPopularMoviesDetails(movieId = movieId)
+    suspend fun getMoviesDetails(filmId:Int):Resource<MoviesDetails>{
+        return remote.getMovieDetails(filmId= filmId)
     }
-    suspend fun getMoviesDetails(movieId:Int):Resource<MoviesDetails>{
-        return remote.getMovieDetails(movieId= movieId)
-    }
-    suspend fun getUpcomingMoviesDetails(movieId:Int):Resource<UpcomingMoviesApiResponses>{
-        return remote.getUpcomingMoviesDetails(movieId = movieId)
-    }
-    suspend fun getTVAiringTodayDetails(tvId:Int):Resource<TVAiringTodayApiResponses>{
-        return remote.getTVAiringTodayDetails(tvId = tvId)
-    }
-    suspend fun getTVTopRatedDetails(tvId:Int):Resource<TVTopRatedApiResponses>{
-        return remote.getTVTopRatedDetails(tvId = tvId)
-    }
-    suspend fun getTVPopularDetails(tvId:Int): Resource<TVPopularApiResponses>{
-        return remote.getTVPopularDetails(tvId = tvId)
+
+    suspend fun getTVDetails(filmId:Int):Resource<TVDetails>{
+        return remote.getTVDetails(filmId = filmId)
     }
     suspend fun getMovieGenres(): Resource<GenresApiResponses> {
        return remote.getMovieGenres()
@@ -57,11 +46,8 @@ class Repository @Inject constructor(
     fun getTVPopular(): Flow<PagingData<TVPopular>>{
         return remote.getTVPopular()
     }
-    suspend fun getTVCredits(tvSeriesId: Int): Resource<TVCreditsApiResponse>{
-        return remote.getTVCredits(tvSeriesId = tvSeriesId)
-    }
-    suspend fun getMovieCredits(movieId: Int): Resource<MovieCreditsApiResponses>{
-        return remote.getMovieCredits(movieId = movieId)
+    suspend fun getCastDetails(filmId: Int): Resource<CastDetailsApiResponse>{
+        return remote.getCastDetails(filmId = filmId)
     }
     fun multiSearch(query: String): Flow<PagingData<MultiSearch>>{
         return remote.multiSearch(query =query )

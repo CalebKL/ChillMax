@@ -4,7 +4,6 @@ import com.example.chillmax.domain.models.*
 import com.example.chillmax.domain.models.responses.*
 import com.example.chillmax.util.Constants.API_KEY
 import com.example.chillmax.util.Constants.STARTING_PAGE
-import com.example.chillmax.util.Resource
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -39,11 +38,17 @@ interface ChillMaxApi {
 
     @GET("movie/{movie_id}")
     suspend fun getMovieDetails(
-        @Path("movie_id") movieId: Int,
+        @Path("movie_id") filmId: Int,
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en-Us"
     ): MoviesDetails
 
+    @GET("tv/{tv_id}")
+    suspend fun getTVDetails(
+        @Path("tv_id") filmId: Int,
+        @Query("api_key") apiKey: String = API_KEY,
+        @Query("language") language: String = "en-Us"
+    ): TVDetails
 
     @GET("movie/upcoming")
     suspend fun getUpcomingMovies(
@@ -73,19 +78,12 @@ interface ChillMaxApi {
         @Query("language") language: String = "en-US"
     ): TVPopularApiResponses
 
-    @GET("tv/{tv_id}/credits")
-    suspend fun getTVCredits(
-        @Path("tv_id") tvSeriesId: Int,
-        @Query("api_key") api_key: String = API_KEY,
-        @Query("language") language: String = "en-US",
-    ): TVCreditsApiResponse
-
     @GET("movie/{movie_id}/credits")
     suspend fun getMovieCredits(
-        @Path("movie_id") movieId: Int,
+        @Path("movie_id") filmId: Int,
         @Query("api_key") api_key: String = API_KEY,
         @Query("language") language: String = "en-US",
-    ): MovieCreditsApiResponses
+    ): CastDetailsApiResponse
 
     @GET("search/movie")
     suspend fun multiSearch(

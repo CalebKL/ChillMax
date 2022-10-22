@@ -16,13 +16,22 @@ import kotlinx.coroutines.flow.Flow
 class RemoteDataSourceImp(
     private val chillMaxApi: ChillMaxApi
 ):RemoteDataSource {
-    override suspend fun getMovieDetails(movieId: Int):Resource<MoviesDetails> {
+    override suspend fun getMovieDetails(filmId: Int):Resource<MoviesDetails> {
         val response = try {
-            chillMaxApi.getMovieDetails(movieId)
+            chillMaxApi.getMovieDetails(filmId)
         }catch (e:Exception){
             return Resource.Error("Unknown Error")
         }
         Log.d("MovieDetails", "$response")
+        return Resource.Success(response)
+    }
+
+    override suspend fun getTVDetails(filmId: Int): Resource<TVDetails> {
+        val response = try {
+            chillMaxApi.getTVDetails(filmId)
+        }catch (e:Exception){
+            return Resource.Error("Unknown Error")
+        }
         return Resource.Success(response)
     }
 
@@ -53,15 +62,6 @@ class RemoteDataSourceImp(
         ).flow
     }
 
-    override suspend fun getPopularMoviesDetails(movieId: Int): Resource<PopularMoviesApiResponses> {
-        val response = try {
-            chillMaxApi.getPopularMovies(movieId)
-        }catch (e: Exception){
-            return Resource.Error("Unexpected Error")
-        }
-        return Resource.Success(response)
-    }
-
     override fun getTopRatedMovies(): Flow<PagingData<TopRatedMovies>> {
         return Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE),
@@ -80,15 +80,6 @@ class RemoteDataSourceImp(
         ).flow
     }
 
-    override suspend fun getUpcomingMoviesDetails(movieId: Int): Resource<UpcomingMoviesApiResponses> {
-        val response = try {
-            chillMaxApi.getUpcomingMovies(movieId)
-        }catch (e: Exception){
-            return Resource.Error("Unexpected Error")
-        }
-        return Resource.Success(response)
-    }
-
     override fun getTVAiringToday(): Flow<PagingData<TVAiringToday>> {
         return Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE),
@@ -96,15 +87,6 @@ class RemoteDataSourceImp(
                 TVAiringTodaySource(chillMaxApi = chillMaxApi)
             }
         ).flow
-    }
-
-    override suspend fun getTVAiringTodayDetails(tvId: Int): Resource<TVAiringTodayApiResponses> {
-        val response = try {
-            chillMaxApi.getTVAiringToday(tvId)
-        }catch (e: Exception){
-            return Resource.Error("Unexpected Error")
-        }
-        return Resource.Success(response)
     }
 
     override fun getTVTopRated(): Flow<PagingData<TVTopRated>> {
@@ -116,15 +98,6 @@ class RemoteDataSourceImp(
         ).flow
     }
 
-    override suspend fun getTVTopRatedDetails(tvId: Int): Resource<TVTopRatedApiResponses> {
-        val response = try {
-            chillMaxApi.getTVTopRated(tvId)
-        }catch (e: Exception){
-            return Resource.Error("Unexpected Error")
-        }
-        return Resource.Success(response)
-    }
-
     override fun getTVPopular(): Flow<PagingData<TVPopular>> {
         return Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE),
@@ -134,27 +107,9 @@ class RemoteDataSourceImp(
         ).flow
     }
 
-    override suspend fun getTVPopularDetails(tvId: Int): Resource<TVPopularApiResponses> {
+    override suspend fun getCastDetails(filmId: Int): Resource<CastDetailsApiResponse> {
         val response = try {
-            chillMaxApi.getTVPopular(tvId)
-        }catch (e: Exception){
-            return Resource.Error("Unexpected Error")
-        }
-        return Resource.Success(response)
-    }
-
-    override suspend fun getTVCredits(tvSeriesId: Int): Resource<TVCreditsApiResponse> {
-        val response = try {
-            chillMaxApi.getTVCredits(tvSeriesId = tvSeriesId)
-        }catch (e: Exception){
-            return Resource.Error("Unexpected Error")
-        }
-        return Resource.Success(response)
-    }
-
-    override suspend fun getMovieCredits(movieId: Int): Resource<MovieCreditsApiResponses> {
-        val response = try {
-            chillMaxApi.getMovieCredits(movieId = movieId)
+            chillMaxApi.getMovieCredits(filmId = filmId)
         }catch (e:Exception){
             return Resource.Error("Unexpected Error")
         }
