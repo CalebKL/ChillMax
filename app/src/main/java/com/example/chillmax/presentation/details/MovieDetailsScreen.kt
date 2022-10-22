@@ -7,6 +7,7 @@ import androidx.compose.runtime.*
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
 import com.example.chillmax.domain.models.MoviesDetails
+import com.example.chillmax.domain.models.TVDetails
 import com.example.chillmax.domain.models.responses.CastDetailsApiResponse
 import com.example.chillmax.presentation.details.components.DetailsContent
 import com.example.chillmax.util.Constants.IMAGE_BASE_URL
@@ -19,27 +20,46 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @ExperimentalMaterialApi
 @ExperimentalCoilApi
 @Composable
-fun DetailsScreen(
+fun MovieDetailsScreen(
     navigator:DestinationsNavigator,
     movieId:Int,
+    tvId:Int,
     viewModel: DetailsViewModel = hiltViewModel(),
 ) {
     val scrollState = rememberLazyListState()
-    val details = produceState<Resource<MoviesDetails>>(initialValue = Resource.Loading()) {
+    val movieDetails = produceState<Resource<MoviesDetails>>(initialValue = Resource.Loading()) {
         value = viewModel.getMoviesDetails(movieId)
+    }.value
+
+    val tvDetails = produceState<Resource<TVDetails>>(initialValue = Resource.Loading()) {
+        value = viewModel.getTVDetails(tvId = tvId)
     }.value
 
     val casts = produceState<Resource<CastDetailsApiResponse>>(initialValue = Resource.Loading()) {
         value = viewModel.getMovieCredits(movieId)
     }.value
 
-    if (details is Resource.Success){
+    if (movieDetails is Resource.Success){
         DetailsContent(
             navigator = navigator,
-            filmName =  details.data?.title.toString(),
-            posterUrl = "${IMAGE_BASE_URL}/${details.data?.poster_path}",
-            releaseDate = details.data?.release_date.toString(),
-            overview = details.data?.overview.toString(),
+            filmName =  movieDetails.data?.title.toString(),
+            posterUrl = "${IMAGE_BASE_URL}/${movieDetails.data?.poster_path}",
+            releaseDate = movieDetails.data?.release_date.toString(),
+            overview = movieDetails.data?.overview.toString(),
+            casts = casts,
+            state = scrollState
+        )
+    } else{
+        CircularProgressIndicator()
+    }
+
+    if (tvDetails is Resource.Success){
+        DetailsContent(
+            navigator = navigator,
+            filmName =  movieDetails.data?.title.toString(),
+            posterUrl = "${IMAGE_BASE_URL}/${tvDetails.data?.posterPath}",
+            releaseDate = tvDetails.data?.firstAirDate.toString(),
+            overview = tvDetails.data?.overview.toString(),
             casts = casts,
             state = scrollState
         )
