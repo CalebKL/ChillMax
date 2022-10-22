@@ -31,7 +31,8 @@ import androidx.paging.compose.items
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.chillmax.R
-import com.example.chillmax.presentation.destinations.DetailsScreenDestination
+import com.example.chillmax.presentation.destinations.MovieDetailsScreenDestination
+import com.example.chillmax.presentation.destinations.TVDetailsScreenDestination
 import com.example.chillmax.presentation.homescreen.HomeViewModel
 import com.example.chillmax.presentation.ui.theme.MEDIUM_PADDING
 import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
@@ -109,6 +110,7 @@ fun ScreenContent(
                                     .height(200.dp)
                                     .width(200.dp)
                                     .clickable {
+                                               navigator.navigate(TVDetailsScreenDestination(film?.id!!))
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}",
                             )
@@ -120,7 +122,7 @@ fun ScreenContent(
                                     .height(220.dp)
                                     .width(200.dp)
                                     .clickable {
-                                        navigator.navigate(DetailsScreenDestination(film?.id!!))
+                                               navigator.navigate(MovieDetailsScreenDestination(film?.id!!))
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}",
                             )
@@ -192,7 +194,7 @@ fun ScreenContent(
                                     .height(200.dp)
                                     .width(200.dp)
                                     .clickable {
-
+                                               navigator.navigate(TVDetailsScreenDestination(film?.id!!))
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}",
                             )
@@ -204,7 +206,7 @@ fun ScreenContent(
                                     .height(200.dp)
                                     .width(200.dp)
                                     .clickable {
-
+                                               navigator.navigate(MovieDetailsScreenDestination(film?.id!!))
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}",
                             )
@@ -280,7 +282,7 @@ fun ScreenContent(
                                     .height(200.dp)
                                     .width(200.dp)
                                     .clickable {
-
+                                               navigator.navigate(TVDetailsScreenDestination(film?.id!!))
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}",
                             )
@@ -292,7 +294,7 @@ fun ScreenContent(
                                     .height(200.dp)
                                     .width(200.dp)
                                     .clickable {
-
+                                               navigator.navigate(MovieDetailsScreenDestination(film?.id!!))
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}",
                             )

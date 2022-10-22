@@ -38,14 +38,14 @@ interface ChillMaxApi {
 
     @GET("movie/{movie_id}")
     suspend fun getMovieDetails(
-        @Path("movie_id") movieId: Int,
+        @Path("movie_id") filmId: Int,
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en-Us"
     ): MoviesDetails
 
     @GET("tv/{tv_id}")
     suspend fun getTVDetails(
-        @Path("tv_id") tv_id: Int,
+        @Path("tv_id") filmId: Int,
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en-Us"
     ): TVDetails
@@ -78,16 +78,9 @@ interface ChillMaxApi {
         @Query("language") language: String = "en-US"
     ): TVPopularApiResponses
 
-    @GET("tv/{tv_id}/credits")
-    suspend fun getTVCredits(
-        @Path("tv_id") tvSeriesId: Int,
-        @Query("api_key") api_key: String = API_KEY,
-        @Query("language") language: String = "en-US",
-    ): TVCreditsApiResponse
-
     @GET("movie/{movie_id}/credits")
     suspend fun getMovieCredits(
-        @Path("movie_id") movieId: Int,
+        @Path("movie_id") filmId: Int,
         @Query("api_key") api_key: String = API_KEY,
         @Query("language") language: String = "en-US",
     ): CastDetailsApiResponse

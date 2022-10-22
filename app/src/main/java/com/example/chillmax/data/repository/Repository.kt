@@ -15,12 +15,12 @@ class Repository @Inject constructor(
     private val remote: RemoteDataSource,
     private val dataStoreOperations: DataStoreOperations
 ){
-    suspend fun getMoviesDetails(movieId:Int):Resource<MoviesDetails>{
-        return remote.getMovieDetails(movieId= movieId)
+    suspend fun getMoviesDetails(filmId:Int):Resource<MoviesDetails>{
+        return remote.getMovieDetails(filmId= filmId)
     }
 
-    suspend fun getTVDetails(tvId:Int):Resource<TVDetails>{
-        return remote.getTVDetails(tvId = tvId)
+    suspend fun getTVDetails(filmId:Int):Resource<TVDetails>{
+        return remote.getTVDetails(filmId = filmId)
     }
     suspend fun getMovieGenres(): Resource<GenresApiResponses> {
        return remote.getMovieGenres()
@@ -46,11 +46,8 @@ class Repository @Inject constructor(
     fun getTVPopular(): Flow<PagingData<TVPopular>>{
         return remote.getTVPopular()
     }
-    suspend fun getTVCredits(tvSeriesId: Int): Resource<TVCreditsApiResponse>{
-        return remote.getTVCredits(tvSeriesId = tvSeriesId)
-    }
-    suspend fun getCastDetails(movieId: Int): Resource<CastDetailsApiResponse>{
-        return remote.getCastDetails(movieId = movieId)
+    suspend fun getCastDetails(filmId: Int): Resource<CastDetailsApiResponse>{
+        return remote.getCastDetails(filmId = filmId)
     }
     fun multiSearch(query: String): Flow<PagingData<MultiSearch>>{
         return remote.multiSearch(query =query )

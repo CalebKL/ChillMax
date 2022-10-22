@@ -37,7 +37,6 @@ object RepositoryModule {
             getSelectedFromMyListUseCase = GetSelectedFromMyListUseCase(repository),
             getTopRatedMoviesUseCase = GetTopRatedMoviesUseCase(repository),
             getTVAiringTodayUseCase = GetTVAiringTodayUseCase(repository),
-            getTVCreditsUseCase = GetTVCreditsUseCase(repository),
             getTVGenresUseCase = GetTVGenresUseCase(repository),
             getTVPopularUseCase = GetTVPopularUseCase(repository),
             getUpcomingMoviesUseCase = GetUpcomingMoviesUseCase(repository),

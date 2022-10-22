@@ -14,7 +14,6 @@ class UseCases(
     val getSelectedFromMyListUseCase: GetSelectedFromMyListUseCase,
     val getTopRatedMoviesUseCase: GetTopRatedMoviesUseCase,
     val getTVAiringTodayUseCase: GetTVAiringTodayUseCase,
-    val getTVCreditsUseCase: GetTVCreditsUseCase,
     val getTVGenresUseCase: GetTVGenresUseCase,
     val getTVPopularUseCase: GetTVPopularUseCase,
     val getUpcomingMoviesUseCase: GetUpcomingMoviesUseCase,

@@ -16,9 +16,9 @@ import kotlinx.coroutines.flow.Flow
 class RemoteDataSourceImp(
     private val chillMaxApi: ChillMaxApi
 ):RemoteDataSource {
-    override suspend fun getMovieDetails(movieId: Int):Resource<MoviesDetails> {
+    override suspend fun getMovieDetails(filmId: Int):Resource<MoviesDetails> {
         val response = try {
-            chillMaxApi.getMovieDetails(movieId)
+            chillMaxApi.getMovieDetails(filmId)
         }catch (e:Exception){
             return Resource.Error("Unknown Error")
         }
@@ -26,9 +26,9 @@ class RemoteDataSourceImp(
         return Resource.Success(response)
     }
 
-    override suspend fun getTVDetails(tvId: Int): Resource<TVDetails> {
+    override suspend fun getTVDetails(filmId: Int): Resource<TVDetails> {
         val response = try {
-            chillMaxApi.getTVDetails(tvId)
+            chillMaxApi.getTVDetails(filmId)
         }catch (e:Exception){
             return Resource.Error("Unknown Error")
         }
@@ -107,18 +107,9 @@ class RemoteDataSourceImp(
         ).flow
     }
 
-    override suspend fun getTVCredits(tvSeriesId: Int): Resource<TVCreditsApiResponse> {
+    override suspend fun getCastDetails(filmId: Int): Resource<CastDetailsApiResponse> {
         val response = try {
-            chillMaxApi.getTVCredits(tvSeriesId = tvSeriesId)
-        }catch (e: Exception){
-            return Resource.Error("Unexpected Error")
-        }
-        return Resource.Success(response)
-    }
-
-    override suspend fun getCastDetails(movieId: Int): Resource<CastDetailsApiResponse> {
-        val response = try {
-            chillMaxApi.getMovieCredits(movieId = movieId)
+            chillMaxApi.getMovieCredits(filmId = filmId)
         }catch (e:Exception){
             return Resource.Error("Unexpected Error")
         }
