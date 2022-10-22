@@ -45,11 +45,6 @@ object RepositoryModule {
             getTvTopRatedUseCase = TVTopRatedUseCase(repository),
             readOnBoardingUseCase = ReadOnBoardingUseCase(repository),
             saveOnBoardingUseCase = SaveOnBoardingUseCase(repository),
-            getPopularMoviesDetailsUseCase = GetPopularMoviesDetailsUseCase(repository),
-            getTVAiringDetailsUseCase = GetTVAiringDetailsUseCase(repository),
-            getUpcomingMoviesDetailsUseCase = GetUpcomingMoviesDetailsUseCase(repository),
-            getTVPopularDetailsUseCase = GetTVPopularDetailsUseCase(repository),
-            getTVTopRatedDetailsUseCase = GetTVTopRatedDetailsUseCase(repository),
             getMoviesDetailsUseCase = GetMoviesDetailsUseCase(repository)
         )
     }

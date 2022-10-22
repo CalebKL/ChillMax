@@ -6,10 +6,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.*
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
-import com.example.chillmax.domain.models.Genres
-import com.example.chillmax.domain.models.MovieCredits
 import com.example.chillmax.domain.models.MoviesDetails
-import com.example.chillmax.domain.models.TopRatedMoviesDetails
 import com.example.chillmax.domain.models.responses.MovieCreditsApiResponses
 import com.example.chillmax.presentation.details.components.DetailsContent
 import com.example.chillmax.util.Constants.IMAGE_BASE_URL
