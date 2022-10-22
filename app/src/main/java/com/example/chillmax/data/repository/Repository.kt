@@ -15,23 +15,12 @@ class Repository @Inject constructor(
     private val remote: RemoteDataSource,
     private val dataStoreOperations: DataStoreOperations
 ){
-    suspend fun getPopularMoviesDetails(movieId:Int): Resource<PopularMoviesApiResponses>{
-        return remote.getPopularMoviesDetails(movieId = movieId)
-    }
     suspend fun getMoviesDetails(movieId:Int):Resource<MoviesDetails>{
         return remote.getMovieDetails(movieId= movieId)
     }
-    suspend fun getUpcomingMoviesDetails(movieId:Int):Resource<UpcomingMoviesApiResponses>{
-        return remote.getUpcomingMoviesDetails(movieId = movieId)
-    }
-    suspend fun getTVAiringTodayDetails(tvId:Int):Resource<TVAiringTodayApiResponses>{
-        return remote.getTVAiringTodayDetails(tvId = tvId)
-    }
-    suspend fun getTVTopRatedDetails(tvId:Int):Resource<TVTopRatedApiResponses>{
-        return remote.getTVTopRatedDetails(tvId = tvId)
-    }
-    suspend fun getTVPopularDetails(tvId:Int): Resource<TVPopularApiResponses>{
-        return remote.getTVPopularDetails(tvId = tvId)
+
+    suspend fun getTVDetails(tvId:Int):Resource<TVDetails>{
+        return remote.getTVDetails(tvId = tvId)
     }
     suspend fun getMovieGenres(): Resource<GenresApiResponses> {
        return remote.getMovieGenres()
