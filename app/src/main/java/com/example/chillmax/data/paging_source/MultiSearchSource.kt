@@ -3,7 +3,6 @@ package com.example.chillmax.data.paging_source
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.chillmax.data.remote.ChillMaxApi
-import com.example.chillmax.domain.models.MultiSearch
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
