@@ -1,0 +1,57 @@
+package com.example.chillmax.presentation.search.components
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.Card
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
+import com.example.chillmax.R
+import com.example.chillmax.domain.models.MultiSearch
+import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
+import com.example.chillmax.util.Constants.IMAGE_BASE_URL
+
+@OptIn(ExperimentalCoilApi::class)
+@Composable
+fun SearchItem(
+    searchItem: MultiSearch?,
+    modifier: Modifier
+) {
+    Card(
+        modifier = modifier.background(Color.Black)
+    ){
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ){
+            Image(
+                modifier= Modifier.weight(3f),
+                painter = rememberImagePainter(
+                    data = "${IMAGE_BASE_URL}/${searchItem?.posterPath}",
+                    builder = {
+                        placeholder(R.drawable.ic_placeholder)
+                        crossfade(true)
+                    }
+                ),
+                contentScale = ContentScale.Crop,
+                contentDescription = stringResource(R.string.image_banner)
+            )
+            Column(
+                modifier = modifier.weight(5f)
+            ){
+                Text(
+                    text =searchItem?.originalTitle?: "No Title Provided"
+                )
+                Spacer(modifier = Modifier.height(SMALL_PADDING))
+                Text(text = searchItem?.overview?:"No description")
+            }
+        }
+    }
+}

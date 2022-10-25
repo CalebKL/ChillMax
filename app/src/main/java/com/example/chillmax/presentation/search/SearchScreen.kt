@@ -1,5 +1,6 @@
 package com.example.chillmax.presentation.search
 
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
