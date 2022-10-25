@@ -1,5 +1,6 @@
 package com.example.chillmax.domain.models.responses
 
+import com.example.chillmax.domain.models.MultiSearch
 import com.google.gson.annotations.SerializedName
 
 data class MultiSearchApiResponse(
