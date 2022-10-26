@@ -39,6 +39,7 @@ fun SearchBar(
             },
             placeholder = {
                 Text(
+                    modifier = Modifier.alpha(ContentAlpha.disabled),
                     text = stringResource(id = R.string.search),
                     color = Color.White
                 )

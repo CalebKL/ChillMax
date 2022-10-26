@@ -20,6 +20,7 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val useCases: UseCases
 ):ViewModel() {
+
     private val _searchResult = mutableStateOf<Flow<PagingData<MultiSearch>>>(emptyFlow())
     val searchResult = _searchResult
 
