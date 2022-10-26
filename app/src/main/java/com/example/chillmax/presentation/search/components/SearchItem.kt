@@ -17,10 +17,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.chillmax.R
 import com.example.chillmax.domain.models.MultiSearch
+import com.example.chillmax.presentation.homescreen.HomeViewModel
+import com.example.chillmax.presentation.search.SearchViewModel
 import com.example.chillmax.presentation.ui.theme.EXTRA_SMALL_PADDING
 import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
 import com.example.chillmax.util.Constants
@@ -31,7 +34,7 @@ import com.example.chillmax.util.Constants.IMAGE_BASE_URL
 fun SearchItem(
     searchItem: MultiSearch?,
     modifier: Modifier = Modifier,
-    onClick:()->Unit
+    onClick:()->Unit,
 ) {
     Card(
         modifier = modifier

@@ -1,4 +1,4 @@
-package com.example.chillmax.util
+package com.example.chillmax.presentation.search.components
 
 enum class TrailingIconState {
     READY_TO_DELETE,

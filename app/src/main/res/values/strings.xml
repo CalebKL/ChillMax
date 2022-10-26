@@ -25,4 +25,5 @@
     <string name="close_click">close click</string>
     <string name="profile_icon">Profile_icon</string>
     <string name="categories">Categories</string>
+    <string name="close_search_bar">close search bar</string>
 </resources>

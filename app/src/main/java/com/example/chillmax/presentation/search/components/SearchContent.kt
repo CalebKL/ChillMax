@@ -33,6 +33,7 @@ fun SearchContent(
     viewModel: SearchViewModel = hiltViewModel(),
 ) {
     val multiSearch = viewModel.searchResult.value.collectAsLazyPagingItems()
+    val trailingIconState = viewModel.trailingIconState.value
     Log.d("SearchContent", multiSearch.loadState.toString())
     Box(
         modifier = Modifier

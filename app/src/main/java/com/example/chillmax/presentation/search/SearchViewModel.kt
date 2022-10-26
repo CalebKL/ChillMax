@@ -1,7 +1,10 @@
 package com.example.chillmax.presentation.search
 
 import android.util.Log
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -10,6 +13,7 @@ import androidx.paging.filter
 import com.example.chillmax.domain.models.MultiSearch
 import com.example.chillmax.domain.models.TopRatedMovies
 import com.example.chillmax.domain.use_cases.UseCases
+import com.example.chillmax.presentation.search.components.TrailingIconState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -26,6 +30,8 @@ class SearchViewModel @Inject constructor(
 
     private val _searchQuery = mutableStateOf("")
     val searchQuery = _searchQuery
+
+    val trailingIconState= mutableStateOf(TrailingIconState.READY_TO_DELETE)
 
     fun updateSearchQuery(query: String) {
         _searchQuery.value = query
