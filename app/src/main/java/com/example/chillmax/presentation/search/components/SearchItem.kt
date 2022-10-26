@@ -2,7 +2,9 @@ package com.example.chillmax.presentation.search.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -16,6 +18,7 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.chillmax.R
 import com.example.chillmax.domain.models.MultiSearch
+import com.example.chillmax.presentation.ui.theme.EXTRA_SMALL_PADDING
 import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
 import com.example.chillmax.util.Constants.IMAGE_BASE_URL
 
@@ -23,10 +26,16 @@ import com.example.chillmax.util.Constants.IMAGE_BASE_URL
 @Composable
 fun SearchItem(
     searchItem: MultiSearch?,
-    modifier: Modifier
+    modifier: Modifier = Modifier,
+    onClick:()->Unit
 ) {
     Card(
-        modifier = modifier.background(Color.Black)
+        modifier = modifier
+            .clickable {
+                onClick()
+            },
+        shape = RoundedCornerShape(SMALL_PADDING),
+        elevation = EXTRA_SMALL_PADDING
     ){
         Row(
             modifier = Modifier.fillMaxWidth()
@@ -44,7 +53,7 @@ fun SearchItem(
                 contentDescription = stringResource(R.string.image_banner)
             )
             Column(
-                modifier = modifier.weight(5f)
+                modifier = modifier.weight(7f)
             ){
                 Text(
                     text =searchItem?.originalTitle?: "No Title Provided"

@@ -118,11 +118,12 @@ class RemoteDataSourceImp(
     }
 
     override fun multiSearch(query: String): Flow<PagingData<MultiSearch>> {
-        return Pager(
+        val pagerResult = Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE),
             pagingSourceFactory = {
                 MultiSearchSource(chillMaxApi = chillMaxApi, query = query)
             }
         ).flow
+        return pagerResult
     }
 }

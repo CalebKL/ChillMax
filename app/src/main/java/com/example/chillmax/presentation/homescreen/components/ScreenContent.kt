@@ -1,21 +1,14 @@
 package com.example.chillmax.presentation.homescreen.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
@@ -26,11 +19,13 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.chillmax.R
+import com.example.chillmax.domain.models.TopRatedMovies
 import com.example.chillmax.presentation.destinations.MovieDetailsScreenDestination
 import com.example.chillmax.presentation.destinations.TVDetailsScreenDestination
 import com.example.chillmax.presentation.homescreen.HomeViewModel
@@ -48,8 +43,8 @@ fun ScreenContent(
     navigator: DestinationsNavigator,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
-    val tvTopRated = viewModel.getTVTopRated.value.collectAsLazyPagingItems()
     val topRatedMovies = viewModel.topRatedMovies.value.collectAsLazyPagingItems()
+    val tvTopRated = viewModel.getTVTopRated.value.collectAsLazyPagingItems()
     val tvPopular = viewModel.tvPopular.value.collectAsLazyPagingItems()
     val popularMovies = viewModel.popularMovies.value.collectAsLazyPagingItems()
     val tvAiringToday = viewModel.tvAiringToday.value.collectAsLazyPagingItems()
@@ -110,7 +105,7 @@ fun ScreenContent(
                                     .height(200.dp)
                                     .width(200.dp)
                                     .clickable {
-                                               navigator.navigate(TVDetailsScreenDestination(film?.id!!))
+                                        navigator.navigate(TVDetailsScreenDestination(film?.id!!))
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}",
                             )
@@ -122,7 +117,7 @@ fun ScreenContent(
                                     .height(220.dp)
                                     .width(200.dp)
                                     .clickable {
-                                               navigator.navigate(MovieDetailsScreenDestination(film?.id!!))
+                                        navigator.navigate(MovieDetailsScreenDestination(film?.id!!))
                                     },
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}",
                             )

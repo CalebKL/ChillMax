@@ -19,7 +19,7 @@ class MultiSearchSource @Inject constructor(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MultiSearch> {
         return try {
             val nextPage = params.key ?: 1
-            val multiSearch = chillMaxApi.multiSearch(nextPage, query = query)
+            val multiSearch = chillMaxApi.multiSearch(query = query, nextPage)
             LoadResult.Page(
                 data = multiSearch.searches,
                 prevKey = if (nextPage == 1) null else nextPage - 1,
