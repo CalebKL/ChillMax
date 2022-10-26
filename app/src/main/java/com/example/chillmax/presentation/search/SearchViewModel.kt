@@ -35,7 +35,7 @@ class SearchViewModel @Inject constructor(
             _searchResult.value = useCases.multiSearchUseCase(query = query).map { pagingData ->
                 pagingData.filter {
                     ((it.title != null || it.originalName != null || it.originalTitle != null) &&
-                            (it.mediaType == "Tv Show" || it.mediaType == "Movie"))
+                            (it.mediaType == "tv" || it.mediaType == "movies"))
                 }
             }.cachedIn(viewModelScope)
         }

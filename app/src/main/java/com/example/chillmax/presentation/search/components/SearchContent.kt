@@ -21,6 +21,7 @@ import coil.annotation.ExperimentalCoilApi
 import com.example.chillmax.presentation.destinations.MovieDetailsScreenDestination
 import com.example.chillmax.presentation.destinations.TVDetailsScreenDestination
 import com.example.chillmax.presentation.search.SearchViewModel
+import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import retrofit2.HttpException
 import java.io.IOException
@@ -36,20 +37,22 @@ fun SearchContent(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.LightGray)
     ) {
         LazyColumn(
-            contentPadding = PaddingValues(8.dp),
-            verticalArrangement = Arrangement.Top
+            modifier = Modifier.padding(SMALL_PADDING),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) { items(multiSearch) { searchResult->
                 SearchItem(
                     searchItem = searchResult,
+                    modifier = Modifier
+                        .height(130.dp)
+                        .fillMaxWidth(),
                     onClick = {
                         when (searchResult?.mediaType) {
-                            "Tv Show" -> {
+                            "tv" -> {
                                 navigator.navigate(TVDetailsScreenDestination(searchResult.id!!))
                             }
-                            "Movie" -> {
+                            "movies" -> {
                                 navigator.navigate(MovieDetailsScreenDestination(searchResult.id!!))
                             }
                         }
