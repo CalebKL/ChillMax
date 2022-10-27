@@ -23,6 +23,10 @@ class LocalDataSourceImp(
         return dao.addToMyList(myList = myList)
     }
 
+    override fun isHeroLiked(listId: Int): Flow<Boolean> {
+        return dao.isHeroLiked(listId)
+    }
+
     override suspend fun deleteOneFromMyList(myList: MyList) {
         return dao.deleteOneFromMyList(myList = myList)
     }

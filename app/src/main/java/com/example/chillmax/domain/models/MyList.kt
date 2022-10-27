@@ -8,11 +8,12 @@ import kotlinx.serialization.Serializable
 @Serializable
 @Entity(tableName =MY_LIST_DATABASE_TABLE)
 data class MyList(
+    val isLiked: Boolean,
     @PrimaryKey(autoGenerate = false)
     val id: Int,
     val imagePath: String?,
     val title: String,
-    val releaseDate: String,
+    val mediaType: String,
     val rating: Double,
     val addedOn: String
 )

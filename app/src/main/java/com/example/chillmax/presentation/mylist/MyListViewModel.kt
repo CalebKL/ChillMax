@@ -23,4 +23,8 @@ class MyListViewModel @Inject constructor(
     suspend fun deleteAllContent(){
         useCases.deleteAllContentFromMyListUseCase()
     }
+
+    suspend fun isHeroLiked(myList: MyList){
+        useCases.
+    }
 }

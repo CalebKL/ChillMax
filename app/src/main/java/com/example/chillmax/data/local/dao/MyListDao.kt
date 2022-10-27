@@ -12,8 +12,11 @@ interface MyListDao {
     @Query("SELECT * FROM MY_LIST_TABLE  WHERE id =:listId")
     fun getSelectedFromMyList(listId: Int):MyList
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     fun addToMyList(myList: MyList)
+
+    @Query("SELECT isLiked FROM my_list_table WHERE id = :listId")
+    fun isHeroLiked(listId: Int):Flow<Boolean>
 
     @Delete
     suspend fun deleteOneFromMyList(myList: MyList)

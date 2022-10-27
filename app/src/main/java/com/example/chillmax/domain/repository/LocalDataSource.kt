@@ -10,6 +10,8 @@ interface LocalDataSource {
 
     fun addToMyList(myList:MyList)
 
+    fun isHeroLiked(listId:Int): Flow<Boolean>
+
     suspend fun deleteOneFromMyList(myList: MyList)
 
     suspend fun deleteAllContentFromMyList()
