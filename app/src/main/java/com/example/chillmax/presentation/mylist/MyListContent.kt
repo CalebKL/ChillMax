@@ -46,7 +46,6 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-@Destination
 @Composable
 fun MyListContent(
     navigator: DestinationsNavigator,
