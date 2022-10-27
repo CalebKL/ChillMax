@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.navOptions
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.chillmax.R
@@ -47,8 +48,16 @@ import kotlinx.coroutines.launch
 
 @Destination
 @Composable
-fun MyListScreen() {
-
+fun MyListContent(
+    navigator: DestinationsNavigator,
+    onSwipeToDelete: (Action, MyList)->Unit,
+    hero:List<MyList>,
+) {
+    HandleListContent(
+        navigator = navigator,
+        onSwipeToDelete = onSwipeToDelete,
+        hero = hero
+    )
 }
 
 
