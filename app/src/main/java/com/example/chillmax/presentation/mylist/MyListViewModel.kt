@@ -25,6 +25,6 @@ class MyListViewModel @Inject constructor(
     }
 
     suspend fun isHeroLiked(myList: MyList){
-        useCases.
+        useCases
     }
 }

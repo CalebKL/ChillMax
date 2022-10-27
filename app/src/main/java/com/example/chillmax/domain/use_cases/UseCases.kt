@@ -20,5 +20,6 @@ class UseCases(
     val multiSearchUseCase: MultiSearchUseCase,
     val getTvTopRatedUseCase: TVTopRatedUseCase,
     val readOnBoardingUseCase: ReadOnBoardingUseCase,
-    val saveOnBoardingUseCase: SaveOnBoardingUseCase
+    val saveOnBoardingUseCase: SaveOnBoardingUseCase,
+    val isHeroLikedUseCase: IsHeroLikedUseCase
 )
