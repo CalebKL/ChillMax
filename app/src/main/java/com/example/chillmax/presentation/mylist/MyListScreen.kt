@@ -19,17 +19,22 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.chillmax.R
 import com.example.chillmax.domain.models.MyList
 import com.example.chillmax.presentation.ui.theme.EXTRA_SMALL_PADDING
+import com.example.chillmax.presentation.ui.theme.ICON_SIZE
 import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
 import com.example.chillmax.util.Action
 import com.example.chillmax.util.Constants
@@ -202,6 +207,54 @@ fun RedBackground(degrees:Float) {
 }
 
 @Composable
-fun EmptyContent() {
-
+fun EmptyListContent() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        Icon(
+            modifier = Modifier
+                .size(ICON_SIZE)
+                .alpha(ContentAlpha.disabled),
+            painter = painterResource(id = R.drawable.ic_sad),
+            contentDescription = stringResource(
+                R.string.empty_content)
+        )
+        Spacer(modifier = Modifier.height(SMALL_PADDING))
+        Text(
+            modifier =Modifier.alpha(ContentAlpha.disabled),
+            text = stringResource(R.string.nothing_to_display),
+            color = Color.White,
+            style = MaterialTheme.typography.subtitle2,
+            fontWeight = FontWeight.Medium
+        )
+    }
 }
+
+@Preview
+@Composable
+fun EmptyContentPrev() {
+    EmptyListContent()
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -27,4 +27,6 @@
     <string name="categories">Categories</string>
     <string name="close_search_bar">close search bar</string>
     <string name="delete_icon">Delete_Icon</string>
+    <string name="empty_content">Empty content</string>
+    <string name="nothing_to_display">Nothing to display</string>
 </resources>

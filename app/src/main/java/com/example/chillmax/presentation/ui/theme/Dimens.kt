@@ -14,3 +14,4 @@ val INFO_ICON_SIZE = 32.dp
 val EXTRA_LARGE_PADDING = 40.dp
 val RADIUS_DP = 0.dp
 val SHEET_PEEK_HEIGHT = 140.dp
+val ICON_SIZE = 120.dp
