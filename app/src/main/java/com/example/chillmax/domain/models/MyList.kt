@@ -13,6 +13,7 @@ data class MyList(
     val id: Int,
     val imagePath: String?,
     val title: String,
+    val description: String,
     val mediaType: String,
     val rating: Double,
     val addedOn: String
