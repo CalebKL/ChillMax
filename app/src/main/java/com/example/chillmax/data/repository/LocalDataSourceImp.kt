@@ -19,7 +19,7 @@ class LocalDataSourceImp(
         return dao.getSelectedFromMyList(listId = listId)
     }
 
-    override fun addToMyList(myList: List<MyList>) {
+    override fun addToMyList(myList: MyList) {
         return dao.addToMyList(myList = myList)
     }
 

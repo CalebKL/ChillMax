@@ -13,7 +13,7 @@ interface MyListDao {
     fun getSelectedFromMyList(listId: Int):MyList
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addToMyList(myList: List<MyList>)
+    fun addToMyList(myList: MyList)
 
     @Delete
     suspend fun deleteOneFromMyList(myList: MyList)

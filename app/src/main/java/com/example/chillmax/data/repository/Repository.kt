@@ -58,7 +58,7 @@ class Repository @Inject constructor(
     fun getSelectedFromMyList(listId: Int):MyList{
         return local.getSelectedFromMyList(listId = listId)
     }
-    fun addToMyList(myList: List<MyList>){
+    fun addToMyList(myList: MyList){
         return local.addToMyList(myList = myList)
     }
     suspend fun deleteOneFromMyList(myList: MyList){

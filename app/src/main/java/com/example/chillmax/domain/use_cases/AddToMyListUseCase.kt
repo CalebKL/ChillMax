@@ -6,7 +6,7 @@ import com.example.chillmax.domain.models.MyList
 class AddToMyListUseCase(
     private val repository: Repository
 ) {
-    suspend operator fun invoke(myList: List<MyList>){
+    suspend operator fun invoke(myList: MyList){
         return repository.addToMyList(myList =myList)
     }
 }

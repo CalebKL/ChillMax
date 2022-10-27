@@ -8,7 +8,7 @@ interface LocalDataSource {
 
     fun getSelectedFromMyList(listId: Int):MyList
 
-    fun addToMyList(myList: List<MyList>)
+    fun addToMyList(myList:MyList)
 
     suspend fun deleteOneFromMyList(myList: MyList)
 
