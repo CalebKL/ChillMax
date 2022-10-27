@@ -5,6 +5,7 @@ enum class Action {
     DELETE,
     DELETE_ALL,
     UNDO,
+    IS_LIKED,
     NO_ACTION
 }
 
@@ -21,6 +22,9 @@ fun String?.toAction():Action{
         }
         this == "UNDO"->{
             Action.UNDO
+        }
+        this == "IS_LIKED"->{
+            Action.IS_LIKED
         }
         else ->{
             Action.NO_ACTION

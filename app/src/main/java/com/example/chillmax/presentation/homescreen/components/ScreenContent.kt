@@ -26,6 +26,7 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.chillmax.R
 import com.example.chillmax.domain.models.TopRatedMovies
+import com.example.chillmax.presentation.destinations.ListScreenDestination
 import com.example.chillmax.presentation.destinations.MovieDetailsScreenDestination
 import com.example.chillmax.presentation.destinations.TVDetailsScreenDestination
 import com.example.chillmax.presentation.homescreen.HomeViewModel
@@ -110,7 +111,7 @@ fun ScreenContent(
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}",
                             )
                         }
-                    }else{
+                    }else if (viewModel.selectedOption.value == "Movies"){
                         items(topRatedMovies){ film->
                             HeroItem(
                                 modifier = Modifier
@@ -122,6 +123,9 @@ fun ScreenContent(
                                 imageUrl = "$IMAGE_BASE_URL/${film!!.poster_path}",
                             )
                         }
+                    }
+                    else{
+                        navigator.navigate(ListScreenDestination)
                     }
                     if (topRatedMovies.loadState.append == LoadState.Loading){
                         item {

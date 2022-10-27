@@ -41,6 +41,7 @@ import com.example.chillmax.presentation.ui.theme.ICON_SIZE
 import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
 import com.example.chillmax.util.Action
 import com.example.chillmax.util.Constants
+import com.example.chillmax.util.Resource
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.delay
@@ -50,13 +51,15 @@ import kotlinx.coroutines.launch
 fun MyListContent(
     navigator: DestinationsNavigator,
     onSwipeToDelete: (Action, MyList)->Unit,
-    hero:List<MyList>,
+    hero:Resource<List<MyList>>,
 ) {
-    HandleListContent(
-        navigator = navigator,
-        onSwipeToDelete = onSwipeToDelete,
-        hero = hero
-    )
+    hero.data?.let {
+        HandleListContent(
+            navigator = navigator,
+            onSwipeToDelete = onSwipeToDelete,
+            hero = it
+        )
+    }
 }
 
 
@@ -76,6 +79,7 @@ fun HandleListContent(
         )
     }
 }
+
 
 
 @SuppressLint("CoroutineCreationDuringComposition")

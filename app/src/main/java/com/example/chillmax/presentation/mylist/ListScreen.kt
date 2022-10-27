@@ -1,12 +1,10 @@
 package com.example.chillmax.presentation.mylist
 
+import android.annotation.SuppressLint
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.chillmax.R
@@ -17,6 +15,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.launch
 
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Destination
 @Composable
 fun ListScreen(
@@ -25,6 +24,7 @@ fun ListScreen(
 ) {
     val action by viewModel.action
     val scaffoldState = rememberScaffoldState()
+    val myList by viewModel.getMyList.collectAsState()
     DisplaySnackBar(
         scaffoldState = scaffoldState,
         action =action ,
@@ -32,9 +32,25 @@ fun ListScreen(
             viewModel.action.value = it
         },
         handleDatabaseAction = {
-                               viewModel.handleDatabaseActions(action, myList = )
+                               viewModel.handleDatabaseActions(action)
         },
         listTitle = viewModel.listTitle.value
+    )
+    Scaffold(
+        scaffoldState = scaffoldState,
+        content = {
+                  MyListContent(
+                      navigator = navigator,
+                      onSwipeToDelete ={action, list ->
+                          viewModel.action.value = action
+                          viewModel.updateListField(list)
+                      },
+                      hero = myList
+                  )
+        },
+        floatingActionButton = {
+            ListFab(navigator = navigator)
+        }
     )
 }
 

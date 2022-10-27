@@ -10,8 +10,8 @@ import kotlinx.serialization.Serializable
 data class MyList(
     val isLiked: Boolean,
     @PrimaryKey(autoGenerate = false)
-    val id: Int,
-    val imagePath: String?,
+    val id: Int = 0,
+    val imagePath: String,
     val title: String,
     val description: String,
     val mediaType: String
