@@ -33,6 +33,8 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.chillmax.R
 import com.example.chillmax.domain.models.MyList
+import com.example.chillmax.presentation.destinations.MovieDetailsScreenDestination
+import com.example.chillmax.presentation.destinations.TVDetailsScreenDestination
 import com.example.chillmax.presentation.ui.theme.EXTRA_SMALL_PADDING
 import com.example.chillmax.presentation.ui.theme.ICON_SIZE
 import com.example.chillmax.presentation.ui.theme.SMALL_PADDING
@@ -57,7 +59,7 @@ fun HandleListContent(
     hero:List<MyList>,
 ) {
     if (hero.isEmpty()){
-
+        EmptyListContent()
     }else{
         DisplayMyList(
             myList = hero,
@@ -69,7 +71,7 @@ fun HandleListContent(
 
 
 @SuppressLint("CoroutineCreationDuringComposition")
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class, ExperimentalCoilApi::class)
 @Composable
 fun DisplayMyList(
     myList: List<MyList>,
@@ -126,8 +128,16 @@ fun DisplayMyList(
                     dismissThresholds = { FractionalThreshold(fraction = 0.2f) },
                     background = {RedBackground(degrees = degrees)},
                     dismissContent = {
-                        MyListItem(onClick = {
-
+                        MyListItem(
+                            onClick = {
+                                   when(fav.mediaType){
+                                       "tv" ->{
+                                           navigator.navigate(TVDetailsScreenDestination(fav.id))
+                                       }
+                                       "movie" ->{
+                                           navigator.navigate(MovieDetailsScreenDestination(fav.id))
+                                       }
+                                   }
                         }, hero = fav)
                     }
                 )
