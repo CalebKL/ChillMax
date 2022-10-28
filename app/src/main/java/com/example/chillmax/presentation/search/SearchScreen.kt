@@ -25,8 +25,6 @@ import com.example.chillmax.presentation.search.components.SearchItem
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterialApi::class, ExperimentalCoilApi::class)
 @Destination
 @Composable
 fun SearchScreen(

@@ -38,6 +38,12 @@ fun ListScreen(
     )
     Scaffold(
         scaffoldState = scaffoldState,
+        topBar = {
+                 MyListTopAppBar(onSearchClick = {
+                     navigator.navigate(SearchScreenDestination)
+                 }, navigator =navigator
+                 )
+        },
         content = {
                   MyListContent(
                       navigator = navigator,
