@@ -7,7 +7,9 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.annotation.ExperimentalCoilApi
 import com.example.chillmax.R
+import com.example.chillmax.presentation.destinations.HomeScreenDestination
 import com.example.chillmax.presentation.destinations.SearchScreenDestination
 import com.example.chillmax.util.Action
 import com.ramcosta.composedestinations.annotation.Destination
@@ -22,20 +24,7 @@ fun ListScreen(
     navigator: DestinationsNavigator,
     viewModel: MyListViewModel = hiltViewModel(),
 ) {
-    val action by viewModel.action
     val scaffoldState = rememberScaffoldState()
-    val myList by viewModel.getMyList.collectAsState()
-    DisplaySnackBar(
-        scaffoldState = scaffoldState,
-        action =action ,
-        onUndoClick = {
-            viewModel.action.value = it
-        },
-        handleDatabaseAction = {
-                               viewModel.handleDatabaseActions(action)
-        },
-        listTitle = viewModel.listTitle.value
-    )
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
@@ -45,14 +34,10 @@ fun ListScreen(
                  )
         },
         content = {
-                  MyListContent(
-                      navigator = navigator,
-                      onSwipeToDelete ={action, list ->
-                          viewModel.action.value = action
-                          viewModel.updateListField(list)
-                      },
-                      hero = myList
-                  )
+                 DisplayMyList(
+                     navigator = navigator,
+                     viewModel =viewModel
+                 )
         },
         floatingActionButton = {
             ListFab(navigator = navigator)
@@ -60,78 +45,20 @@ fun ListScreen(
     )
 }
 
+@OptIn(ExperimentalMaterialApi::class, ExperimentalCoilApi::class)
 @Composable
 fun ListFab(
     navigator: DestinationsNavigator
 ) {
     FloatingActionButton(
         onClick = {
-            navigator.navigate(SearchScreenDestination)
+            navigator.navigate(HomeScreenDestination)
         }) {
         Icon(
             imageVector = Icons.Default.Add,
             contentDescription = stringResource(R.string.add_to_my_list))
     }
 }
-
-@Composable
-fun DisplaySnackBar(
-    scaffoldState: ScaffoldState,
-    action: Action,
-    onUndoClick:(Action)->Unit,
-    handleDatabaseAction:()->Unit,
-    listTitle:String
-) {
-    handleDatabaseAction()
-    val scope = rememberCoroutineScope()
-    LaunchedEffect(key1 =action){
-        if (action != Action.NO_ACTION){
-            scope.launch {
-                val snackBarResult = scaffoldState.snackbarHostState.showSnackbar(
-                    message = snackBarMessage(action, listTitle),
-                    actionLabel = setActionLabel(action)
-                )
-                undoDeletedTask(
-                    action = Action.DELETE,
-                    snackBarResult = snackBarResult,
-                    onUndoClicked = onUndoClick
-                )
-            }
-        }
-    }
-}
-
-
-private fun snackBarMessage(action: Action, listTitle:String): String{
-    return when(action){
-        Action.DELETE_ALL -> "All Tasks Removed"
-        else -> "${action.name}: $listTitle"
-    }
-
-}
-
-private fun setActionLabel(action: Action): String{
-    return if(action.name == "DELETE"){
-        "UNDO"
-    }else{
-        "OK"
-    }
-}
-
-private fun undoDeletedTask(
-    action: Action,
-    snackBarResult: SnackbarResult,
-    onUndoClicked: (Action) -> Unit
-){
-    if (snackBarResult == SnackbarResult.ActionPerformed && action == Action.DELETE){
-        onUndoClicked(Action.UNDO)
-    }
-}
-
-
-
-
-
 
 
 

@@ -3,6 +3,7 @@ package com.example.chillmax.data.local.dao
 import androidx.room.*
 import com.example.chillmax.domain.models.MyList
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 @Dao
 interface MyListDao {
@@ -13,7 +14,7 @@ interface MyListDao {
     fun getSelectedFromMyList(listId: Int):MyList
 
     @Insert
-    fun addToMyList(myList: MyList)
+    suspend fun addToMyList(myList: MyList)
 
     @Query("SELECT isLiked FROM my_list_table WHERE id = :listId")
     fun isHeroLiked(listId: Int):Flow<Boolean>

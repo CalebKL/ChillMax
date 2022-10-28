@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.navOptions
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
@@ -47,54 +48,19 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-@Composable
-fun MyListContent(
-    navigator: DestinationsNavigator,
-    onSwipeToDelete: (Action, MyList)->Unit,
-    hero:Resource<List<MyList>>,
-) {
-    hero.data?.let {
-        HandleListContent(
-            navigator = navigator,
-            onSwipeToDelete = onSwipeToDelete,
-            hero = it
-        )
-    }
-}
-
-
-@Composable
-fun HandleListContent(
-    navigator: DestinationsNavigator,
-    onSwipeToDelete: (Action, MyList)->Unit,
-    hero:List<MyList>,
-) {
-    if (hero.isEmpty()){
-        EmptyListContent()
-    }else{
-        DisplayMyList(
-            myList = hero,
-            navigator =navigator,
-            onSwipeToDelete = onSwipeToDelete
-        )
-    }
-}
-
-
-
 @SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterialApi::class, ExperimentalCoilApi::class)
 @Composable
 fun DisplayMyList(
-    myList: List<MyList>,
     navigator: DestinationsNavigator,
-    onSwipeToDelete: (Action, MyList)->Unit,
+    viewModel: MyListViewModel
 ) {
+    val list = viewModel.list.value.collectAsState(initial = emptyList())
     LazyColumn(){
         items(
-            items = myList,
-            key = { list->
-                list.id
+            items = list.value,
+            key = {myList->
+                myList.id
             }
         ){fav->
             val dismissState = rememberDismissState()
@@ -105,7 +71,6 @@ fun DisplayMyList(
                 val scope = rememberCoroutineScope()
                 scope.launch {
                     delay(300)
-                    onSwipeToDelete(Action.DELETE,fav)
                 }
             }
 

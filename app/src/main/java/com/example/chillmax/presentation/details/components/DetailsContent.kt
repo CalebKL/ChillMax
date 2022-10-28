@@ -1,6 +1,7 @@
 package com.example.chillmax.presentation.details.components
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -9,21 +10,29 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.chillmax.R
+import com.example.chillmax.domain.models.MyList
 import com.example.chillmax.domain.models.responses.CastDetailsApiResponse
+import com.example.chillmax.presentation.destinations.ListScreenDestination
+import com.example.chillmax.presentation.mylist.MyListViewModel
 import com.example.chillmax.presentation.ui.theme.*
+import com.example.chillmax.util.Action
 import com.example.chillmax.util.Resource
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -33,12 +42,16 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 fun DetailsContent(
     navigator: DestinationsNavigator,
     filmName: String,
+    myList:Int,
+    mediaType:String,
     posterUrl: String,
     releaseDate: String,
     overview: String,
     casts: Resource<CastDetailsApiResponse>,
-    state: LazyListState
+    state: LazyListState,
+    viewModel: MyListViewModel = hiltViewModel(),
 ) {
+    val context = LocalContext.current
     val scaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
     )
@@ -73,7 +86,24 @@ fun DetailsContent(
                 imageFraction = currentSheetFraction,
                 onCloseClick = {
                     navigator.popBackStack()
-                }
+                },
+                onClicked = {isHeroLiked ->
+                    if (isHeroLiked){
+                        Toast.makeText(context,"Already Added", Toast.LENGTH_SHORT).show()
+                    }else{
+                        viewModel.addToMyList(
+                            MyList(
+                                isLiked = true,
+                                id = myList,
+                                imagePath = posterUrl,
+                                title = filmName,
+                                description = overview,
+                                mediaType = mediaType
+                            )
+                        )
+                    }
+                },
+                isLiked = true
             )
         }
     )
@@ -147,7 +177,9 @@ fun MovieBackgroundColorSpan(
     posterUrl: String,
     imageFraction: Float = 1f,
     backgroundColor: Color = MaterialTheme.colors.surface,
-    onCloseClick: () -> Unit
+    onCloseClick: () -> Unit,
+    isLiked: Boolean,
+    onClicked: (isLiked:Boolean) ->Unit
 ) {
     Box(
         modifier = Modifier
@@ -172,16 +204,29 @@ fun MovieBackgroundColorSpan(
         )
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
             IconButton(
                 onClick = { onCloseClick() })
-            {
-                Icon(
+            { Icon(
                     modifier = Modifier.size(INFO_ICON_SIZE),
-                    imageVector = Icons.Default.Close,
+                    imageVector = Icons.Default.ArrowBack,
                     contentDescription = stringResource(R.string.close_button),
                     tint = Color.White
+                )
+            }
+            IconButton(onClick = {
+                onClicked(isLiked)
+            }) {
+                Icon(
+                    modifier = Modifier.size(INFO_ICON_SIZE),
+                    painter = painterResource(id = R.drawable.ic_thumb),
+                    contentDescription = stringResource(R.string.like_movie_show),
+                    tint = if (isLiked){
+                        Color.Red
+                    }else{
+                        Color.White
+                    }
                 )
             }
         }

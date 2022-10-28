@@ -41,7 +41,9 @@ fun TVDetailsScreen(
             releaseDate = tvDetails.data?.firstAirDate.toString(),
             overview = tvDetails.data?.overview.toString(),
             casts = casts,
-            state = scrollState
+            state = scrollState,
+            mediaType = "tv",
+            myList = tvDetails.data?.id!!
         )
     } else{
         CircularProgressIndicator()
