@@ -24,24 +24,35 @@ class MyListViewModel @Inject constructor(
     private val _list = mutableStateOf<Flow<List<MyList>>>(emptyFlow())
     val list: MutableState<Flow<List<MyList>>> = _list
 
+    private val _addToMyList = mutableStateOf(0)
+    val addToMyList: State<Int> = _addToMyList
+
     fun addToMyList(myList:MyList) {
         viewModelScope.launch {
             useCases.addToMyListUseCase(myList)
+        }.invokeOnCompletion {
+            ifExists(myList.listId)
         }
     }
 
-    suspend fun deleteOneFromMyList(myList: MyList) {
-        return useCases.deleteOneFromMyListUseCase(myList = myList)
-
+    fun deleteOneFromMyList(listId: Int) {
+        viewModelScope.launch {
+            useCases.deleteOneFromMyListUseCase(myList = listId)
+        }.invokeOnCompletion {
+            ifExists(listId)
+        }
     }
 
-    suspend fun deleteAllContent() {
-       return useCases.deleteAllContentFromMyListUseCase()
-
+    fun deleteAllContent() {
+        viewModelScope.launch {
+            useCases.deleteAllContentFromMyListUseCase()
+        }
     }
 
-    fun isHeroLiked(myList: Int): Flow<Boolean> {
-       return useCases.isHeroLikedUseCase(myList)
+    fun ifExists(listId:Int){
+        viewModelScope.launch {
+            _addToMyList.value = useCases.ifExistsUseCase(listId)
+        }
     }
 
 }

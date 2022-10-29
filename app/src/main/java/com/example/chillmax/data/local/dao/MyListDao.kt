@@ -7,21 +7,21 @@ import kotlinx.coroutines.flow.StateFlow
 
 @Dao
 interface MyListDao {
-    @Query("SELECT * FROM MY_LIST_TABLE ORDER BY id ASC")
+    @Query("SELECT * FROM TABLE_NAME ORDER BY listId ASC")
     fun getMyList(): Flow<List<MyList>>
 
-    @Query("SELECT * FROM MY_LIST_TABLE  WHERE id =:listId")
+    @Query("SELECT * FROM TABLE_NAME  WHERE listId =:listId")
     fun getSelectedFromMyList(listId: Int):MyList
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addToMyList(myList: MyList)
 
-    @Query("SELECT isLiked FROM my_list_table WHERE id = :listId")
-    fun isHeroLiked(listId: Int):Flow<Boolean>
+    @Query("SELECT EXISTS (SELECT 1 FROM TABLE_NAME WHERE listId = :listId)")
+    suspend fun ifExists(listId: Int): Int
 
-    @Delete
-    suspend fun deleteOneFromMyList(myList: MyList)
+    @Query("DELETE FROM TABLE_NAME WHERE listId =:listId")
+    suspend fun deleteOneFromMyList(listId: Int)
 
-    @Query("DELETE FROM MY_LIST_TABLE")
+    @Query("DELETE FROM TABLE_NAME")
     suspend fun deleteAllContentFromMyList()
 }

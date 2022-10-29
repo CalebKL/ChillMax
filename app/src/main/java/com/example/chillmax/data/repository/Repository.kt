@@ -62,10 +62,10 @@ class Repository @Inject constructor(
     suspend fun addToMyList(myList: MyList){
         return local.addToMyList(myList = myList)
     }
-    fun isHeroLiked(myList: Int): Flow<Boolean> {
-        return local.isHeroLiked(listId = myList)
+    suspend fun ifExists(listId:Int):Int{
+        return local.ifExists(listId)
     }
-    suspend fun deleteOneFromMyList(myList: MyList){
+    suspend fun deleteOneFromMyList(myList: Int){
         return local.deleteOneFromMyList(myList = myList)
     }
     suspend fun deleteAllContentFromMyList(){

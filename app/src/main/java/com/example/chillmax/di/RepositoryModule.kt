@@ -46,7 +46,7 @@ object RepositoryModule {
             saveOnBoardingUseCase = SaveOnBoardingUseCase(repository),
             getMoviesDetailsUseCase = GetMoviesDetailsUseCase(repository),
             getTVDetailsUseCase = GetTVDetailsUseCase(repository),
-            isHeroLikedUseCase = IsHeroLikedUseCase(repository)
+            ifExistsUseCase = IfExistsUseCase(repository)
         )
     }
 }

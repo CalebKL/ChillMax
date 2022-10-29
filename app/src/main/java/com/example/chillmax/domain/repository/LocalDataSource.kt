@@ -11,9 +11,9 @@ interface LocalDataSource {
 
     suspend fun addToMyList(myList:MyList)
 
-    fun isHeroLiked(listId:Int): Flow<Boolean>
+    suspend fun ifExists(listId:Int):Int
 
-    suspend fun deleteOneFromMyList(myList: MyList)
+    suspend fun deleteOneFromMyList(myList: Int)
 
     suspend fun deleteAllContentFromMyList()
 

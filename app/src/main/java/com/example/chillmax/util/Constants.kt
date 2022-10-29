@@ -2,6 +2,7 @@ package com.example.chillmax.util
 
 object Constants {
     const val MY_LIST_DATABASE_TABLE = "my_list_table"
+    const val TABLE_NAME ="table_name"
     const val CHILL_MAX_DATABASE = "chill_max_database"
     const val CHILL_MAX_REMOTE_KEYS_DATABASE_TABLE = "chill_max_remote_keys_table"
     const val BASE_URL = "https://api.themoviedb.org/3/"

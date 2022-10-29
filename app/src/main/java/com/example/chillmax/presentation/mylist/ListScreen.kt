@@ -1,10 +1,13 @@
 package com.example.chillmax.presentation.mylist
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
@@ -24,6 +27,7 @@ fun ListScreen(
     navigator: DestinationsNavigator,
     viewModel: MyListViewModel = hiltViewModel(),
 ) {
+
     val scaffoldState = rememberScaffoldState()
     Scaffold(
         scaffoldState = scaffoldState,

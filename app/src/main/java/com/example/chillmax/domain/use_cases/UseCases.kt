@@ -21,5 +21,5 @@ class UseCases(
     val getTvTopRatedUseCase: TVTopRatedUseCase,
     val readOnBoardingUseCase: ReadOnBoardingUseCase,
     val saveOnBoardingUseCase: SaveOnBoardingUseCase,
-    val isHeroLikedUseCase: IsHeroLikedUseCase
+    val ifExistsUseCase: IfExistsUseCase
 )

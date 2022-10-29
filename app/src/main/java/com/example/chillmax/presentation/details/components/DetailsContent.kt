@@ -2,6 +2,7 @@ package com.example.chillmax.presentation.details.components
 
 import android.util.Log
 import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -51,6 +52,7 @@ fun DetailsContent(
     state: LazyListState,
     viewModel: MyListViewModel = hiltViewModel(),
 ) {
+    val addToMyList = viewModel.addToMyList.value
     val context = LocalContext.current
     val scaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
@@ -87,14 +89,22 @@ fun DetailsContent(
                 onCloseClick = {
                     navigator.popBackStack()
                 },
-                onClicked = {isHeroLiked ->
-                    if (isHeroLiked){
-                        Toast.makeText(context,"Already Added", Toast.LENGTH_SHORT).show()
+                imagePath = posterUrl,
+                myList = myList,
+                overview = overview,
+                mediaType = mediaType,
+                filmName = filmName,
+                onClick = {
+                    if (addToMyList != 0){
+                        viewModel.deleteOneFromMyList(listId = myList)
+                        Toast.makeText(context, "Removed from my List", Toast.LENGTH_SHORT).show()
                     }else{
+                        Toast.makeText(
+                            context, "Added to watchlist", LENGTH_SHORT
+                        ).show()
                         viewModel.addToMyList(
                             MyList(
-                                isLiked = true,
-                                id = myList,
+                                listId = myList,
                                 imagePath = posterUrl,
                                 title = filmName,
                                 description = overview,
@@ -103,7 +113,11 @@ fun DetailsContent(
                         )
                     }
                 },
-                isLiked = true
+                tint = if (addToMyList!= 0){
+                    Color.Red
+                }else{
+                    Color.White
+                }
             )
         }
     )
@@ -175,12 +189,19 @@ fun MovieBottomSheetContent(
 @Composable
 fun MovieBackgroundColorSpan(
     posterUrl: String,
+    myList: Int,
+    imagePath: String,
+    overview: String,
+    mediaType:String,
+    filmName: String,
     imageFraction: Float = 1f,
     backgroundColor: Color = MaterialTheme.colors.surface,
     onCloseClick: () -> Unit,
-    isLiked: Boolean,
-    onClicked: (isLiked:Boolean) ->Unit
+    viewModel: MyListViewModel = hiltViewModel(),
+    onClick:()->Unit,
+    tint:Color
 ) {
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -216,17 +237,13 @@ fun MovieBackgroundColorSpan(
                 )
             }
             IconButton(onClick = {
-                onClicked(isLiked)
+              onClick()
             }) {
                 Icon(
                     modifier = Modifier.size(INFO_ICON_SIZE),
                     painter = painterResource(id = R.drawable.ic_thumb),
                     contentDescription = stringResource(R.string.like_movie_show),
-                    tint = if (isLiked){
-                        Color.Red
-                    }else{
-                        Color.White
-                    }
+                    tint = tint
                 )
             }
         }

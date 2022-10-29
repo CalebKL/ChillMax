@@ -56,11 +56,15 @@ fun DisplayMyList(
     viewModel: MyListViewModel
 ) {
     val list = viewModel.list.value.collectAsState(initial = emptyList())
-    LazyColumn(){
+    val currentList: State<List<MyList>> by remember { mutableStateOf(list) }
+
+    LazyColumn(
+        verticalArrangement = Arrangement.Top
+    ){
         items(
-            items = list.value,
+            items = currentList.value,
             key = {myList->
-                myList.id
+                myList.listId
             }
         ){fav->
             val dismissState = rememberDismissState()
@@ -109,10 +113,10 @@ fun DisplayMyList(
                             onClick = {
                                    when(fav.mediaType){
                                        "tv" ->{
-                                           navigator.navigate(TVDetailsScreenDestination(fav.id))
+                                           navigator.navigate(TVDetailsScreenDestination(fav.listId))
                                        }
                                        "movie" ->{
-                                           navigator.navigate(MovieDetailsScreenDestination(fav.id))
+                                           navigator.navigate(MovieDetailsScreenDestination(fav.listId))
                                        }
                                    }
                         }, hero = fav)

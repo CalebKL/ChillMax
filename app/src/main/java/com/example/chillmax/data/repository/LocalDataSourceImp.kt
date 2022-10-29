@@ -24,12 +24,12 @@ class LocalDataSourceImp(
         return dao.addToMyList(myList = myList)
     }
 
-    override fun isHeroLiked(listId: Int): Flow<Boolean> {
-        return dao.isHeroLiked(listId)
+    override suspend fun ifExists(listId: Int): Int {
+        return dao.ifExists(listId)
     }
 
-    override suspend fun deleteOneFromMyList(myList: MyList) {
-        return dao.deleteOneFromMyList(myList = myList)
+    override suspend fun deleteOneFromMyList(myList: Int) {
+        return dao.deleteOneFromMyList(myList)
     }
 
     override suspend fun deleteAllContentFromMyList() {
