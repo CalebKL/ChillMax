@@ -53,8 +53,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun DisplayMyList(
     navigator: DestinationsNavigator,
-    viewModel: MyListViewModel
-) {
+    viewModel: MyListViewModel,
+    onSwipeToDelete: (MyList)->Unit,
+    ) {
     val list = viewModel.list.value.collectAsState(initial = emptyList())
     val currentList: State<List<MyList>> by remember { mutableStateOf(list) }
 
@@ -76,6 +77,7 @@ fun DisplayMyList(
                 val scope = rememberCoroutineScope()
                 scope.launch {
                     delay(300)
+                    onSwipeToDelete(fav)
                 }
             }
 
@@ -95,7 +97,7 @@ fun DisplayMyList(
                 visible = itemAppeared && !isDismissed,
                 enter = expandVertically(
                     animationSpec = tween(
-                        durationMillis = 300
+                        durationMillis = 300,
                     )
                 ),
                 exit = shrinkVertically(

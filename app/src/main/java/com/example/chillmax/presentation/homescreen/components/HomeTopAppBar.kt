@@ -36,6 +36,8 @@ fun HomeTopAppBar(
                 .weight(2f),
             onClick = {}) {
             Icon(
+                modifier = Modifier
+                    .size(LARGE_PADDING),
                 imageVector = Icons.Default.Person,
                 contentDescription = stringResource(R.string.profile_icon)
             )

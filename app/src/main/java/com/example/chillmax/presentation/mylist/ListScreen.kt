@@ -1,23 +1,18 @@
 package com.example.chillmax.presentation.mylist
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.background
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
 import com.example.chillmax.R
 import com.example.chillmax.presentation.destinations.HomeScreenDestination
 import com.example.chillmax.presentation.destinations.SearchScreenDestination
-import com.example.chillmax.util.Action
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import kotlinx.coroutines.launch
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -32,20 +27,20 @@ fun ListScreen(
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
-                 MyListTopAppBar(onSearchClick = {
-                     navigator.navigate(SearchScreenDestination)
+                 MyListTopAppBar(onDeleteAllClicked = {
+                     viewModel.deleteAllContent()
                  }, navigator =navigator
                  )
         },
         content = {
                  DisplayMyList(
                      navigator = navigator,
-                     viewModel =viewModel
+                     viewModel =viewModel,
+                     onSwipeToDelete = {
+                         viewModel.deleteOneFromMyList(it.listId)
+                     }
                  )
         },
-        floatingActionButton = {
-            ListFab(navigator = navigator)
-        }
     )
 }
 
