@@ -81,46 +81,45 @@ fun DetailsContent(
                         casts = casts,
                         state = state
                     )
-        },
-        content = {
-            MovieBackgroundColorSpan(
-                posterUrl = posterUrl,
-                imageFraction = currentSheetFraction,
-                onCloseClick = {
-                    navigator.popBackStack()
-                },
-                imagePath = posterUrl,
-                myList = myList,
-                overview = overview,
-                mediaType = mediaType,
-                filmName = filmName,
-                onClick = {
-                    if (addToMyList != 0){
-                        viewModel.deleteOneFromMyList(listId = myList)
-                        Toast.makeText(context, "Removed from my List", Toast.LENGTH_SHORT).show()
-                    }else{
-                        Toast.makeText(
-                            context, "Added to watchlist", LENGTH_SHORT
-                        ).show()
-                        viewModel.addToMyList(
-                            MyList(
-                                listId = myList,
-                                imagePath = posterUrl,
-                                title = filmName,
-                                description = overview,
-                                mediaType = mediaType
-                            )
-                        )
-                    }
-                },
-                tint = if (addToMyList!= 0){
-                    Color.Red
-                }else{
-                    Color.White
-                }
-            )
         }
-    )
+    ) {
+        MovieBackgroundColorSpan(
+            posterUrl = posterUrl,
+            imageFraction = currentSheetFraction,
+            onCloseClick = {
+                navigator.popBackStack()
+            },
+            imagePath = posterUrl,
+            myList = myList,
+            overview = overview,
+            mediaType = mediaType,
+            filmName = filmName,
+            onClick = {
+                if (addToMyList != 0) {
+                    viewModel.deleteOneFromMyList(listId = myList)
+                    Toast.makeText(context, "Removed from my List", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(
+                        context, "Added to watchlist", LENGTH_SHORT
+                    ).show()
+                    viewModel.addToMyList(
+                        MyList(
+                            listId = myList,
+                            imagePath = posterUrl,
+                            title = filmName,
+                            description = overview,
+                            mediaType = mediaType
+                        )
+                    )
+                }
+            },
+            tint = if (addToMyList != 0) {
+                Color.Red
+            } else {
+                Color.White
+            }
+        )
+    }
 }
 
 @ExperimentalCoilApi

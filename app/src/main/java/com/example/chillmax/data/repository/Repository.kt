@@ -62,7 +62,7 @@ class Repository @Inject constructor(
     suspend fun addToMyList(myList: MyList){
         return local.addToMyList(myList = myList)
     }
-    suspend fun ifExists(listId:Int):Int{
+     suspend fun ifExists(listId:Int):Int{
         return local.ifExists(listId)
     }
     suspend fun deleteOneFromMyList(myList: Int){

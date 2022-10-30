@@ -59,7 +59,8 @@ fun DisplayMyList(
     val currentList: State<List<MyList>> by remember { mutableStateOf(list) }
 
     LazyColumn(
-        verticalArrangement = Arrangement.Top
+        modifier = Modifier.padding(SMALL_PADDING),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ){
         items(
             items = currentList.value,
@@ -110,6 +111,7 @@ fun DisplayMyList(
                     background = {RedBackground(degrees = degrees)},
                     dismissContent = {
                         MyListItem(
+                            modifier = Modifier.height(130.dp),
                             onClick = {
                                    when(fav.mediaType){
                                        "tv" ->{

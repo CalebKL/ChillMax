@@ -27,7 +27,11 @@ class MyListViewModel @Inject constructor(
     private val _addToMyList = mutableStateOf(0)
     val addToMyList: State<Int> = _addToMyList
 
-    fun addToMyList(myList:MyList) {
+    init {
+        getWatchList()
+    }
+
+    fun addToMyList(myList: MyList) {
         viewModelScope.launch {
             useCases.addToMyListUseCase(myList)
         }.invokeOnCompletion {
@@ -43,16 +47,19 @@ class MyListViewModel @Inject constructor(
         }
     }
 
+    private fun getWatchList() {
+        _list.value = useCases.getMyListUseCase()
+    }
+
     fun deleteAllContent() {
         viewModelScope.launch {
             useCases.deleteAllContentFromMyListUseCase()
         }
     }
 
-    fun ifExists(listId:Int){
+    fun ifExists(listId: Int){
         viewModelScope.launch {
             _addToMyList.value = useCases.ifExistsUseCase(listId)
         }
     }
-
 }
