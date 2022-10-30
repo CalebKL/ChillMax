@@ -23,7 +23,7 @@ This is a modern Mobile Application that fetches Data from TMDB API and lets use
 </td> 
 <td>
 
-https://user-images.githubusercontent.com/95022986/185205586-5f1f974a-f5e5-4acf-a4ba-51de9aae115f.mp4
+https://user-images.githubusercontent.com/95022986/198877532-4e445329-991d-40f7-8857-a0b20373cb58.mp4
 </td>
 </tr>
 </table>
@@ -38,11 +38,12 @@ Obtain your key from [TMDB API](https://www.themoviedb.org/documentation/api) an
 ## 🌚 Screenshots
 |   Movies Screen    |  TV Shows Screen    |   Splash Screen   |  SearchScreen |
 |---	|---	|---    |---   
-| ![AllTasksDark](https://user-images.githubusercontent.com/95022986/185190209-7fb3e11b-a190-4747-bcbd-f8802a3a1ba4.jpeg)|  ![AddTaskDark](https://user-images.githubusercontent.com/95022986/185190760-8b143baa-3cfa-4025-a229-c5781dedccbb.jpeg) |   ![SplashDark](https://user-images.githubusercontent.com/95022986/185190914-fca949d4-152d-4eb4-af7d-7bebe104610b.jpeg)| ![EmptyDark](https://user-images.githubusercontent.com/95022986/185191175-93d3a29b-35ae-4463-b670-158cf8728526.jpeg)
+| ![movie page](https://user-images.githubusercontent.com/95022986/198876688-2ff49872-45f2-4463-b623-138c07f7493b.jpg)|  ![TVShow](https://user-images.githubusercontent.com/95022986/198876753-a691133a-6488-48c6-b967-045da852009f.jpg)|   ![Splash](https://user-images.githubusercontent.com/95022986/198876845-3cf5842e-9afd-42f9-b9d6-86fee72fb58a.jpg)| ![Search](https://user-images.githubusercontent.com/95022986/198876911-634896bd-5b55-430f-b15b-ac22cfe70a0c.jpg)
 
 |    Details Screen    |  My List Screen    | 
 |---	|---
-| ![AllTasksDark](https://user-images.githubusercontent.com/95022986/185190209-7fb3e11b-a190-4747-bcbd-f8802a3a1ba4.jpeg)|  ![AddTaskDark](https://user-images.githubusercontent.com/95022986/185190760-8b143baa-3cfa-4025-a229-c5781dedccbb.jpeg) |  
+| ![Details](https://user-images.githubusercontent.com/95022986/198876996-b281495f-a390-4e04-a442-ea79af69d95b.jpg)|  ![myList](https://user-images.githubusercontent.com/95022986/198877108-4b70bf09-eb50-4a1c-b855-19b21e27176c.jpg)
+ |  
 
 ## 🛠 Built With
 
