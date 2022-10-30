@@ -41,7 +41,7 @@ Obtain your key from [TMDB API](https://www.themoviedb.org/documentation/api) an
 | ![AllTasksDark](https://user-images.githubusercontent.com/95022986/185190209-7fb3e11b-a190-4747-bcbd-f8802a3a1ba4.jpeg)|  ![AddTaskDark](https://user-images.githubusercontent.com/95022986/185190760-8b143baa-3cfa-4025-a229-c5781dedccbb.jpeg) |   ![SplashDark](https://user-images.githubusercontent.com/95022986/185190914-fca949d4-152d-4eb4-af7d-7bebe104610b.jpeg)| ![EmptyDark](https://user-images.githubusercontent.com/95022986/185191175-93d3a29b-35ae-4463-b670-158cf8728526.jpeg)
 
 |    Details Screen    |  My List Screen    | 
-|---	|---	|---    |---   
+|---	|---
 | ![AllTasksDark](https://user-images.githubusercontent.com/95022986/185190209-7fb3e11b-a190-4747-bcbd-f8802a3a1ba4.jpeg)|  ![AddTaskDark](https://user-images.githubusercontent.com/95022986/185190760-8b143baa-3cfa-4025-a229-c5781dedccbb.jpeg) |  
 
 ## 🛠 Built With
