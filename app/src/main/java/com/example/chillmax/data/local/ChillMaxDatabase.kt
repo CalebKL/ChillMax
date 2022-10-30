@@ -7,7 +7,12 @@ import com.example.chillmax.data.local.dao.MyListDao
 import com.example.chillmax.domain.models.ChillMaxRemoteKeys
 import com.example.chillmax.domain.models.MyList
 
-@Database(entities = [MyList::class, ChillMaxRemoteKeys::class], version = 1)
+
+@Database(
+    entities = [MyList::class, ChillMaxRemoteKeys::class],
+    version = 1,
+    exportSchema = false
+)
 abstract class ChillMaxDatabase: RoomDatabase() {
     abstract fun chillMaxRemoteKeyDao(): ChillMaxRemoteKeyDao
     abstract fun myListDao(): MyListDao

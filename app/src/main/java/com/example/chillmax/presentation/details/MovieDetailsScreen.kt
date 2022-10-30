@@ -41,7 +41,9 @@ fun MovieDetailsScreen(
             releaseDate = movieDetails.data?.release_date.toString(),
             overview = movieDetails.data?.overview.toString(),
             casts = casts,
-            state = scrollState
+            state = scrollState,
+            mediaType = "movie",
+            myList = movieDetails.data?.id!!
         )
     } else{
         CircularProgressIndicator()

@@ -8,6 +8,7 @@ import com.example.chillmax.domain.repository.LocalDataSource
 import com.example.chillmax.domain.repository.RemoteDataSource
 import com.example.chillmax.util.Resource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 class Repository @Inject constructor(
@@ -58,10 +59,13 @@ class Repository @Inject constructor(
     fun getSelectedFromMyList(listId: Int):MyList{
         return local.getSelectedFromMyList(listId = listId)
     }
-    fun addToMyList(myList: List<MyList>){
+    suspend fun addToMyList(myList: MyList){
         return local.addToMyList(myList = myList)
     }
-    suspend fun deleteOneFromMyList(myList: MyList){
+     suspend fun ifExists(listId:Int):Int{
+        return local.ifExists(listId)
+    }
+    suspend fun deleteOneFromMyList(myList: Int){
         return local.deleteOneFromMyList(myList = myList)
     }
     suspend fun deleteAllContentFromMyList(){

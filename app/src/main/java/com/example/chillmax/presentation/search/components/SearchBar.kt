@@ -14,8 +14,11 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.chillmax.R
+import com.example.chillmax.presentation.search.SearchViewModel
 
 @Composable
 fun SearchBar(
@@ -24,6 +27,8 @@ fun SearchBar(
     onCloseClick:()->Unit,
     onTextChanged:(String)->Unit
 ) {
+    val viewModel= hiltViewModel<SearchViewModel>()
+    var trailingIconState = viewModel.trailingIconState.value
     Surface(
         modifier = Modifier
             .height(56.dp)
@@ -38,6 +43,7 @@ fun SearchBar(
             },
             placeholder = {
                 Text(
+                    modifier = Modifier.alpha(ContentAlpha.disabled),
                     text = stringResource(id = R.string.search),
                     color = Color.White
                 )
@@ -57,11 +63,26 @@ fun SearchBar(
             },
             trailingIcon = {
                 IconButton(
-                    onClick = { onCloseClick() })
-                {
+                    onClick = {
+                        when(trailingIconState){
+                            TrailingIconState.READY_TO_DELETE ->{
+                                onTextChanged("")
+                                trailingIconState=TrailingIconState.READY_TO_CLOSE
+                            }
+                            TrailingIconState.READY_TO_CLOSE ->{
+                                if(search.isNotEmpty()){
+                                    onTextChanged("")
+                                }else {
+                                    onCloseClick()
+                                    trailingIconState =TrailingIconState.READY_TO_DELETE
+                                }
+                            }
+                        }
+                    }) {
                     Icon(
-                        imageVector = Icons.Default.Close,
-                        contentDescription = stringResource(R.string.close_click)
+                        imageVector = Icons.Filled.Close,
+                        contentDescription = stringResource(R.string.close_search_bar),
+                        tint = Color.White
                     )
                 }
             },
@@ -75,3 +96,8 @@ fun SearchBar(
     }
 }
 
+@Preview
+@Composable
+fun SearchBarPreview(){
+    SearchBar(search = "", onSearchClicked = {}, onCloseClick = { /*TODO*/ }, onTextChanged = {})
+}

@@ -6,7 +6,7 @@ import com.example.chillmax.domain.models.MyList
 class DeleteOneFromMyListUseCase(
     private val repository: Repository
 ) {
-    suspend operator fun invoke(myList: MyList){
+    suspend operator fun invoke(myList: Int){
         return repository.deleteOneFromMyList(myList = myList)
     }
 }

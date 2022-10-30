@@ -1,37 +1,45 @@
 package com.example.chillmax.domain.models
 
-import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
-import kotlinx.serialization.Serializable
 
-@Serializable
+import com.google.gson.annotations.SerializedName
+
 data class MultiSearch(
+    @SerializedName("adult")
+    val adult: Boolean?,
     @SerializedName("backdrop_path")
-    val backdrop_path: String,
+    val backdropPath: String?,
     @SerializedName("first_air_date")
-    val first_air_date: String,
+    val firstAirDate: String?,
     @SerializedName("genre_ids")
-    val genre_ids: List<Int>,
+    val genreIds: List<Int>?,
     @SerializedName("id")
-    val id: Int,
+    val id: Int?,
     @SerializedName("media_type")
-    val media_type: String,
+    val mediaType: String?,
     @SerializedName("name")
-    val name: String,
+    val name: String?,
     @SerializedName("origin_country")
-    val origin_country: List<String>,
+    val originCountry: List<String>?,
     @SerializedName("original_language")
-    val original_language: String,
+    val originalLanguage: String?,
     @SerializedName("original_name")
-    val original_name: String,
+    val originalName: String?,
+    @SerializedName("original_title")
+    val originalTitle: String?,
     @SerializedName("overview")
-    val overview: String,
+    val overview: String?,
     @SerializedName("popularity")
-    val popularity: Double,
+    val popularity: Double?,
     @SerializedName("poster_path")
-    val poster_path: String,
+    val posterPath: String?,
+    @SerializedName("release_date")
+    val releaseDate: String?,
+    @SerializedName("title")
+    val title: String?,
+    @SerializedName("video")
+    val video: Boolean?,
     @SerializedName("vote_average")
-    val vote_average: Double,
+    val voteAverage: Double?,
     @SerializedName("vote_count")
-    val vote_count: Int
+    val voteCount: Int?
 )

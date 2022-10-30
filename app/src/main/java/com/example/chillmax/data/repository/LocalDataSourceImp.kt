@@ -4,6 +4,7 @@ import com.example.chillmax.data.local.ChillMaxDatabase
 import com.example.chillmax.domain.models.MyList
 import com.example.chillmax.domain.repository.LocalDataSource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 class LocalDataSourceImp(
     chillMaxDatabase: ChillMaxDatabase
@@ -19,12 +20,16 @@ class LocalDataSourceImp(
         return dao.getSelectedFromMyList(listId = listId)
     }
 
-    override fun addToMyList(myList: List<MyList>) {
+    override suspend fun addToMyList(myList: MyList) {
         return dao.addToMyList(myList = myList)
     }
 
-    override suspend fun deleteOneFromMyList(myList: MyList) {
-        return dao.deleteOneFromMyList(myList = myList)
+    override suspend fun ifExists(listId: Int): Int {
+        return dao.ifExists(listId)
+    }
+
+    override suspend fun deleteOneFromMyList(myList: Int) {
+        return dao.deleteOneFromMyList(myList)
     }
 
     override suspend fun deleteAllContentFromMyList() {

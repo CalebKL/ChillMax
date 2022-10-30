@@ -3,21 +3,25 @@ package com.example.chillmax.data.local.dao
 import androidx.room.*
 import com.example.chillmax.domain.models.MyList
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 @Dao
 interface MyListDao {
-    @Query("SELECT * FROM MY_LIST_TABLE ORDER BY id ASC")
+    @Query("SELECT * FROM TABLE_NAME ORDER BY listId ASC")
     fun getMyList(): Flow<List<MyList>>
 
-    @Query("SELECT * FROM MY_LIST_TABLE  WHERE id =:listId")
+    @Query("SELECT * FROM TABLE_NAME  WHERE listId =:listId")
     fun getSelectedFromMyList(listId: Int):MyList
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addToMyList(myList: List<MyList>)
+    suspend fun addToMyList(myList: MyList)
 
-    @Delete
-    suspend fun deleteOneFromMyList(myList: MyList)
+    @Query("SELECT EXISTS (SELECT 1 FROM TABLE_NAME WHERE listId = :listId)")
+    suspend fun ifExists(listId: Int): Int
 
-    @Query("DELETE FROM MY_LIST_TABLE")
+    @Query("DELETE FROM TABLE_NAME WHERE listId =:listId")
+    suspend fun deleteOneFromMyList(listId: Int)
+
+    @Query("DELETE FROM TABLE_NAME")
     suspend fun deleteAllContentFromMyList()
 }

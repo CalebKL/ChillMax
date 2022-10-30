@@ -85,10 +85,10 @@ interface ChillMaxApi {
         @Query("language") language: String = "en-US",
     ): CastDetailsApiResponse
 
-    @GET("search/movie")
+    @GET("search/multi")
     suspend fun multiSearch(
+        @Query("query") query: String,
         @Query("page") page :Int = STARTING_PAGE,
         @Query("api_key") api_key: String = API_KEY,
-        @Query("query") query: String,
     ): MultiSearchApiResponse
 }
