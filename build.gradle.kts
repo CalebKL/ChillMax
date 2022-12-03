@@ -1,7 +1,5 @@
 buildscript {
 
-    val compose_version = "1.2.0-beta01"
-    val accompanist_version = "0.21.2-beta"
     val kotlin_version = "1.5.31"
 
     repositories {
