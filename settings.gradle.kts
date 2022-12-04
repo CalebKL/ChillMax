@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "ChillMax"
-include ':app'
+include(":app")
