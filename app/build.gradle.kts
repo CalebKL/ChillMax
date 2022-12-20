@@ -63,10 +63,11 @@ android {
 
 dependencies {
 
+    implementation("androidx.test:core-ktx:1.5.0")
     // A. Dependency Versions
     // 1. Core
     val kotlin_version = "1.5.31"
-    val core_ktx = "1.7.0"
+    val core_ktx = "1.5.0"
     val kotlin_serialization = "1.2.2"
 
     // 2. UI
