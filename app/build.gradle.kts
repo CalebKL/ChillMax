@@ -58,6 +58,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    namespace = "com.example.chillmax"
 }
 
 dependencies {
@@ -91,13 +92,24 @@ dependencies {
     val dagger_hilt = "2.38.1"
     val android_hilt_compiler = "1.0.0"
     val hilt_nav_compose = "1.0.0-alpha03"
+    val hilt_android_compiler = "2.43.2"
+    val hilt_android_testing = "2.42"
 
     // B. Test Dependency versions
     val junit = "4.13.2"
     val junit_ext = "1.1.3"
     val espresso_core = "3.4.0"
-    val test_runner = "1.4.0"
-    val coroutines_test = "1.5.1"
+    val test_runner = "1.5.1"
+    val kotlinx_coroutines_test ="1.6.4"
+    val core_testing = "2.1.0"
+    val truth= "1.1.3"
+    val mock_webserver = "4.9.1"
+    val mockito_android = "3.10.0"
+    val mockito_inline = "3.11.2"
+    val mockito_kotlin = "3.2.0"
+    val mockk = "1.12.7"
+    val mockito_core = "3.11.2"
+    val robolectric = "4.8.1"
 
     implementation("androidx.core:core-ktx:$core_ktx")
     implementation("androidx.compose.ui:ui:$compose_version")
@@ -159,15 +171,32 @@ dependencies {
     implementation("androidx.palette:palette-ktx:$palette")
 
     // Testing
-    androidTestImplementation("androidx.test:runner:$test_runner")
-    androidTestImplementation("androidx.test:rules:$test_runner")
-    androidTestImplementation("androidx.test.ext:junit:$junit_ext")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$compose_version")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:$compose_version")
-
-    testImplementation("junit:junit:$junit")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_test")
+    androidTestImplementation ("junit:junit:$junit")
+    androidTestImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinx_coroutines_test")
+    androidTestImplementation ("androidx.arch.core:core-testing:$core_testing")
+    androidTestImplementation ("com.google.truth:truth:$truth")
+    androidTestImplementation ("androidx.test:core-ktx:$core_ktx")
+    androidTestImplementation ("com.squareUp.okhttp3:mockWebserver:$mock_webserver")
+    testImplementation ("org.mockito:mockito-android:$mockito_android")
+    testImplementation ("org.mockito:mockito-inline:$mockito_inline")
+    testImplementation ("org.mockito.kotlin:mockito-kotlin:$mockito_kotlin")
+    testImplementation ("io.mockk:mockk:$mockk")
+    testImplementation ("org.mockito:mockito-core:$mockito_core")
+    androidTestImplementation ("org.mockito:mockito-android:$mockito_android")
+    androidTestImplementation ("com.google.dagger:hilt-android-testing:$hilt_android_testing")
+    kaptAndroidTest ("com.google.dagger:hilt-android-compiler:$hilt_android_compiler")
+    testImplementation ("junit:junit:$junit")
+    testImplementation ("androidx.test:runner:$test_runner")
+    testImplementation ("com.google.truth:truth:$truth")
+    testImplementation ("androidx.test:core-ktx:$core_ktx")
+    testImplementation ("org.robolectric:robolectric:$robolectric")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinx_coroutines_test")
+    testImplementation ("androidx.arch.core:core-testing:$core_testing")
+    androidTestImplementation ("androidx.test.ext:junit:$junit")
+    androidTestImplementation ("androidx.test.espresso:espresso-core:$espresso_core")
+    androidTestImplementation ("androidx.compose.ui:ui-test-junit4:$compose_version")
+    debugImplementation ("androidx.compose.ui:ui-tooling:$compose_version")
+    debugImplementation ("androidx.compose.ui:ui-test-manifest:$compose_version")
 
     // RamaCosta Navigation
     implementation("io.github.raamcosta.compose-destinations:animations-core:$ramacosta_navigation")
